@@ -1,6 +1,6 @@
  #!/bin/bash
  sudo apt update
- SLEEP 10
+sleep 10
 sudo apt install -y docker.io
 SLEEP 10
 sudo systemctl enable docker --now
