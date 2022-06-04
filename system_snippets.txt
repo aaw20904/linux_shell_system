@@ -12,18 +12,18 @@
 // B) Open the remote server - a file  /userName/.ssh/authorized_keys
 // c) Insert on the new string a content of file 'mykey.key.pub' - the public key
 // d) Test a connection - in the VS Code open a file /.ssh/config and create a new connection:
-/*-----------------------------------
+/********
       Host remote_cloud
   HostName 18.134.157.188
   User ubuntu
   IdentityFile d:\aws\xone.key 
  
- ------------------------------------*/
+ ********/
 // E) OPTIONAL - test a connection from the  Power Shell as Administrator:
     ssh -i d:/aws/xone.key  ubuntu@18.134.157.188
-	
-*****************MYSQL***********  
-SECURE INSTALLATION
+----------------------------------------------------------------------------	
+*****************M Y   S Q L***********  SECURE INSTALLATION *****
+
 after installation
 
 $ sudo mysql
@@ -34,8 +34,8 @@ $ sudo mysql
 	$ sudo mysql_secure_installation
 /*****LOG IN in MYsql**/
 	$ sudo mysql -u root -p
-
-/*****REMOTE ACCESS******/
+----------------------------------------------------------------------------
+/*********************MYSQL *REMOTE ACCESS******/
 //for the begin, allow remote access.
 //To do it - open the file 
      /etc/mysql/mysql.conf.d/mysqld.cnf 
@@ -68,14 +68,14 @@ or from any IP:
 RUN sql script:
 	 mysql> source \home\user\Desktop\myscript.sql;
 /*************E N D *************/
-
-GET none file from github - 
+----------------------------####----------------------------
+***************************GIT ONE FILE GETTING**************
+GET one file from github - 
    wget	https://raw.githubusercontent.com/aaw20904/exem_app/main/session_learn.sql
-   
+-----------------------------####-----------------------------
 /********NPM   dependences from  package.json*/
 		$	npm install package.json
-NodeJS in background	
-  
+-----------------------------####-----------------------------  
  /****************Certificate self-signed************/
 	$ openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out example.crt -keyout example.key
 
@@ -93,3 +93,32 @@ const connectionDB = mysql.createConnection({
   }
 
 })
+
+--------------------------------####--------------------
+  RUN NODEJS app as a daemon
+// 1)create a file :  /etc/systemd/system/my-app.service
+
+			[Unit]
+		Description="My Express App"
+
+		[Service]
+		ExecStart=/usr/bin/node server.js
+		WorkingDirectory=/project/absolute/path
+		Restart=always
+		RestartSec=10
+		StandardOutput=syslog
+		StandardError=syslog
+		SyslogIdentifier=MyApp
+		Environment=NODE_ENV=production PORT=8080   /*port which will be listening*/
+
+		[Install]
+		WantedBy=multi-user.target
+		
+// 2) enable the service:
+		$ sudo systemctl enable my-app.service
+// 3) run the one:
+		$ sudo systemctl start my-app.service
+// 4)   check status:
+		$ sudo  systemctl status my-app
+		
+		
