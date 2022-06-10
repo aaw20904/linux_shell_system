@@ -1,3 +1,19 @@
+/*******HTTPS expressjs**************************/
+const https = require('https');
+const fs = require('fs');
+
+const options = {
+  key: fs.readFileSync('./https.key'),
+  cert: fs.readFileSync('./https.cert'),
+  rejectUnauthorized:false
+};
+
+app.use(express.static('public'));
+
+let server = https.createServer(options, app);
+ 
+server.listen(3000,()=>console.log('listen on :3000...'));
+
 /*****BACKEND Express/MySQL/Express************S N I P P E T S************/
 
 /*MySQL
