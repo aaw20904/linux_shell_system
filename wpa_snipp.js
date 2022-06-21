@@ -164,3 +164,169 @@ self.addEventListener('fetch', event => {
     // nothing fancy going on here.
     event.respondWith(fetch(event.request));
 });
+
+//---------------------------------###-------------------
+//---------------------------CACHING a CONTENT-Rev.1-(plese see next rev.!)----------
+/**
+ * When you want to load a content into cache and prevent 
+ * load resources from the server when offline.
+ * After start the service worker load into cahce resources from the list
+ * When a browser fetch any resource - the worker test: is this resource in a cache?
+ * If the resource have been found - it returns to a browser from the cache.
+ * When not - from the network  
+ */
+
+// service worker version number
+const SW_VERSION = 8;
+// the root name for our cache
+const CACHE_ROOT = 'pwa-learn-cache';
+// generates a custom cache name per service worker version
+const CACHE_NAME = `${CACHE_ROOT}-v${SW_VERSION}`;
+
+
+
+var urlList = [
+  
+  '/app.webmanifest',
+   
+  '/css/main.css',
+  '/css/bootstrap.min.css',
+  '/img/cat_270.jpg',
+  '/img/cat_540.jpg',
+  '/img/cat_1080.jpg',
+  '/img/tip-200.png',
+  '/favicon32x32.png',
+  '/favicon.ico',
+  '/js/main.js',
+  '/sw.js',
+  '/icons/msicon144x144.png',
+  'css/normalize.css',
+];
+
+self.addEventListener('install',async (event)=>{
+  console.log(`Worker- ${event.type} fired!`);
+  //// the service worker is installing, so it's our chance
+  // to setup the app. In this case, we're telling   
+  // the browser to wait until we've populated the cache
+  // before considering this service worker installed
+  //this method expects a promise
+  await event.waitUntil(prepareCache());
+   // force service worker activation
+   self.skipWaiting();
+   
+})
+
+self.addEventListener('activate',(event)=>{
+  // fires after the service worker completes its installation. 
+  // it's a place for the service worker to clean up from previous 
+  // service worker versions
+  console.log(`SW: ${event.type} event fired`);
+  //remove old caches if exists
+  event.waitUntil(removeOldCaches(event));
+})
+
+
+async function removeOldCaches (event) {
+
+  let cacheList = await caches.keys();
+  return await Promise.all(
+    cacheList.map(theCache=>{
+      // is the cache key different than the 
+          // current cache name and has the same root?
+          if ((CACHE_NAME !== theCache) && (theCache.startsWith(CACHE_ROOT))) {
+            // yes? Then delete it. 
+            console.log(`SW: deleting cache ${theCache}`);
+            return caches.delete(theCache);
+          }
+
+    })
+  )
+
+ }
+ /**function for open a cache */
+ async function prepareCache() {
+  //*create a locale cache for the app
+  try {
+    let cache = await caches.open(CACHE_NAME  )
+    console.log('SW cache opened');
+    //load all the resource into cache
+    return cache.addAll(urlList);
+  }
+  catch(err){
+    console.log('error:'+ err);
+    throw new Error(err);
+  }
+}
+
+self.addEventListener('fetch',event=>{
+  console.log(`Worker: ${event.type} ${event.request.url}`);
+ //if there is 'indeex.html'
+  if (event.request.url === `${location.origin}/`) {
+    event.respondWith(indexFetching(event));
+    return;
+  }
+ //if there an api route '/w'
+  if (event.request.url === `${location.origin}/w`) {
+    event.respondWith(apiRoute(event));
+    return;
+  }
+
+  event.respondWith( searchRequestInCache(event) );
+})
+
+async function indexFetching(event) {
+  let result;
+  try{
+    //if the index.html avaliable - fetch the one
+    result = await fetch(event.request);
+    return result;
+  } catch(e) {
+    //if the page havn`t loaded - return content
+    return new Response(
+      "<!DOCTYPE html><html><body style='background-color:#ddffdd;'>" +
+      "<h1 style='color:tomato'>Access Error</h1>" +
+      "<h3 style='color:orange'>Service Worker message</h3>" +
+      "<p>Hmmm, I can't seem to access that page.</p>" +
+      "</body></html>",
+      { headers: { "Content-Type": "text/html" } })
+  }
+}
+
+async function apiRoute(event) {
+    //is a resource a POST API request for AJAX?
+      //in our example it is '/w'
+     
+        let rsp;
+        try {
+          //try to get (post) a resource from (to) the server
+          rsp = await fetch(event.request);
+          return rsp;
+        } catch(e) {
+          console.log('SW: catch-create a local response')
+          //if there was something wrong - NOT AVALIABLE 404
+          return new Response(JSON.stringify({information: 0.00001}),
+              { "status": 200, });
+        }
+     
+}
+
+
+/**response function for static resources*/
+async function searchRequestInCache(event) {
+    
+      //is the resource in a cache?
+    let response = await caches.match(event.request)
+     
+        //if YES - return the cache
+        if (response) {
+          console.log(`worker: ${new Date().toLocaleTimeString()} returned Cache ${event.request.url} `);
+          return response;
+        } else {
+          //othervise - return a resource from the network
+          console.log(`Worker: network request ${event.request.url} `);
+          return fetch(event.request);
+        }
+      
+ 
+}
+
