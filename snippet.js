@@ -1,12 +1,28 @@
-/*******HTTPS expressjs**************************/
+/*******HTTPS expressjs  + static content HEADER**************************/
 const https = require('https');
 const fs = require('fs');
+const serveStatic = require("serve-static");
+
 
 const options = {
   key: fs.readFileSync('./https.key'),
   cert: fs.readFileSync('./https.cert'),
   rejectUnauthorized:false
 };
+
+
+const setCustomCacheControl = (res, path) => {
+  if (serveStatic.mime.lookup(path) === "text/html") {
+    res.setHeader("Service-Worker-allowed", "true");
+    res.setHeader("Access-Control-Allow-Origin", "*");
+  }
+};
+
+app.use(
+  serveStatic(path.join(__dirname, "public"), {
+    setHeaders: setCustomCacheControl,
+  })
+);
 
 app.use(express.static('public'));
 
