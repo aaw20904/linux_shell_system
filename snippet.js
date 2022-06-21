@@ -30,7 +30,8 @@ let server = https.createServer(options, app);
  
 server.listen(3000,()=>console.log('listen on :3000...'));
 //------------------------------####-----------------------------------------
-/*********NODE JS  FETCH A content from remote server (for example https://google.com) */
+/*********NODE JS Promise-based FETCH function content from the
+ * remote server (for example https://google.com) */
 const getContent = function(url) {
   // return new pending promise
   return new Promise((resolve, reject) => {
