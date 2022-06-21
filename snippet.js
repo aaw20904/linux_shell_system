@@ -29,6 +29,31 @@ app.use(express.static('public'));
 let server = https.createServer(options, app);
  
 server.listen(3000,()=>console.log('listen on :3000...'));
+//------------------------------####-----------------------------------------
+/*********NODE JS  FETCH A content from remote server (for example https://google.com) */
+const getContent = function(url) {
+  // return new pending promise
+  return new Promise((resolve, reject) => {
+    // select http or https module, depending on reqested url
+    const lib = url.startsWith('https') ? require('https') : require('http');
+    const request = lib.get(url, (response) => {
+      // handle http errors
+      if (response.statusCode < 200 || response.statusCode > 299) {
+         reject(new Error('Failed to load page, status code: ' + response.statusCode));
+       }
+      // temporary data holder
+      const body = [];
+      // on every content chunk, push it to the data array
+      response.on('data', (chunk) => body.push(chunk));
+      // we are done, resolve promise with those joined chunks
+      response.on('end', () => resolve(body.join('')));
+    });
+    // handle connection errors of the request
+    request.on('error', (err) => reject(err))
+    })
+};
+
+
 
 /*****BACKEND Express/MySQL/Express************S N I P P E T S************/
 
