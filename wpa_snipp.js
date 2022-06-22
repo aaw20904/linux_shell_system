@@ -297,6 +297,7 @@ async function indexFetching(event) {
    * 
    */
    return caches.match('/offline.html');
+  }
 }
 
 async function apiRoute(event) {
@@ -337,3 +338,53 @@ async function searchRequestInCache(event) {
  
 }
 
+/********************************************
+ * when you want to UPDATE index.html AFTER each request
+ */
+
+ async function indexFetching(event) {
+  let response;
+  try{
+    //if the index.html avaliable - fetch the one
+    response = await fetch(event.request);
+    //update a cache
+    if (response && response.status == 200) {
+      // clone the response; it's a stream, so we can't
+      // write it to the cache and return it as well
+      let responseClone = response.clone();
+      // try to open the cache
+       let cache = await caches.open(CACHE_NAME)
+          console.log(`SW: Adding ${event.request.url} to the cache`);
+          // then write our cloned response to the cache
+          cache.put(event.request, responseClone);
+        //return original resource
+        return response;
+    } else {
+      // return whatever error response we got from the server
+      return response;
+    }
+    
+  } catch(e) {
+    // rats, network resources not available
+        // do we have it in the cache?
+        console.log(`SW: Trying Cache ${event.request.url}`);
+        //
+        let cacheResp = await caches.match(event.request);
+        if (cacheResp) {
+          console.log(`SW: Return Cache ${event.request.url}`);
+          return cacheResp;
+        } else {
+          return response;
+        }
+      
+    //if the page havn`t loaded - return content
+    //return caches.match('/offline.html');
+   /* return new Response(
+      "<!DOCTYPE html><html><body style='background-color:#ddffdd;'>" +
+      "<h1 style='color:tomato'>Access Error</h1>" +
+      "<h3 style='color:orange'>Service Worker message</h3>" +
+      "<p>Hmmm, I can't seem to access that page.</p>" +
+      "</body></html>",
+      { headers: { "Content-Type": "text/html" } })*/
+  }
+}
