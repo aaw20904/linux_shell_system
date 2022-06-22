@@ -188,7 +188,7 @@ const CACHE_NAME = `${CACHE_ROOT}-v${SW_VERSION}`;
 var urlList = [
   
   '/app.webmanifest',
-   
+   '/offline.html',/*when you want to use preloaded offline page */
   '/css/main.css',
   '/css/bootstrap.min.css',
   '/img/cat_270.jpg',
@@ -282,14 +282,21 @@ async function indexFetching(event) {
     return result;
   } catch(e) {
     //if the page havn`t loaded - return content
-    return new Response(
+
+    /**APPROACH A) when you want to create inline response (commented code below)** */
+   /* return new Response(
       "<!DOCTYPE html><html><body style='background-color:#ddffdd;'>" +
       "<h1 style='color:tomato'>Access Error</h1>" +
       "<h3 style='color:orange'>Service Worker message</h3>" +
       "<p>Hmmm, I can't seem to access that page.</p>" +
       "</body></html>",
       { headers: { "Content-Type": "text/html" } })
-  }
+  }*/
+
+  /**APPROACH B) When you want to return opened 'offline.html' from the cache
+   * 
+   */
+   return caches.match('/offline.html');
 }
 
 async function apiRoute(event) {
