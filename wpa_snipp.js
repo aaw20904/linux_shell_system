@@ -355,7 +355,7 @@ const CACHE_NAME = `${CACHE_ROOT}-v${SW_VERSION}`;
     //if the index.html avaliable - fetch the one
     response = await fetch(event.request);
     //update a cache
-    if (response && response.status == 200) {
+    if (response && response.status == 200 && response.type == 'basic') {
       // clone the response; it's a stream, so we can't
       // write it to the cache and return it as well
       let responseClone = response.clone();
