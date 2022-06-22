@@ -339,10 +339,17 @@ async function searchRequestInCache(event) {
 }
 
 /********************************************
- * when you want to UPDATE index.html AFTER each request
+ * FUNCTION: when you want to UPDATE resource(s) AFTER each request
  */
+//--------------------------###---------------------------
+// service worker version number
+const SW_VERSION = 8;
+// the root name for our cache
+const CACHE_ROOT = 'pwa-learn-cache';
+// generates a custom cache name per service worker version
+const CACHE_NAME = `${CACHE_ROOT}-v${SW_VERSION}`;
 
- async function indexFetching(event) {
+ async function fetchingWithUpdateCache(event) {
   let response;
   try{
     //if the index.html avaliable - fetch the one
