@@ -26,9 +26,7 @@ app.use(
 
 app.use(express.static('public'));
 
-let server = https.createServer(options, app);
- 
-server.listen(3000,()=>console.log('listen on :3000...'));
+https.createServer(options, app).listen(3000,()=>console.log('listen on :3000...'));
 //------------------------------####-----------------------------------------
 /*********NODE JS Promise-based FETCH function content from the
  * remote server (for example https://google.com) */
