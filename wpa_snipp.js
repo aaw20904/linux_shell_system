@@ -629,3 +629,32 @@ function addPerson(e) {
 
         }
 
+/*********GET the cursor : iterate a collection of objects in store
+*/
+        function allTheObjects (storeName="notes") {
+         /**in this example using promises*/
+           return  new Promise((resolve, reject) => {
+              
+            //start the transaction
+            var transaction = db.transaction([storeName],"readonly");
+            //ask the store
+            var objectStore = transaction.objectStore(storeName);
+            //get the cursor - to iterate oll the objects in the DB
+            var cursor = objectStore.openCursor();
+            //iterate
+                 let recordsList = [];
+                     cursor.onsuccess = (r) =>{
+                        let result = r.target.result;
+                        if (result) {
+                            //when the item exists - push it to the array
+                            recordsList.push(result.value);
+                            //continue iteration
+                            result.continue();
+                        } else {
+                            //when all the items has been iterated - 
+                            resolve(recordsList);
+                        }
+                    }
+            })
+           
+        }
