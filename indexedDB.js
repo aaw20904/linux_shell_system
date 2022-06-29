@@ -9,30 +9,39 @@ if (! ("indexedDB" in window) ) {
 }
 /**********************************
 *****if there is OK, try to open (or create ) a DB*/
-//open the database (name and version)
+//open the database: params are @name and @version
+//No need do bother about DB name - because 
+//each site (domain) in a browser has his own storage  
 var openRequest = indexedDB.open("ora_idb5",2);
-//if there a newer version of DB
+//when our version greater that current in the browser (or not exists there)-
+//calls this callback function 
 openRequest.onupgradeneeded = function(e) {
     var thisDB = e.target.result;
+
     console.log("running onupgradeneeded");
+
     if (!thisDB.objectStoreNames.contains("people")) {
         //if there isn`t a store 'people' - create it, 
-        //asign a property 'keyPath' - it will be using as a primary key
+        //asign a property 'keyPath'.
+        //It means that you have in an object which you want to save
+        // a property with name "email", which will use as the primary key 
         var peopleOS = thisDB.createObjectStore("people",{keyPath: "email"});
     }
     if (!thisDB.objectStoreNames.contains("notes")) {
         //if there isn`t a store 'notes' - create the one
         //the primaryKey - auto assign and increment 
+        //In this case we assign automatic primary key which
+        //will be incrementing
         var notesOS = thisDB.createObjectStore("notes", {keyPath:"id",autoIncrement:true} );
     }
 }
-
+//THis callback usually calls AFTER 'onupgradeneeded'
 //when a database has opened successfully:
 openRequest.onsuccess = function(e) {
     console.log("running onsuccess");
     //retrive a database and assign to a global variable 
     db = e.target.result;
-
+    
 }
 
 openRequest.onerror = function(e) {
@@ -43,22 +52,21 @@ openRequest.onerror = function(e) {
 /***************adding a record to the DB:
 *****/
 function addPerson(e) {
-var name = document.querySelector("#name").value;
-var email = document.querySelector("#email").value;
-console.log("About to add "+name+"/"+email);
-//Get a transaction
-//default for OS list is all, default for type is read
-var transaction = db.transaction(["people"],"readwrite");
-//Ask for the objectStore
-var store = transaction.objectStore("people");
-//Define a person 
-var person = {
-    name:name,
-    email:email,
-    created:new Date().getTime()
-}
+    var name = document.querySelector("#name").value;
+    var email = document.querySelector("#email").value;
+    console.log("About to add "+name+"/"+email);
+    //start a transaction
+    var transaction = db.transaction(["people"],"readwrite");
+    //Ask for the objectStore
+    var store = transaction.objectStore("people");
+    //Define a person 
+        var person = {
+            name:name,
+            email:email,
+            created:new Date().getTime()
+        }
     //Perform the add
-var request = store.add(person);
+    var request = store.add(person);
     //callback when fail:
     request.onerror = function(e) {
         console.log("Error",e.target.error.name);
@@ -259,3 +267,5 @@ function updateNote(p) {
         })
        
     }
+
+

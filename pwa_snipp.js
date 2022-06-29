@@ -395,6 +395,6 @@ const CACHE_NAME = `${CACHE_ROOT}-v${SW_VERSION}`;
       { headers: { "Content-Type": "text/html" } })*/
   }
 }
-
+/***INDEXED DB plese see the file 'indexedDB.js' */
 
 
