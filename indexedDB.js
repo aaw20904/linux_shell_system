@@ -12,7 +12,7 @@ if (! ("indexedDB" in window) ) {
 //open the database: params are @name and @version
 //No need do bother about DB name - because 
 //each site (domain) in a browser has his own storage  
-var openRequest = indexedDB.open("ora_idb5",2);
+var openRequest = indexedDB.open("ora_idb5",3);
 //when our version greater that current in the browser (or not exists there)-
 //calls this callback function 
 openRequest.onupgradeneeded = function(e) {
@@ -26,6 +26,7 @@ openRequest.onupgradeneeded = function(e) {
         //It means that you have in an object which you want to save
         // a property with name "email", which will use as the primary key 
         var peopleOS = thisDB.createObjectStore("people",{keyPath: "email"});
+    
     }
     if (!thisDB.objectStoreNames.contains("notes")) {
         //if there isn`t a store 'notes' - create the one
