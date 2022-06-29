@@ -248,7 +248,7 @@ function updateNote(p) {
         var transaction = db.transaction([storeName],"readonly");
         //ask the store
         var objectStore = transaction.objectStore(storeName);
-        //get the cursor - to iterate oll the objects in the DB
+        //get the cursor - for iterating oll the objects in the DB
         var cursor = objectStore.openCursor();
         //iterate
              let recordsList = [];
