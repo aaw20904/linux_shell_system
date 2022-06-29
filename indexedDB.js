@@ -12,7 +12,7 @@ if (! ("indexedDB" in window) ) {
 //open the database: params are @name and @version
 //No need do bother about DB name - because 
 //each site (domain) in a browser has his own storage  
-var openRequest = indexedDB.open("ora_idb5",3);
+var openRequest = indexedDB.open("ora_idb5",4);
 //when our version greater that current in the browser (or not exists there)-
 //calls this callback function 
 openRequest.onupgradeneeded = function(e) {
@@ -270,3 +270,53 @@ function updateNote(p) {
     }
 
 //page 51
+/****searching using indexes.You MUST to create an index 
+ * at the beginning - when running a callbach 'onupgradeneeded'
+ */
+someObjStore.createIndex("name", "name", {unique:false});
+/**function: searching all the names 
+ * which begins from 'upper' to 'lower'
+ * (for example found 'Anna' 'Boris' when upper='C' and lower='A') 
+ */
+ async function getByIndex (par={upper:'A', lower:'C'}) {
+    return new Promise((resolve, reject) => {
+        let result = [];
+        let range;
+        if(par.lower == "" && par.upper == "") {
+            //if there are empty strings - return an empty array
+            resolve ([]);
+        }
+
+        if(par.lower != "" && par.upper != "") {
+            //if upper and lower exists
+            range = IDBKeyRange.bound(par.lower, par.upper);
+            } else if(par.lower == "") {
+                //if upper exists
+            range = IDBKeyRange.upperBound(par.upper);
+            } else {
+                //if lower exists
+            range = IDBKeyRange.lowerBound(par.lower);
+        }
+        //start a transaction
+        var transaction = db.transaction(["people"],"readonly");
+        //ask the store
+        var store = transaction.objectStore("people");
+        //get an index for iteration
+        var index = store.index("name");
+        //start iteration using conditions
+        index.openCursor(range).onsuccess=(e)=>{
+            //get a result
+            let cursor = e.target.result;
+            if (cursor) {
+                //if iteration running - push a reault in an array
+                result.push(cursor.value);
+                //continue iteration
+                cursor.continue();
+            }
+        }
+
+        transaction.oncomplete=()=>{
+            resolve(result);
+        }
+    });
+}
