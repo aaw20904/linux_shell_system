@@ -315,8 +315,92 @@ someObjStore.createIndex("name", "name", {unique:false});
             }
         }
 
-        transaction.oncomplete=()=>{
+      /*  transaction.oncomplete=()=>{
             resolve(result);
-        }
+        }*/
     });
 }
+
+/****FUNCTION_PREPARING***searching by properyy, that can be exists in a object
+ * for example - search by hobby; We have an object 
+ 
+ */
+
+let myObj001={
+  name:"John",
+  hobbies:["tennis","sport","movies"],
+  email:"my@mail.com",
+  created: new Date().getDate(),
+}
+
+//for the first: create an index for searching in 'onupdateneeded' event
+//at the begin
+peopleOS.createIndex("hobbies", "hobbies", {unique:false, multiEntry: true});
+//for the second: change a version or a name of the database
+//for the thrid: write a function for the search
+/****FUNCTION */
+async function searchByHobbies(hobby='sport,bike') {
+    //define a name of th storage
+    const storeName = 'people';
+  return  new Promise((resolve, reject) => {
+        let result = [];
+         //when the string empty - return an empty array
+         if(hobby == "") {
+            resolve(result);
+         }
+         //define a range for searching
+         var range = IDBKeyRange.only(hobby);
+         //start a transaction
+         var transaction = db.transaction(["people"],"readonly");
+         //ask a store
+         var store = transaction.objectStore("people");
+         //get  an index
+         var index = store.index("hobbies");
+         //start iteration
+         let iteration = index.openCursor(range);
+         //a callback when success 
+         iteration.onsuccess=(e)=>{
+            var cursor = e.target.result;
+            if (cursor) {
+                //if the iteration continues -
+                //push a result into an array 
+                result.push(cursor.value);
+                //run next iteration
+                cursor.continue();
+            }
+        }
+
+        //when a transaction has been completed
+       transaction.oncomplete=()=>{
+            resolve(result);
+        }
+
+        transaction.onerror=(e)=>{
+            alert(e);
+            reject(e);
+        }
+
+    });
+   
+}
+
+/***FUNCTION: when you need to count an amount of items in the store */
+async function getNotesCount(evt){
+    let result = 0;
+    return new Promise((resolve, reject) => {
+         //start a transaction
+    let transaction = db.transaction(["notes"],"readonly");
+    //ask a store 
+    let store =  transaction.objectStore('notes');
+        //count all the items
+        let result = store.count();
+        result.onsuccess=(event)=>{
+            alert(event.target.result);
+            resolve(event.target.result);
+        }
+
+    });
+}
+
+
+
