@@ -70,7 +70,7 @@ function addPerson(e) {
     //callback when fail:
     request.onerror = function(e) {
         console.log("Error",e.target.error.name);
-    //some type of error handler
+        //some type of error handler
     }
    //callback when  success
     request.onsuccess = function(e) {
