@@ -404,3 +404,252 @@ async function getNotesCount(evt){
 
 
 
+/******************************Another example************
+ * ******************************************************
+ * ****************************************************
+ */
+
+//1) try to open database
+async function openBase () {
+    return new Promise((resolve, reject) => {
+        /**checking - is the IndexedDB supports by the browser? */
+    if (! ("indexedDB" in window)) {
+        alert('DB not supported!')
+        reject();
+    }
+    //open DB
+    let openRequest = indexedDB.open("mybase",1);
+    /**the callback on update needed */
+    openRequest.onupgradeneeded = (e) =>{
+        console.log('UPDATE DB..')
+        //get a DB
+        let thisDB = e.target.result;
+        /**if the objectStore 'users' exists? */
+        if (!thisDB.objectStoreNames.contains("userStore")) {
+            //create an object store, set primary key 
+            var usersOS = thisDB.createObjectStore("userStore", {keyPath: "name"});
+            //assign  indexes for searching and iterating
+            //if we need that  'date' will be unique - set true
+            //othervise - false 
+            usersOS.createIndex("date", "date", {unique:false});
+            //search in array
+            usersOS.createIndex("hobbies","hobbies",{unique:false, multiEntry:true})
+        }
+    }
+
+    openRequest.onsuccess=(e)=>{
+        let db = e.target.result;
+        resolve(db);
+    }
+    });
+}
+
+//1)save a user
+async function saveUser ( arg = { name:"Emily", email:"b@c",hobbies:["sport"],date:"1999-01",}, db = globalIndexStorage, storeName = 'userStore',) {
+
+    new Promise((resolve, reject) => {
+        //start a transaction
+        let transaction = globalIndexStorage.transaction([storeName],"readwrite");
+        //get an object store
+        let store = transaction.objectStore(storeName);
+        //start a request
+        var request = store.add(arg);
+        request.onerror=(e)=>{
+            console.log('ERROR during save')
+            reject(e);
+        }
+        request.onsuccess =(e)=>{
+            console.log(`A user ${arg.name} saved!`);
+            resolve();
+        }
+    });
+   
+ }
+
+ //2)update a user info 
+
+ async function updateUser (arg = { name:"Emily", email:"b@c",hobbies:["sport"],date:"1999-01",}, db = globalIndexStorage, storeName = 'userStore', ) {
+
+    return new Promise((resolve, reject) => {
+        //start a transaction
+        let transaction = db.transaction ([storeName],"readwrite");
+        //ask a store
+        let store = transaction.objectStore (storeName);
+        //start a request
+        var request = store.put(arg);
+
+        request.onsuccess=(e)=>{
+            console.log(`A user ${areg.name} updated!`)
+            resolve(e);
+        }
+
+        request.onerror=(err)=>{
+            console.log('Fail update:');
+            reject(err)
+        }
+
+    });
+}
+
+//3) get info by the name
+async function searchByName (arg ="Emily", db = globalIndexStorage, storeName = 'userStore', ) {
+    return new Promise((resolve, reject) => {
+        //sart a transaction
+        let transaction = db.transaction([storeName],"readonly");
+        //ask a store 
+        let store = transaction.objectStore(storeName);
+        //start a query
+        var request = store.get(arg);
+        request.onsuccess = (e) =>{
+            if (!e.target.result) {
+                resolve({});
+            } else {
+                resolve(e.target.result);
+            }
+        }
+        request.onerror = (err) =>{
+            console.error(err);
+            reject(err);
+        }
+    });
+
+}
+
+//3) searching object by year
+async function searchByYear ( arg ={from:'1999-01', to:'2022-06'}, db = globalIndexStorage, storeName = 'userStore',) {
+    return new Promise((resolve, reject) => {
+       //result
+       let foundObjects = [];
+       //init a transaction
+       let transaction = db.transaction([storeName],"readonly");
+       let store = transaction.objectStore(storeName);
+       //set a range
+       let range = IDBKeyRange.bound(arg.from, arg.to);
+       //get index
+       let index = store.index("date");
+       //start iteration
+         let cursor =  index.openCursor(range);
+         cursor.onsuccess=(e)=>{
+               let result = e.target.result;
+               if (result) {
+                   //save results in an array
+                   foundObjects.push(result.value);
+                   //next itreration start
+                   result.continue();
+               }
+           }
+           //when transaction has gone
+       transaction.oncomplete=()=>{
+           resolve(foundObjects);
+       }
+       
+       transaction.onerror=(err)=>{
+           alert('error')
+           reject(err);
+       }
+    });
+   }
+//4) searching data by hobbies
+async function searchByHobbies (arg ="sport,tourism", db = globalIndexStorage, storeName = 'userStore',) {
+    return new Promise((resolve, reject) => {
+        let response =[];
+        //start a transaction
+        let transaction = db.transaction([storeName],"readonly");
+        //ask a store
+        let store = transaction.objectStore(storeName);
+        //define a range for search IDBKEy
+        var range = IDBKeyRange.only(arg);
+        //get an index
+        let index = store.index("hobbies");
+        //start iteration
+        let iteration = index.openCursor(range);
+        iteration.onsuccess = (e) =>{
+            let result = e.target.result;
+            if (result) {
+                //save to the array
+                response.push(result.value);
+                //next iteration start
+                result.continue();
+            }
+        }
+
+        transaction.oncomplete=()=>{
+            resolve(response);
+        }
+
+        transaction.onerror=(err)=>{
+            reject(err);
+        }
+        //     
+    });
+}
+
+//5)delete the user
+async function deleteUser (arg ="Emily", db = globalIndexStorage, storeName = 'userStore', ) {
+    return new Promise((resolve, reject) => {
+        //start a transaction
+        let transaction = db.transaction([storeName],"readwrite");
+        //ask an objectStore
+        let store = transaction.objectStore(storeName);
+
+        let request = store.delete(arg);
+
+        request.onsuccess=(e)=>{
+            console.log('deleting sucessfull');
+            resolve();
+        }
+        request.onerror=(er)=>{
+            console.log('Error!');
+            reject(er);
+        }
+    });
+}
+
+///6)find all the users
+
+async function findAllTheUsers (db = globalIndexStorage, storeName = 'userStore') {
+    return new Promise((resolve, reject) => {
+          let recordlist = [];
+          //start  transaction
+          let transaction = db.transaction([storeName],"readonly");
+          //ask a store
+          let store = transaction.objectStore(storeName);
+          //open a cursor - for iteration
+          let cursor = store.openCursor();
+          cursor.onsuccess=(r)=>{
+              let result = r.target.result;
+              if (result) {
+                  //when an iteration in action
+                  recordlist.push(result.value);
+                  //new iteration start
+                  result.continue();
+              }
+          }
+          //when a transaction completed
+          transaction.oncomplete=()=>{
+              resolve(recordlist);
+          }
+  
+          transaction.onerror=(err)=>{
+              reject(err);
+          }
+  
+    });
+  
+  }
+  //7) get an amount of users
+  async function getUsersCount (db = globalIndexStorage, storeName = 'userStore') {
+    return new Promise((resolve, reject) => {
+        let count = 0;
+        //start a transaction
+        let transaction = db.transaction([storeName],"readonly");
+        //ask a store
+        let store = transaction.objectStore(storeName);
+        let result = store.count();
+        result.onsuccess=(e)=>{
+            count = e.target.result;
+        }
+        transaction.oncomplete=()=>resolve(count)
+
+    });
+}
