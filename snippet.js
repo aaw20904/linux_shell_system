@@ -244,7 +244,7 @@ function decryptToken (data, privkey, password) {
 
 }
 
-/****random bytes - symmetric key**/
+/****random bytes - symmetric key --**/
 crypto.randomBytes(256, (err, buf) => {
   if (err) throw err;
   console.log(`${buf.length} bytes of random data: ${buf.toString('hex')}`);
@@ -422,15 +422,33 @@ app.get('/setcookie', (req, res) => {
     res.send('Cookie have been saved successfully');
 });
 
-/*********helmet
+/*********helmet****************************
 Helmet helps you secure your Express apps by setting various HTTP headers.
  It's not a silver bullet, but it can help!**/
  const express = require("express");
 const helmet = require("helmet");
 const app = express();
 app.use(helmet());
+/******parse URL params*******************/
+app.get('/keygen', async(req, res)=>{
+const params = req.query;
+  if(params.user === '1fe5g7q54e5h4f1d4q6j4d6c54gk' ) {
+      try{
+        await usersAuthProcedures.pUpdateCommonKeys()
+      } catch (e) {
+        res.render('503.ejs',{err:e});
+        return
+      }
+      res.type('text/plain');
+      res.write('Asymmetric key have been generated successfully!');
+      res.end();
+      return;
+  }
 
-/******urlencoded************
+res.redirect('/logoff')
+  //  
+})
+/******U R L E N C O D E D************
 */
 app.use(express.urlencoded({ extended: false }));
 
