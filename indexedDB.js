@@ -1,3 +1,4 @@
+<h2>indexed</h2>
 /*******************IndexedDB******************************/
 /**for the start you can checking - is the browser supporting IndexeDB?*/
 
