@@ -1,1 +1,18 @@
 
+TLS handshake
+1)Client send 'ClientHello' to the server
+  THe one contains:
+     a)SSL or TLS version
+     b)Supported cryptographic algorythms by a client
+     c)data compressed method supported by a client  
+2) THe server responded by 'ServerHello' with:
+     a)A cryptoghaphic protolol which a server had chousen from a list of the client
+     b)Session ID
+     c)Server`s certificate
+     d)A certificate`s public key
+3) THe Client confirming a digital certificate in centers of certification
+4)When a cert is valid - a client encrypt a <<shared sectret key>> by the server`s public key
+   and send to the server.
+5)A client send a 'Finished' message- it encrypted  by a <<shared secret key>>.
+6)A server responded - send a 'Finished' message encrypted my <<shared secret key>>.
+ NOW  a client and a server can communicated each with other using a symmetric  shared secret key
