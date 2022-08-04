@@ -372,6 +372,14 @@ Book.find({title:'mumu'})
 	const express = require('express')
 	const app = express()
 	const port = 80;
+        /*for example http://localhost/srv?first=1&second=2 */
+	app.get('/ser2', (req, res) => { 
+		//print all the params
+	    console.log(req.query)
+	    console.log(req.query.first);
+	    res.send(`${new Date().toLocaleTimeString()}`);
+	})
+	
 
 /****SEND urlencoced in html FORM****/
 app.use(express.urlencoded({extended:true}))
