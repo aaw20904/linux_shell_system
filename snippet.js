@@ -368,6 +368,11 @@ Book.find({title:'mumu'})
 .then(result=>{})
 
 
+//----SEND urlencoded---express
+	const express = require('express')
+	const app = express()
+	const port = 80;
+
 /****SEND urlencoced in html FORM****/
 app.use(express.urlencoded({extended:true}))
 /*when a browser send a GET request - end the following content (a form)*/
