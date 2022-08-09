@@ -1,5 +1,5 @@
 
-//------------------HMAC----------------------- 
+//------------------H M A C----------------------- 
 /******keyed-hash message authentication code****/
 //---an encrypted message building by a public key
 ///---HMAC = 'my some message' + public key 
@@ -16,7 +16,7 @@
 /**compare both **/
 const match = crypto.timingSafeEqual(Buffer.from(result1), Buffer.from(result2));
 
-//---------------SCRYPT algorhythm-------------------------
+//---------------S C R Y P T algorhythm-------------------------
 /****** Scrypt is a password-based key derivation function that is designed to be expensive
 computationally and memory-wise in order to make brute-force attacks unrewarding.
 The salt should be as unique as possible. It is recommended that a salt is random
@@ -57,14 +57,45 @@ and at least 16 bytes long.********/
 
   let result = await execScrypt('one','one');
   let compare = crypto.timingSafeEqual(result.hashedPassword1, result.hashedPassword2);
-/**********************************HASH************************/
+/**********************************H A S H************************/
   const hash = crypto.createHash('sha256');
   const psw = "password" 
   let result = hash.update(psw).digest('hex');
-/******************BCRYPT************************************/
+/******************B C R Y P T************************************/
 /*bcrypt is a password-hashing function designed by Niels Provos and David Mazières, based on the Blowfish cipher and presented at USENIX in 1999.
 [1] Besides incorporating a salt to protect against rainbow table attacks, bcrypt is an adaptive function: over time, the iteration count can be
 increased to make it slower, so it remains resistant to brute-force search attacks even with increasing computation power.*/
+/----IMPORTANT: Per bcrypt implementation, only the first 72 bytes of a string are used. Any extra bytes are ignored when matching passwords
+
 
 const bcrypt = require('bcrypt');
-const saltRounds = 10;
+ const saltRounds = 10;
+
+ function encode(myPlaintextPassword=''){
+    return new Promise((resolve, reject) => {
+ //*********encoding********
+        bcrypt.hash(myPlaintextPassword, saltRounds, function(err, hash) {
+            if (err) { reject(err) }
+            resolve(hash);
+        });
+    });
+ }
+
+ function compareData(myPlainTextPassword='', hash) {
+    return new Promise((resolve, reject) => {
+        bcrypt.compare(myPlainTextPassword, hash, function(err, result) {
+            // result == true
+            if(err) { reject(err) }
+            resolve (result);
+        });
+    });
+ }
+
+
+encode('password')
+.then((hashed)=>{
+    console.log(hashed);
+    return compareData('password',hashed);
+})
+.then(x=>console.log(x))
+.catch(e=>console.log(e));
