@@ -100,3 +100,22 @@ encode('password')
 .then(x=>console.log(x))
 .catch(e=>console.log(e));
 /********S Y M M E T R I C  E N C R Y P T I O N *********************/
+
+const crypto = require('crypto');
+
+const message = 'i like turtles';
+  /**public key */
+const key = crypto.randomBytes(32);
+  /**an initialization vector base */
+const iv = crypto.randomBytes(16);
+  /**create an initialization vector  */
+const cipher = crypto.createCipheriv('aes256', key, iv);
+  //encrypt
+let encrypted = cipher.update('some clear text data', 'utf8', 'hex');
+//encrypted message
+encrypted += cipher.final('hex');
+  //create decrypt initialization vecctor
+const decipher = crypto.createDecipheriv('aes256', key, iv);
+let decryptedMessage = decipher.update(encrypted, 'hex', 'utf-8');
+decryptedMessage += decipher.final('utf8');
+console.log(decryptedMessage);
