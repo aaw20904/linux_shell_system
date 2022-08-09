@@ -99,7 +99,7 @@ encode('password')
 })
 .then(x=>console.log(x))
 .catch(e=>console.log(e));
-/********S Y M M E T R I C  E N C R Y P T I O N *********************/
+/----------------S Y M M E T R I C  E N C R Y P T I O N--------------*/
 
 const crypto = require('crypto');
 
@@ -119,3 +119,46 @@ const decipher = crypto.createDecipheriv('aes256', key, iv);
 let decryptedMessage = decipher.update(encrypted, 'hex', 'utf-8');
 decryptedMessage += decipher.final('utf8');
 console.log(decryptedMessage);
+//--------------*A S Y M M E T R Y C   ENCRIPTION*------------------------/
+//1)making key pairs
+function makeAsymmetricKey() {
+    return new Promise((resolve, reject) => {
+               crypto.generateKeyPair('rsa', {
+                    modulusLength: 2048, // the length of your key in bits
+                    publicKeyEncoding: {
+                        type: 'spki', // recommended to be 'spki' by the Node.js docs
+                        format: 'pem',
+                    },
+                    privateKeyEncoding: {
+                        type: 'pkcs8', // recommended to be 'pkcs8' by the Node.js docs
+                        format: 'pem',
+                    },
+                }, (err, publicKey, privateKey) => {
+                        if (err) { reject(err) }
+                        //returns keys as strings
+                     resolve({privateKey:privateKey, publicKey:publicKey})
+                    });
+
+    });
+}
+
+//2)******* PUBLIC ENCRYPT (standard approach in TLS)
+//returns Buffer
+let encrypted =  crypto.publicEncrypt(publicKey, 'myMessage')
+
+//3)*****PUBLIC DECRYPT **********************
+//returns Buffer
+/*@ arguments: string,Buffer, typedArray*/
+let decrypted =  crypto.publicDecrypt(key, buffer);
+
+//4)*****PRIVATE DECRYPT  (standard approach in TLS)
+//returns Buffer
+ let decrypted = crypto.privateDecrypt(key, buffer)
+ 
+ //5)****PRIVATE ENCRYPT
+ //returns Buffer
+ let encypt = crypto.privateEncrypt(privateKey, buffer)
+
+  
+
+
