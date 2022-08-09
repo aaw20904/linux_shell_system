@@ -99,3 +99,4 @@ encode('password')
 })
 .then(x=>console.log(x))
 .catch(e=>console.log(e));
+/********S Y M M E T R I C  E N C R Y P T I O N *********************/
