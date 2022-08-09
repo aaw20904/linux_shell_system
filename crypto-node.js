@@ -16,7 +16,7 @@
 /**compare both **/
 const match = crypto.timingSafeEqual(Buffer.from(result1), Buffer.from(result2));
 
-//---------------SCRYPT-------------------------
+//---------------SCRYPT algorhythm-------------------------
 /****** Scrypt is a password-based key derivation function that is designed to be expensive
 computationally and memory-wise in order to make brute-force attacks unrewarding.
 The salt should be as unique as possible. It is recommended that a salt is random
@@ -57,7 +57,14 @@ and at least 16 bytes long.********/
 
   let result = await execScrypt('one','one');
   let compare = crypto.timingSafeEqual(result.hashedPassword1, result.hashedPassword2);
-/****HASH*****/
+/**********************************HASH************************/
   const hash = crypto.createHash('sha256');
   const psw = "password" 
   let result = hash.update(psw).digest('hex');
+/******************BCRYPT************************************/
+/*bcrypt is a password-hashing function designed by Niels Provos and David Mazières, based on the Blowfish cipher and presented at USENIX in 1999.
+[1] Besides incorporating a salt to protect against rainbow table attacks, bcrypt is an adaptive function: over time, the iteration count can be
+increased to make it slower, so it remains resistant to brute-force search attacks even with increasing computation power.*/
+
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
