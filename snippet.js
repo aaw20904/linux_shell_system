@@ -94,6 +94,15 @@ const connectionDB = mysql.createConnection({
   
 });
 
+/// 1.1 checking - has an error been happened?
+
+connectionDB.connect(function(err) {
+  if (err) {
+	  //handle an error
+    console.error('error connecting: ' + err.stack);
+    return;
+  }
+}
 /// 2 Make SQL query (Promise -style)
  
        conn.query('SELECT* FROM users_keys',(err,rows)=>{
