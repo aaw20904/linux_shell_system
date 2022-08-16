@@ -612,4 +612,29 @@ var svgCaptcha = require('svg-captcha');
   }
 }
 
- 
+/***********H O W  T O   E X P O R T  A  CLASS in NodeJS*****/
+//in 'package.json' file
+{
+	"type": "module",
+	"name: ....
+}
+	
+
+//some file 'mylib.js'
+
+export default class myClass {
+	constructor (s) {
+	this.x = s;	
+	}
+	doSomething() {
+		console.log(this.x);
+	}
+}
+//in main.js
+
+import express from 'express';
+import crypto from 'crypto';
+import myClass  from './mylib.js';
+
+let inst = new myClass("hello");
+inst.doSomething();
