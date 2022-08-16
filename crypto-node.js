@@ -141,6 +141,14 @@ function makeAsymmetricKey() {
 
     });
 }
+///THE same: but input nd output is Buffer
+     
+    var cryptedBuffers = [cipher.update(new Buffer('this is some test'))];
+    cryptedBuffers.push(cipher.final());
+    // at this point `cryptedBuffers` is an array of buffers which you can turn 
+    // into a single buffer by doing
+
+    var crypted = Buffer.concat(cryptedBuffers);
 
 //2)******* PUBLIC ENCRYPT (standard approach in TLS)
 //returns Buffer
