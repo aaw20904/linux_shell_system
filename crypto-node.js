@@ -99,7 +99,7 @@ encode('password')
 })
 .then(x=>console.log(x))
 .catch(e=>console.log(e));
-/*----------------S Y M M E T R I C  E N C R Y P T I O N--------------*/
+/*----------------S Y M M E T R I C  E N C R Y P T I O N (weak)--------------*/
 
 const crypto = require('crypto');
 
@@ -119,6 +119,65 @@ const decipher = crypto.createDecipheriv('aes256', key, iv);
 let decryptedMessage = decipher.update(encrypted, 'hex', 'utf-8');
 decryptedMessage += decipher.final('utf8');
 console.log(decryptedMessage);
+//--------SY M M E T R Y C  E N C R I P T I O N   (STRONG)-----------/
+/**
+1)Create a key fon encryption.This can be created using a Password-Based Key Derivation
+Function, or PBKDF. In short, PBKDFs can be used to turn a user’s password into a
+good random key for use in encrypting sensitive information.
+*/
+
+  let config = {
+    cryptoKey: crypto.randomBytes(32),
+    cryptoAlgo:"aes256",
+    iv:null
+  }
+/*According the the docs, Node uses OpenSSL to create ciphers. Apparently,
+the default functionality used by the createCipher function in Crypto derives keys with an MD5 hash,
+NO salt (!), and ONE iteration(!).This means that an attacker could brute-force the password (key) 
+used to create the IV and cipher. Once guessed, the encryption is useless.
+So that is why we NEED to create our own Initialization Vector using a PBKDF function. Let`s wrap 
+ a function pbkdf2() in a promise: 
+*/
+  async function generatePasswordAndIV() {
+      let config = {
+        cryptoKey: crypto.randomBytes(32),
+        cryptoAlgo:"aes256",
+        iv:null
+      }
+       let salt = randomBytes(16);
+      try{
+         config.iv = await new promise((resolve,reject)=>{
+                crypto.pbkdf2(config.cryptoKey, salt, 100000, 512, 'sha512', (err, derivedKey)=>{
+                    if (err) {
+                      reject(err) 
+                    }
+                  resolve(derivedKey);
+                });
+        
+        })
+      }catch(e) {
+       throw new Error(e); 
+      }
+    
+    return config;
+    
+  }
+
+  //CODE in main function 'app.js'
+  //note: input and output are buffers.You can also using strings and encoding.See nodejs.org - see crypto.creadeCipheriv(), update() final()
+  let config = await generatePasswordAndIV();
+  var cipher = crypto.createCipheriv(config.cryptoAlgo, config.cryptoKey, config.iv);
+  let result = [cipher.update(Buffer.from([0x01,0x02,0x03]) )];
+  result.push(cipher.final());
+  result = Buffer.concat(result);
+
+  var decipher = crypto.createDecipheriv(onfig.cryptoAlgo, config.cryptoKey, config.iv);
+  let raw = [decipher.update(result)];
+  raw.push(decipher.final());
+  raw = Buffer.concat(raw);
+
+  return result;
+
 //--------------*A S Y M M E T R Y C   ENCRIPTION*------------------------/
 //1)making key pairs
 function makeAsymmetricKey() {
