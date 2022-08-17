@@ -147,7 +147,7 @@ So that is why we NEED to create our own Initialization Vector using a PBKDF fun
        let salt = randomBytes(16);
       try{
          config.iv = await new promise((resolve,reject)=>{
-                crypto.pbkdf2(config.cryptoKey, salt, 100000, 512, 'sha512', (err, derivedKey)=>{
+                crypto.pbkdf2(config.cryptoKey, salt, 100000, 16, 'sha512', (err, derivedKey)=>{
                     if (err) {
                       reject(err) 
                     }
