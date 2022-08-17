@@ -1,4 +1,4 @@
-
+///  https://betterprogramming.pub/beginners-guide-to-data-encryption-with-node-js-95d458db1bdd
 //------------------H M A C----------------------- 
 /******keyed-hash message authentication code****/
 //---an encrypted message building by a public key
