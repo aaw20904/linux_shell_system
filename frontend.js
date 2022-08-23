@@ -17,8 +17,7 @@ return new Promise((resolve, reject) => {
                 img.onload=(event)=>{
                     // Dynamically create a canvas element
                        var canvas = document.createElement("canvas");
-                       canvas.widtth=100;
-                        canvas.height=100;
+                       
                     //actual resizing
                         var ctx = canvas.getContext("2d");
                          ctx.canvas.width=100;
