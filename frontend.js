@@ -4,43 +4,51 @@
  <label for="avatar" class="form-label maintextcolor">Avatar image:</label>
  <input type="file" value="Choose JPG File" class="form-control maintextcolor" id="avatar"  placeholder="Select an image- your avatar" name="avatar"  accept="image/*"  required/>
 ///function
-function convert (){
-return new Promise((resolve, reject) => {
+function readFile () {
+    return new Promise((resolve, reject) => {
             // (A) GET SELECTED FILE
             let imageFile = document.getElementById("avatar").files[0];
                 // (B) READ SELECTED FILE
             let reader = new FileReader();
+            //start read
+            reader.readAsDataURL(imageFile);
+            //error event handler
+            reader.addEventListener('error', (x)=>reject(x));
+            //load event handler
             reader.addEventListener("load", (e) => {
                 let currentImageData = e.target.result;
-                //create an image
+                  //create an image
                 let img= document.createElement('img');
+                  //assign reading result to the one
+                img.src =  e.target.result;
+                    //when an image has  loaded
                 img.onload=(event)=>{
                     // Dynamically create a canvas element
                        var canvas = document.createElement("canvas");
-                       
                     //actual resizing
                         var ctx = canvas.getContext("2d");
-                         ctx.canvas.width=100;
-                         ctx.canvas.height=100;
                     console.log(`Image wh: ${img.width},${img.height}`);
-                    // Actual resizing
-                         ctx.drawImage(img, 0, 0, 100, 100);
-                        
-                    //  convert to 'DataUrl' and assign it to a variable
-                        var dataurl = canvas.toDataURL(imageFile.type);
-                        document.getElementById("demoShow").src = dataurl;
-                    console.log(`Image wh: ${img.width},${img.height}`);
-                          resolve( dataurl);
+                      //calculate aspect ratio
+                    let aspectRatio = img.width / img.height;
+                      //calculate a new height
+                    let newWidth = (150 * aspectRatio) | 0;
+                      //set canvas sizes
+                    ctx.canvas.width=newWidth;
+                    ctx.canvas.height=150;
+                      // Actual resizing
+                     ctx.drawImage(img, 0, 0, newWidth, 150);
+                      //  convert to 'DataUrl' and assign it to a variable
+                    var dataurl = canvas.toDataURL(imageFile.type);
+                      //OPTIONAL: show a result in DOM img element
+                    document.getElementById("demoShow").src = dataurl;
+                    //return a scaled image
+                    resolve( dataurl);
                 }
-                img.src =  e.target.result;
-                reader.onerror=x=>reject(x);
-             // sendDataToServer(null,y);
-             //   document.getElementById("demoShow").src = reader.result;
 
             });
-        reader.readAsDataURL(imageFile);
+        
     });
-    
+
 }
 /********SERVICE WORKER**********/
 //lifecycle - I)registration
