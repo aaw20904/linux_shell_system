@@ -1,3 +1,10 @@
+//***create a button like an image***/
+  //a button
+        let btn  = document.createElement('input');
+        btn.setAttribute('type','image');
+        btn.setAttribute('src','../images/close.png');
+        btn.setAttribute('style','height:30;width:30;');
+
 /******Buffer (Array) to Base64****************/
 function arrayBufferToBase64( buffer ) {
 	var binary = '';
