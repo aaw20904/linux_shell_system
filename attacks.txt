@@ -1,6 +1,5 @@
 https://code-boxx.com/push-notifications-nodejs/
 
-AWS ->>>- kljvfh5682tfgxdh14563xdzrvtCFGHTBFJFVR546741drftvHNGVVFHGXD|DGVFNHtglol
 
 /*aws billing dashboard  - right top  in the account button menu.All about costs*/
 Шаг 1 — Проверка информации о подкачке в системе
