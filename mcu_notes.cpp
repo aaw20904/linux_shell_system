@@ -3,8 +3,8 @@
 /*To create a new project in STVD you can add a C compiler 'Cosmic'
 1)create a project - copy into a main folder the folder- 'STM8S_StdPeriph_Lib/STM8S_StdPeriph_Driver'
 1.1)in the file  'stm8s.h'  - choose an MCU
-2) in folder src add a file 'stm8s_it.c' (you can find the one in folder 'STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/GPIO/GPIO_Toggle/'
-
+2) in folder src add a file 'stm8s_it.c' and "stm8s_it.h" (you can find the one in folder 'STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/GPIO/GPIO_Toggle/'
+2.1)Include in stm8s_it.c file - #include "stm8s_it.h" and comment unnecessary pheriperial or add allthe stdPeriph library in a project 
 2.2) Comment in this file a 'INTERRUPT_HANDLER(NonHandledinterrupt){...}' function   (this handler in in the file 'stm8_interrupt_vector.c' ) to prevent redefining linking conflict
 3)in the file 'stm8_interrupt_vector.c' (it create the IDE together with a new Workspace) 
    you can configurate an interrupt handler. To see it - you can read in the datasheet  which vector belongs to the corresponding peripheral.For example -
