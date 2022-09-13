@@ -4,7 +4,8 @@
 1)create a project - copy into a main folder the folder- 'STM8S_StdPeriph_Lib/STM8S_StdPeriph_Driver'
 1.1)in the file  'stm8s.h'  - choose an MCU
 2) in folder src add a file 'stm8s_it.c' (you can find the one in folder 'STM8S_StdPeriph_Lib/Project/STM8S_StdPeriph_Examples/GPIO/GPIO_Toggle/'
-2.2) Comment in this file a default interrupt handler (this handler in in the file 'stm8_interrupt_vector.c' ) to prevent redefining conflict
+
+2.2) Comment in this file a 'INTERRUPT_HANDLER(NonHandledinterrupt){...}' function   (this handler in in the file 'stm8_interrupt_vector.c' ) to prevent redefining linking conflict
 3)in the file 'stm8_interrupt_vector.c' (it create the IDE together with a new Workspace) 
    you can configurate an interrupt handler. To see it - you can read in the datasheet  which vector belongs to the corresponding peripheral.For example -
     the TIM4 belong to IRQ23. The name of the routine in the file 'stm8s_it.c' is 'TIM4_UPD_OVF_IRQHandler'.
