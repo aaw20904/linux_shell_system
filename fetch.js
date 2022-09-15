@@ -1,4 +1,7 @@
 
+/***REDIRECT BROWSER*********/
+//most relaible method!
+  window.location.replace(`${currentUrl.protocol}//${currentUrl.hostname}/login${currentUrl.port}`);
 /**************using   fetch()  function of browser****/
  //CASE 1 - JSON
 //define the adress - where you want to send
