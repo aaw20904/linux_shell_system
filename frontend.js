@@ -52,7 +52,7 @@ function base64ToArrayBuffer(base64) {
   </form>
 
 ///you can also change a button to type='button' to send a post message from the script 
-
+ //and call  form.checkValidity();
 
 /*******SCALLING IMAGE ***/
 
