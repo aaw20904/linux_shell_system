@@ -46,5 +46,51 @@ const options =  {
 let result = await fetch(`${baseUrl}/w`,options);
 let urlenc = await result.json({extended:true});
   document.querySelector('#textOut').innerText = JSON.stringify(urlenc);
+/****USING xmlHttpRequest()******/
 
+async _sendCommand(data, command) {
+     return   new Promise((resolve, reject) => {
+                //define the adress - where you want to send
+                const currentUrl = new URL(document.location.href)
+                let resp_;
+                // current base URL
+                // url = `${currentUrl.protocol}//${currentUrl.hostname}:${currentUrl.port}`;
+                let  url = `${currentUrl.protocol}//${currentUrl.hostname}/admin/command${currentUrl.port}`;
+                var xhr = new XMLHttpRequest();
+
+                // listen for `load` event
+                xhr.onload = () => {
+
+                    // print JSON response
+                    if (xhr.status >= 200 && xhr.status < 300) {
+                        // parse JSON
+                        const response = JSON.parse(xhr.responseText);
+                        console.log(response);
+                        resolve(response);
+                    }
+                };
+
+                //when error
+                xhr.onerror = (e) => {
+                    resolve({status:false,msg:e})
+                }
+
+                // create a JSON object
+                const json = {
+                    "data": data,
+                    "command": command
+                };
+
+                // open request
+                xhr.open('POST', url);
+
+                // set `Content-Type` header
+                xhr.setRequestHeader('Content-Type', 'application/json');
+
+                // send rquest with JSON payload
+                xhr.send(JSON.stringify(json));      
+        });
+
+
+    }
 
