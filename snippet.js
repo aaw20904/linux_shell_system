@@ -1,3 +1,8 @@
+/************WEBSOCKET***************/
+/*The WebSocket.bufferedAmount read-only property returns the number of bytes of data that have been queued using calls to send() but not yet transmitted to the network.
+This value resets to zero once all queued data has been sent. 
+This value does not reset to zero when the connection is closed; if you keep calling send(), this will continue to climb. */
+
 //https://www.section.io/engineering-education/job-scheduling-in-nodejs/
 ////https://yudhajitadhikary.medium.com/creating-chat-application-using-express-and-websockets-ed567339c4d5
 //crush curse protocol websocket nodejs https://www.youtube.com/watch?v=qFoFKLI3O8w
