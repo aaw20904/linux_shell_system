@@ -1,3 +1,6 @@
+/*
+https://auth0.com/blog/developing-real-time-web-applications-with-server-sent-events/**/
+
 /************WEBSOCKET***************/
 /*The WebSocket.bufferedAmount read-only property returns the number of bytes of data that have been queued using calls to send() but not yet transmitted to the network.
 This value resets to zero once all queued data has been sent. 
