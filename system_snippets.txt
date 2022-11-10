@@ -24,7 +24,8 @@
 ----------------------------------------------------------------------------	
 *****************M Y   S Q L***********  SECURE INSTALLATION *****
 
-after installation
+after installation start the service:
+$ sudo apt install mysql-server
 
 $ sudo mysql
 /*Run the following SQL query:*/
