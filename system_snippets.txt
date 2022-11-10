@@ -94,6 +94,12 @@ const connectionDB = mysql.createConnection({
 
 })
 
+-------------------------------###----------------
+	NODEJS LAST STABLE VERSION
+	***
+	sudo npm cache clean -f
+	sudo npm install -g n
+	sudo n stable
 --------------------------------####--------------------
   RUN NODEJS app as a daemon
 // 1)create a file :  /etc/systemd/system/my-app.service
