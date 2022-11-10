@@ -23,7 +23,8 @@
     ssh -i d:/aws/xone.key  ubuntu@18.134.157.188
 ----------------------------------------------------------------------------	
 *****************M Y   S Q L***********  SECURE INSTALLATION *****
-
+        check a status of the service:
+$ sudo systemctl status mysql
 	after installation START the service:
 $ sudo systemctl start mysql.service
 
