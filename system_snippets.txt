@@ -110,7 +110,7 @@ const connectionDB = mysql.createConnection({
 		Description="My Express App"
 
 		[Service]
-		ExecStart=/usr/bin/node server.js
+		ExecStart=/usr/bin/node server.js   /**/
 		WorkingDirectory=/project/absolute/path
 		Restart=always
 		RestartSec=10
@@ -128,5 +128,6 @@ const connectionDB = mysql.createConnection({
 		$ sudo systemctl start my-app.service
 // 4)   check status:
 		$ sudo  systemctl status my-app
-		
+// 5) optional: when thre was any error - check it:
+		$ journalctl -u service-name.service
 		
