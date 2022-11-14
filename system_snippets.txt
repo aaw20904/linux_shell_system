@@ -133,5 +133,14 @@ const connectionDB = mysql.createConnection({
 /*******CLEAN daemon system journal*********/
     $ sudo journalctl --flush --rotate
     $ sudo journalctl --vacuum-time=1s
+ /***************** SYSTEM JOURNAL OPTIONS - SIZE**************************/
+    $ /etc/systemd/journald.conf
     
-		
+    #Specifies the maximum disk space that can be used by the journal in persistent storage:
+     SystemMaxUse=500M   
+     
+    #Specifies the amount of space that the journal should leave free when adding journal entries to persistent storage.
+    SystemKeepFree=100M
+    
+    #Controls how large individual journal files can grow to in persistent storage before being rotated.
+    SystemMaxFileSize=100M
