@@ -130,4 +130,8 @@ const connectionDB = mysql.createConnection({
 		$ sudo  systemctl status my-app
 // 5) optional: when thre was any error - check it:
 		$ journalctl -u service-name.service
+/*******CLEAN daemon system journal*********/
+    $ sudo journalctl --flush --rotate
+    $ sudo journalctl --vacuum-time=1s
+    
 		
