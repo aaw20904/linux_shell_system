@@ -144,3 +144,8 @@ const connectionDB = mysql.createConnection({
     
     #Controls how large individual journal files can grow to in persistent storage before being rotated.
     SystemMaxFileSize=100M
+    
+    ///AFTER MODIFICATION - 
+    	$ sudo systemctl restart systemd-journald
+   //AND FERIFY FINALLY
+        $ journalctl --verify
