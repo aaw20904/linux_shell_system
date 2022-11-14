@@ -151,3 +151,4 @@ const connectionDB = mysql.createConnection({
     	$ sudo systemctl restart systemd-journald
    //AND FERIFY FINALLY
         $ journalctl --verify
+	/******https://www.geeksforgeeks.org/difference-between-node-js-require-and-es6-import-and-export/
