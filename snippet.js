@@ -1,3 +1,15 @@
+/******IMPORT/EXPORT  nodejs****/
+//lib.js:
+  module.exports = class MyClass {
+	constructor(){
+	console.log('HelloExport!');	
+	}
+	  
+  }
+  //main.js:
+  const MyClass= require('lib.js');
+  let instance = new MyClass();
+
 /*
 https://auth0.com/blog/developing-real-time-web-applications-with-server-sent-events/**/
 
