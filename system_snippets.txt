@@ -110,8 +110,9 @@ const connectionDB = mysql.createConnection({
 		Description="My Express App"
 
 		[Service]
-		ExecStart=/usr/bin/node server.js   /**/
-		WorkingDirectory=/project/absolute/path
+		Type=simple
+		ExecStart=/usr/bin/node /home/ubuntu/soft/server.js serve  
+		WorkingDirectory=/home/ubuntu/soft          
 		Restart=always
 		RestartSec=10
 		StandardOutput=syslog
