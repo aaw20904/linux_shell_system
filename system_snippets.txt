@@ -153,3 +153,8 @@ const connectionDB = mysql.createConnection({
    //AND FERIFY FINALLY
         $ journalctl --verify
 	/******https://www.geeksforgeeks.org/difference-between-node-js-require-and-es6-import-and-export/
+/*-----------------------NOHUP runs a task in background-------------------------*/
+       $ nohup node script.js &
+       To terminate a process running in the background, use the kill command as follows:
+       $ kill -9 PID
+       
