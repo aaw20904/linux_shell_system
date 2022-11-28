@@ -1,4 +1,4 @@
-### ***********SSH CONNECTION**********
+ ***********SSH CONNECTION**********
 //for the access from the VS Code and other applications-
 // you can:
 // A) create an asymmetric ssh - key:
@@ -22,6 +22,8 @@
 // E) OPTIONAL - test a connection from the  Power Shell as Administrator:
     ssh -i d:/aws/xone.key  ubuntu@18.134.157.188
 ----------------------------------------------------------------------------	
+
+
 *****************M Y   S Q L***********  SECURE INSTALLATION *****
         check a status of the service:
 $ sudo systemctl status mysql
@@ -37,6 +39,8 @@ $ sudo mysql
 /*****LOG IN in MYsql**/
 	$ sudo mysql -u root -p
 ----------------------------------------------------------------------------
+
+
 /*********************MYSQL *REMOTE ACCESS******/
 //for the begin, allow remote access.
 //To do it - open the file 
@@ -71,16 +75,22 @@ RUN sql script:
 	 mysql> source \home\user\Desktop\myscript.sql;
 /*************E N D *************/
 ----------------------------####----------------------------
+
+
 ***************************GIT ONE FILE GETTING**************
 GET one file from github - 
    wget	https://raw.githubusercontent.com/aaw20904/exem_app/main/session_learn.sql
 -----------------------------####-----------------------------
-/********NPM   dependences from  package.json*/
+
+
+/-------------NPM   dependences from  package.json------------*/
 		$	npm install package.json
 -----------------------------####-----------------------------  
+
+
  /****************Certificate self-signed************/
 	$ openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out example.crt -keyout example.key
-
+	
 /***node SSL self-signed connection**/
 
 const connectionDB = mysql.createConnection({
@@ -96,6 +106,7 @@ const connectionDB = mysql.createConnection({
 
 })
 
+
 -------------------------------###----------------
 	NODEJS LAST STABLE VERSION
 	***
@@ -103,6 +114,8 @@ const connectionDB = mysql.createConnection({
 	sudo npm install -g n
 	sudo n stable
 --------------------------------####--------------------
+
+
   RUN NODEJS app as a daemon
 // 1)create a file :  /etc/systemd/system/my-app.service
 
@@ -133,9 +146,13 @@ const connectionDB = mysql.createConnection({
 		$ journalctl -u service-name.service
 // 6) optional: when  .my-app.service file as been changed - please reload configuration
                 $ systemctl daemon-reload
+		
+		
 /*******CLEAN daemon system journal*********/
     $ sudo journalctl --flush --rotate
     $ sudo journalctl --vacuum-time=1s
+    
+    
  /***************** SYSTEM JOURNAL OPTIONS - SIZE**************************/
     $ /etc/systemd/journald.conf
     
@@ -153,6 +170,8 @@ const connectionDB = mysql.createConnection({
    //AND FERIFY FINALLY
         $ journalctl --verify
 	/******https://www.geeksforgeeks.org/difference-between-node-js-require-and-es6-import-and-export/
+	
+	
 /*-----------------------NOHUP runs a task in background-------------------------*/
        $ nohup node script.js &
        To terminate a process running in the background, use the kill command as follows:
