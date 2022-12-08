@@ -176,4 +176,11 @@ const connectionDB = mysql.createConnection({
        $ nohup node script.js &
        To terminate a process running in the background, use the kill command as follows:
        $ kill -9 PID
+ /*******WIRESHARK**************/
+ 1)Run tcpdump on target mashine:
+    $ sudo tcpdump -s 0 -i eth0 -w tcpdump.pcap
+ 2) Change premissions:
+    $ sudo chmod 644 tcpdump.pcap
+ 3)Copy on windows mashine (for example by the web-server)
+ 4)Open the file by the wireshark software
        
