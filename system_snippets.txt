@@ -185,3 +185,5 @@ const connectionDB = mysql.createConnection({
     $  sudo python2 -m SimpleHTTPServer 80
  4)Open the file by the wireshark software
        
+  TIME 
+  wireshark: редактирование-параметры
