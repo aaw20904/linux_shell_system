@@ -664,3 +664,7 @@ import myClass  from './mylib.js';
 
 let inst = new myClass("hello");
 inst.doSomething();
+
+/****C O N S O L E   T E X T    C O L O R    IN   N O D E  J S***/
+//You must use  ANSI Escape Codes.There are online generators in the internet.For example: https://ansi.gabebanks.net/ 
+console.log("\x1b[33m%s\x1b[0m", "I am in yellow color");  
