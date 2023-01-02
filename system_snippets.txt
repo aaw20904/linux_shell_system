@@ -187,3 +187,4 @@ const connectionDB = mysql.createConnection({
        
   TIME 
   wireshark: редактирование-параметры
+https://fusebit.io/blog/process-large-files-nodejs-streams/?utm_source=www.google.com&utm_medium=referral&utm_campaign=none
