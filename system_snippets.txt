@@ -189,3 +189,4 @@ const connectionDB = mysql.createConnection({
   wireshark: редактирование-параметры
 https://fusebit.io/blog/process-large-files-nodejs-streams/?utm_source=www.google.com&utm_medium=referral&utm_campaign=none
 https://nodesource.com/blog/understanding-streams-in-nodejs/
+https://nodesource.com/blog/dive-into-NodeJs-streams
