@@ -1,4 +1,11 @@
  ***********SSH CONNECTION**********
+
+//		SSSS   SSSS    H   H
+//		S      S       H   H
+//		SSSS   SSSS    HHHHH
+//		   S	  S    H   H
+//		SSSS   SSSS    H   H	
+
 //for the access from the VS Code and other applications-
 // you can:
 // A) create an asymmetric ssh - key:
@@ -22,8 +29,13 @@
 // E) OPTIONAL - test a connection from the  Power Shell as Administrator:
     ssh -i d:/aws/xone.key  ubuntu@18.134.157.188
 ----------------------------------------------------------------------------	
-
-
+//	M       M	Y    Y		 SSSS       Q Q      L
+//	M M   M M	 Y  Y 		 S	  Q    Q     L
+//	M   M   M	  Y		 SSSS     Q    Q     L
+//	M       M	  Y 		    S	  Q  Q Q     L
+//	M       M	  Y		 SSSS      Q Q QQQ   LLLLLL
+//	M       M	  Y			    	
+//	M       M	  Y
 *****************M Y   S Q L***********  SECURE INSTALLATION *****
         check a status of the service:
 $ sudo systemctl status mysql
@@ -75,8 +87,11 @@ RUN sql script:
 	 mysql> source \home\user\Desktop\myscript.sql;
 /*************E N D *************/
 ----------------------------####----------------------------
-
-
+//        GG      I    TTTTTT
+//	G    G    I	 T
+//      G	  I	 T
+//	G  GGG	  I	 T
+//	 GGG	  I	 T
 ***************************GIT ONE FILE GETTING**************
 GET one file from github - 
    wget	https://raw.githubusercontent.com/aaw20904/exem_app/main/session_learn.sql
