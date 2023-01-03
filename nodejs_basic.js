@@ -114,15 +114,22 @@ writeStream.on('close',()=>{
 
 
 
-/**********  s n i p p e t  4    - backpressure *********/
+/**********  s n i p p e t  4    - backpressure ********* ! please see snipppet 5*/
 /**When a writable stream has less bandwith that readable - there may by overflow.
 It leads to consume extra memory. To prevent it - stop readable stream and resume when a
- writable has been writing a regular chunk of data.The maximum amount of memory in a stream 
-  we can define in optional parameter 'highWaterMark' - ! in bits */ 
+ writable has been writing a regular chunk of data.
+ 
+ Both Writable and Readable streams will store data in an internal buffer.
+
+The amount of data potentially buffered depends on the highWaterMark option passed 
+into the stream's constructor. For normal streams, 
+the highWaterMark option specifies a total number of bytes.
+For streams operating in object mode, the highWaterMark specifies 
+a total number of objects.*/
 
 const readStream = fs.createReadStream('./bigfile');
 const writeStream = fs.createWriteStream('./bigfile.copy', {
-                                                           highWaterMark: 1000000, /*how max amount of memry (in bits) can we use for a stream*/
+                                                           highWaterMark: 1000000, 
                                                             });
 let sw = false;
 readStream.on('data',(chunk)=>{
@@ -157,6 +164,26 @@ writeStream.on('drain', ()=>{
    ///resume readable string - reading data again
     readStream.resume();
 })
+
+/**** s n i p p e t  5.  The  pipe()  method***/
+
+/*When we want to direct a readable stream to writable - we can use a previous example (snippet 4).
+The same thig does the pipe() method - it allows direct a readable stream to writable.NO need to 
+ care about error handling, backpressure.All this things does the pipe() method*/
+/*However, using .pipe() in production applications (for multiple streams) is not recommended for several reasons. 
+If one of the piped streams is closed or throws an error, pipe() will not automatically destroy the
+connected streams. This can cause memory leaks in applications. Also, pipe() does not automatically 
+forward errors across streams to be handled in one place.
+pipeline() was introduced to cater for these problems, so it's recommended you use pipeline() instead 
+of pipe() to connect multiple streams.*/
+
+const readStream = fs.createReadStream('./bigfile',{highWaterMark:10000});
+const writeStream = fs.createWriteStream('./bigfile.copy', {
+                                                           highWaterMark: 10000, /*how max amount of memory (in bytes) can we use for a stream*/
+                                                            });
+//create a pipe and add an error listener
+readStream.pipe(writeStream).on('error',(e)=>{console.log(e)});
+
 
 
 
