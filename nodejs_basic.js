@@ -113,10 +113,13 @@ writeStream.on('close',()=>{
 /**********  s n i p p e t  4    - backpressure *********/
 /**When a writable stream has less bandwith that readable - there may by overflow.
 It leads to consume extra memory. To prevent it - stop readable stream and resume when a
- writable has been writing a regular chunk of data*/ 
+ writable has been writing a regular chunk of data.The maximum amount of memory in a stream 
+  we can define in optional parameter 'highWaterMark' - ! in bits */ 
 
 const readStream = fs.createReadStream('./bigfile');
-const writeStream = fs.createWriteStream('./bigfile.copy');
+const writeStream = fs.createWriteStream('./bigfile.copy', {
+                                                           highWaterMark: 1000000, /*how max amount of memry (in bits) can we use for a stream*/
+                                                            });
 let sw = false;
 readStream.on('data',(chunk)=>{
    const result =  writeStream.write(chunk);
