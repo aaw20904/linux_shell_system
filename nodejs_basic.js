@@ -11,7 +11,7 @@ a file into memory all at once like in the traditional way, streams read chunks 
 without keeping it all in memory.
 */
 
-/**** SNIPPET 1) readable stream */
+/**** s n i p p e t  1) readable stream */
   //export 'Readable'
 const {Readable} = require("stream");
   //Define an array 
@@ -60,3 +60,25 @@ const adviceStream = new StreamFromArray(advices);
 
 adviceStream.on('data',(chunk)=>console.log(chunk.toString('utf-8')))
 adviceStream.on('end',()=>console.log('done!'));
+//------------------------------------------------------------
+/*** s n i p p e t   2 ****  readable from  file to stdout ***/
+
+const fs = require('fs');
+const readStream = fs.createReadStream('./bigfile');
+  //when a next portion of data is ready to use:
+readStream.on('data', (chunk)=>{
+    console.log( 'little chunk \n');
+    console.log(chunk);
+})
+  //when all the data from a strean has beed reading: 
+readStream.on('end', ()=>{
+    console.log(" END of the stream: \n");
+})
+ //when there an error occured:
+readStream.on('error', (e)=>{
+    console.log(  " ERROR:  ", e);
+})
+
+//--------------------------------------------------------
+ /****** s n i p p e t 3  writable & readable ******/
+
