@@ -1,9 +1,9 @@
 
-//         SSSS   TTTTT    RRRRRR     EEEEE           A         MM      MM          SSSSS      
-//         S        T      R   R      E              A A        M M   M  M          S
-//         SSSS     T      R R        EEEEE         AAAAA       M   M    M          SSSSS
-//            S     T      R    R     E            A     A      M        M              S
-//         SSSS     T      R    R     EEEEE       A       A     M        M          SSSSS
+/*
+
+█▀ ▀█▀ █▀█ █▀▀ ▄▀█ █▀▄▀█ █▀
+▄█ ░█░ █▀▄ ██▄ █▀█ █░▀░█ ▄█
+*/
 /*
 There are three types of streams in Node: 
 1) readable (stdin, file)
