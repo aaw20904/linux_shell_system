@@ -1,4 +1,19 @@
-/******IMPORT/EXPORT  nodejs****/
+/******
+
+██╗███╗░░░███╗██████╗░░█████╗░██████╗░████████╗░░░░██╗███████╗██╗░░██╗██████╗░░█████╗░██████╗░████████╗  
+██║████╗░████║██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝░░░██╔╝██╔════╝╚██╗██╔╝██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝  
+██║██╔████╔██║██████╔╝██║░░██║██████╔╝░░░██║░░░░░██╔╝░█████╗░░░╚███╔╝░██████╔╝██║░░██║██████╔╝░░░██║░░░  
+██║██║╚██╔╝██║██╔═══╝░██║░░██║██╔══██╗░░░██║░░░░██╔╝░░██╔══╝░░░██╔██╗░██╔═══╝░██║░░██║██╔══██╗░░░██║░░░  
+██║██║░╚═╝░██║██║░░░░░╚█████╔╝██║░░██║░░░██║░░░██╔╝░░░███████╗██╔╝╚██╗██║░░░░░╚█████╔╝██║░░██║░░░██║░░░  
+╚═╝╚═╝░░░░░╚═╝╚═╝░░░░░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░╚═╝░░░░╚══════╝╚═╝░░╚═╝╚═╝░░░░░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░  
+
+███╗░░██╗░█████╗░██████╗░███████╗░░░░░██╗░██████╗
+████╗░██║██╔══██╗██╔══██╗██╔════╝░░░░░██║██╔════╝
+██╔██╗██║██║░░██║██║░░██║█████╗░░░░░░░██║╚█████╗░
+██║╚████║██║░░██║██║░░██║██╔══╝░░██╗░░██║░╚═══██╗
+██║░╚███║╚█████╔╝██████╔╝███████╗╚█████╔╝██████╔╝
+╚═╝░░╚══╝░╚════╝░╚═════╝░╚══════╝░╚════╝░╚═════╝░
+****/
 //lib.js:
   module.exports = class MyClass {
 	constructor(){
@@ -13,18 +28,36 @@
 /*
 https://auth0.com/blog/developing-real-time-web-applications-with-server-sent-events/**/
 
-/************WEBSOCKET***************/
+/************
+
+░██╗░░░░░░░██╗███████╗██████╗░░██████╗░█████╗░░█████╗░██╗░░██╗███████╗████████╗
+░██║░░██╗░░██║██╔════╝██╔══██╗██╔════╝██╔══██╗██╔══██╗██║░██╔╝██╔════╝╚══██╔══╝
+░╚██╗████╗██╔╝█████╗░░██████╦╝╚█████╗░██║░░██║██║░░╚═╝█████═╝░█████╗░░░░░██║░░░
+░░████╔═████║░██╔══╝░░██╔══██╗░╚═══██╗██║░░██║██║░░██╗██╔═██╗░██╔══╝░░░░░██║░░░
+░░╚██╔╝░╚██╔╝░███████╗██████╦╝██████╔╝╚█████╔╝╚█████╔╝██║░╚██╗███████╗░░░██║░░░
+░░░╚═╝░░░╚═╝░░╚══════╝╚═════╝░╚═════╝░░╚════╝░░╚════╝░╚═╝░░╚═╝╚══════╝░░░╚═╝░░░
+***************/
 
 /*The WebSocket.bufferedAmount read-only property returns the number of bytes of data that have been queued using calls to send() but not yet transmitted to the network.
 This value resets to zero once all queued data has been sent. 
 This value does not reset to zero when the connection is closed; if you keep calling send(), this will continue to climb. */
-/*BALANCING WEBSOCKETS
+/*
+█▄▄ ▄▀█ █░░ ▄▀█ █▄░█ █▀▀ █ █▄░█ █▀▀   █░█░█ █▀▀ █▄▄ █▀ █▀█ █▀▀ █▄▀ █▀▀ ▀█▀ █▀
+█▄█ █▀█ █▄▄ █▀█ █░▀█ █▄▄ █ █░▀█ █▄█   ▀▄▀▄▀ ██▄ █▄█ ▄█ █▄█ █▄▄ █░█ ██▄ ░█░ ▄█
 https://tsh.io/blog/how-to-scale-websocket/
 ***************/
 //https://www.section.io/engineering-education/job-scheduling-in-nodejs/
 ////https://yudhajitadhikary.medium.com/creating-chat-application-using-express-and-websockets-ed567339c4d5
 //crush curse protocol websocket nodejs https://www.youtube.com/watch?v=qFoFKLI3O8w
-/*******HTTPS expressjs  + static content HEADER**************************/
+
+/*******
+
+█░█ ▀█▀ ▀█▀ █▀█ █▀   █▀▀ ▀▄▀ █▀█ █▀█ █▀▀ █▀ █▀ ░░█ █▀     ▄█▄   █▀ ▀█▀ ▄▀█ ▀█▀ █ █▀▀   █▀▀ █▀█ █▄░█ ▀█▀ █▀▀ █▄░█ ▀█▀
+█▀█ ░█░ ░█░ █▀▀ ▄█   ██▄ █░█ █▀▀ █▀▄ ██▄ ▄█ ▄█ █▄█ ▄█     ░▀░   ▄█ ░█░ █▀█ ░█░ █ █▄▄   █▄▄ █▄█ █░▀█ ░█░ ██▄ █░▀█ ░█░
+
+█░█ █▀▀ ▄▀█ █▀▄ █▀▀ █▀█
+█▀█ ██▄ █▀█ █▄▀ ██▄ █▀▄
+**************************/
 const https = require('https');
 const fs = require('fs');
 const serveStatic = require("serve-static");
@@ -80,7 +113,11 @@ const getContent = function(url) {
 
 
 
-/*****BACKEND Express/MySQL/Express************S N I P P E T S************/
+/***********
+
+█▄▄ ▄▀█ █▀▀ █▄▀ █▀▀ █▄░█ █▀▄   █▀▀ ▀▄▀ █▀█ █▀█ █▀▀ █▀ █▀ ░░▄▀ █▀▄▀█ █▄█ █▀ █▀█ █░░ ░░▄▀ █▀▀ ▀▄▀ █▀█ █▀█ █▀▀ █▀ █▀
+█▄█ █▀█ █▄▄ █░█ ██▄ █░▀█ █▄▀   ██▄ █░█ █▀▀ █▀▄ ██▄ ▄█ ▄█ ▄▀░░ █░▀░█ ░█░ ▄█ ▀▀█ █▄▄ ▄▀░░ ██▄ █░█ █▀▀ █▀▄ ██▄ ▄█ ▄█
+******S N I P P E T S************/
 
 /*MySQL
  conecting
@@ -187,11 +224,19 @@ async changeAllTheUserDataDB (x={usrId,name,privateKey,publicKey,hashedPassword,
             })
         })
     }
+
+/*
+
+*/
 	
 	/****OPEN SSL*** generate self-signed cert*/
 	
 	openssl req -nodes -new -x509 -keyout server.key -out server.cert
-	/* C R Y P T O*****************/
+	/**** 
+	
+▄█ ░   █▀▀   █▀█   █▄█   █▀█   ▀█▀   █▀█
+░█ ▄   █▄▄   █▀▄   ░█░   █▀▀   ░█░   █▄█
+	**********/
     /*creating a asymmetric key pair*/
    async function makeKeyPair () {
   return new Promise ((resolve,reject)=>{
@@ -234,6 +279,14 @@ async changeAllTheUserDataDB (x={usrId,name,privateKey,publicKey,hashedPassword,
 
     })
 }
+
+/*
+
+█▀▀ █▀▀▄ █▀▀ █▀▀█ █──█ █▀▀█ ▀▀█▀▀ 　 █──█ █▀▀ ─▀─ █▀▀▄ █▀▀▀ 　 ░█▀▀█ ░█─░█ ░█▀▀█ ░█─── ▀█▀ ░█▀▀█ ░█─▄▀ ░█▀▀▀ ░█──░█ 
+█▀▀ █──█ █── █▄▄▀ █▄▄█ █──█ ──█── 　 █──█ ▀▀█ ▀█▀ █──█ █─▀█ 　 ░█▄▄█ ░█─░█ ░█▀▀▄ ░█─── ░█─ ░█─── ░█▀▄─ ░█▀▀▀ ░█▄▄▄█ 
+▀▀▀ ▀──▀ ▀▀▀ ▀─▀▀ ▄▄▄█ █▀▀▀ ──▀── 　 ─▀▀▀ ▀▀▀ ▀▀▀ ▀──▀ ▀▀▀▀ 　 ░█─── ─▀▄▄▀ ░█▄▄█ ░█▄▄█ ▄█▄ ░█▄▄█ ░█─░█ ░█▄▄▄ ──░█──
+*/
+
 	/***encrypt using PUBLIC_KEY *****/
 	
 	/////E N C R Y P T @data must be a Buffer, RETURN - Buffer//////
@@ -257,6 +310,11 @@ function encryptToken (data, pubKey, password) {
     return encryptedData;
 }
 
+/*
+
+█▀▀▄ █▀▀ █▀▀ █▀▀█ █──█ █▀▀█ ▀▀█▀▀ 　 █──█ █▀▀ ─▀─ █▀▀▄ █▀▀▀ 　 █▀▀█ █▀▀█ ─▀─ ▀█─█▀ █▀▀█ ▀▀█▀▀ █▀▀ 　 █─█ █▀▀ █──█ 
+█──█ █▀▀ █── █▄▄▀ █▄▄█ █──█ ──█── 　 █──█ ▀▀█ ▀█▀ █──█ █─▀█ 　 █──█ █▄▄▀ ▀█▀ ─█▄█─ █▄▄█ ──█── █▀▀ 　 █▀▄ █▀▀ █▄▄█ 
+▀▀▀─ ▀▀▀ ▀▀▀ ▀─▀▀ ▄▄▄█ █▀▀▀ ──▀── 　 ─▀▀▀ ▀▀▀ ▀▀▀ ▀──▀ ▀▀▀▀ 　 █▀▀▀ ▀─▀▀ ▀▀▀ ──▀── ▀──▀ ──▀── ▀▀▀ 　 ▀─▀ ▀▀▀ ▄▄▄█*/
 /**decrypt using private key**/
 //////D E C R Y P T  @data type must be a 'Buffer' , RETURN - Buffer  ///
 function decryptToken (data, privkey, password) {
@@ -278,7 +336,9 @@ function decryptToken (data, privkey, password) {
      return decryptedData;
 
 }
-
+/*
+█▀█ ▄▀█ █▄░█ █▀▄ █▀█ █▀▄▀█   █▄░█ █░█ █▀▄▀█ █▄▄ █▀▀ █▀█   █▀▀ █▀▀ █▄░█ █▀▀ █▀█ ▄▀█ ▀█▀ █ █▄░█ █▀▀
+█▀▄ █▀█ █░▀█ █▄▀ █▄█ █░▀░█   █░▀█ █▄█ █░▀░█ █▄█ ██▄ █▀▄   █▄█ ██▄ █░▀█ ██▄ █▀▄ █▀█ ░█░ █ █░▀█ █▄█*/
 /****random bytes - symmetric key --**/
 crypto.randomBytes(256, (err, buf) => {
   if (err) throw err;
@@ -290,6 +350,12 @@ const {
   randomBytes
 } = await import('crypto');
 
+/*
+
+░█─░█ 　 ─█▀▀█ 　 ░█▀▀▀█ 　 ░█─░█ 　 ▀█▀ 　 ░█▄─░█ 　 ░█▀▀█ 
+░█▀▀█ 　 ░█▄▄█ 　 ─▀▀▀▄▄ 　 ░█▀▀█ 　 ░█─ 　 ░█░█░█ 　 ░█─▄▄ 
+░█─░█ 　 ░█─░█ 　 ░█▄▄▄█ 　 ░█─░█ 　 ▄█▄ 　 ░█──▀█ 　 ░█▄▄█
+*/
 ////3 hash**********************H A S H I N G  'bcrypt'+
 const hashingPassword = await bcrypt.hash(req.body.password, 10);
 //NOTE: 10 -it`s a salt size
@@ -308,7 +374,10 @@ jwt.verify(token, /*secretOrPublicKey*/ key, (err,decoded)=>{
             }
         })
 	
-/****************MongoDB - mongoose****************/
+/****************
+░█▀▄▀█ █▀▀█ █▀▀▄ █▀▀▀ █▀▀█ 　 ░█▀▀▄ ░█▀▀█ 
+░█░█░█ █──█ █──█ █─▀█ █──█ 　 ░█─░█ ░█▀▀▄ 
+░█──░█ ▀▀▀▀ ▀──▀ ▀▀▀▀ ▀▀▀▀ 　 ░█▄▄▀ ░█▄▄█ - mongoose****************/
 //A)define a modell in a file modell.js:
  const mongoose = require('mongoose');
  
@@ -402,7 +471,11 @@ Book.validate(myBook[0])
 Book.find({title:'mumu'})
 .then(result=>{})
 
+/*
 
+█▀ █▀▀ █▄░█ █▀▄   █░█ █▀█ █░░ █▀▀ █▄░█ █▀▀ █▀█ █▀▄ █▀▀ █▀▄ ▄▄ ▄▄ ▄▄ █▀▀ ▀▄▀ █▀█ █▀█ █▀▀ █▀ █▀
+▄█ ██▄ █░▀█ █▄▀   █▄█ █▀▄ █▄▄ ██▄ █░▀█ █▄▄ █▄█ █▄▀ ██▄ █▄▀ ░░ ░░ ░░ ██▄ █░█ █▀▀ █▀▄ ██▄ ▄█ ▄█
+*/
 //----SEND urlencoded---express
 	const express = require('express')
 	const app = express()
@@ -415,7 +488,11 @@ Book.find({title:'mumu'})
 	    res.send(`${new Date().toLocaleTimeString()}`);
 	})
 	
+/*
 
+█▀ █▀▀ █▄░█ █▀▄   █░█ █▀█ █░░ █▀▀ █▄░█ █▀▀ █▀█ █▀▀ █▀▀ █▀▄   █ █▄░█   █░█ ▀█▀ █▀▄▀█ █░░   █▀▀ █▀█ █▀█ █▀▄▀█
+▄█ ██▄ █░▀█ █▄▀   █▄█ █▀▄ █▄▄ ██▄ █░▀█ █▄▄ █▄█ █▄▄ ██▄ █▄▀   █ █░▀█   █▀█ ░█░ █░▀░█ █▄▄   █▀░ █▄█ █▀▄ █░▀░█
+*/
 /****SEND urlencoced in html FORM****/
 app.use(express.urlencoded({extended:true}))
 /*when a browser send a GET request - end the following content (a form)*/
@@ -431,6 +508,12 @@ app.post('/login', function (req, res, next) {
   console.log(JSON.stringify(req.body));
   res.status(201).send();
 });
+
+/*
+
+█▀▀ █▀█ █▀█ █▄▀ █ █▀▀ █▀
+█▄▄ █▄█ █▄█ █░█ █ ██▄ ▄█
+*/
 /********cookies***** C O O K I E S***
 */
 
@@ -470,7 +553,9 @@ app.get('/setcookie', (req, res) => {
     res.send('Cookie have been saved successfully');
 });
 
-/*********helmet****************************
+/*********
+█░█ █▀▀ █░░ █▀▄▀█ █▀▀ ▀█▀
+█▀█ ██▄ █▄▄ █░▀░█ ██▄ ░█░****************************
 Helmet helps you secure your Express apps by setting various HTTP headers.
  It's not a silver bullet, but it can help!**/
  const express = require("express");
@@ -496,7 +581,9 @@ const params = req.query;
 res.redirect('/logoff')
   //  
 })
-/******U R L E N C O D E D************
+/******
+█░█   █▀█   █░░   █▀▀   █▄░█   █▀▀   █▀█   █▀▄   █▀▀   █▀▄
+█▄█   █▀▄   █▄▄   ██▄   █░▀█   █▄▄   █▄█   █▄▀   ██▄   █▄▀************
 */
 app.use(express.urlencoded({ extended: false }));
 
@@ -512,7 +599,11 @@ app.get('/mode',(req,res)=>{
     res.sendStatus(200);
 })
 
-/*************ejs EJS*/
+/*************ejs 
+
+█▀▀ ░░█ █▀
+██▄ █▄█ ▄█
+*/
 /*server`s side*/
 /**DEPENDENCES: 'ejs' 'express'*/
 var express = require('express');
@@ -545,7 +636,11 @@ var svgCaptcha = require('svg-captcha');
  var captcha = svgCaptcha.create();
  /*returned {text,data} text-i`s a plain text, data -it1s a SVG*/
  
+ /**
  
+█▀▀   █▀█   █▀█   █▄░█   ▀█▀   █▀▀   █▄░█   █▀▄
+█▀░   █▀▄   █▄█   █░▀█   ░█░   ██▄   █░▀█   █▄▀
+ **/
  
  //F R O N T E N D - F R O N T E N D - F R O N T E N D - F R O N T E N D
  
@@ -638,7 +733,12 @@ var svgCaptcha = require('svg-captcha');
   }
 }
 
-/***********H O W  T O   E X P O R T  A  CLASS in NodeJS*****/
+/**********
+█░█   █▀█   █░█░█     ▀█▀   █▀█       █▀▀   ▀▄▀   █▀█   █▀█   █▀█   ▀█▀     ▄▀█  
+█▀█   █▄█   ▀▄▀▄▀     ░█░   █▄█       ██▄   █░█   █▀▀   █▄█   █▀▄   ░█░     █▀█  
+
+█▀▀ █░░ ▄▀█ █▀ █▀   █ █▄░█   █▄░█ █▀█ █▀▄ █▀▀ ░░█ █▀
+█▄▄ █▄▄ █▀█ ▄█ ▄█   █ █░▀█   █░▀█ █▄█ █▄▀ ██▄ █▄█ ▄█*****/
 //in 'package.json' file
 {
 	"type": "module",
@@ -665,6 +765,33 @@ import myClass  from './mylib.js';
 let inst = new myClass("hello");
 inst.doSomething();
 
-/****C O N S O L E   T E X T    C O L O R    IN   N O D E  J S***/
+/****
+░█████╗░  ░█████╗░  ███╗░░██╗  ░██████╗  ░█████╗░  ██╗░░░░░  ███████╗    
+██╔══██╗  ██╔══██╗  ████╗░██║  ██╔════╝  ██╔══██╗  ██║░░░░░  ██╔════╝    
+██║░░╚═╝  ██║░░██║  ██╔██╗██║  ╚█████╗░  ██║░░██║  ██║░░░░░  █████╗░░    
+██║░░██╗  ██║░░██║  ██║╚████║  ░╚═══██╗  ██║░░██║  ██║░░░░░  ██╔══╝░░    
+╚█████╔╝  ╚█████╔╝  ██║░╚███║  ██████╔╝  ╚█████╔╝  ███████╗  ███████╗    
+░╚════╝░  ░╚════╝░  ╚═╝░░╚══╝  ╚═════╝░  ░╚════╝░  ╚══════╝  ╚══════╝    
+
+████████╗  ███████╗  ██╗░░██╗  ████████╗        ░█████╗░  ░█████╗░
+╚══██╔══╝  ██╔════╝  ╚██╗██╔╝  ╚══██╔══╝        ██╔══██╗  ██╔══██╗
+░░░██║░░░  █████╗░░  ░╚███╔╝░  ░░░██║░░░        ██║░░╚═╝  ██║░░██║
+░░░██║░░░  ██╔══╝░░  ░██╔██╗░  ░░░██║░░░        ██║░░██╗  ██║░░██║
+░░░██║░░░  ███████╗  ██╔╝╚██╗  ░░░██║░░░        ╚█████╔╝  ╚█████╔╝
+░░░╚═╝░░░  ╚══════╝  ╚═╝░░╚═╝  ░░░╚═╝░░░        ░╚════╝░  ░╚════╝░
+
+██╗░░░░░  ░█████╗░  ██████╗░        ██╗███╗░░██╗      ███╗░░██╗
+██║░░░░░  ██╔══██╗  ██╔══██╗        ██║████╗░██║      ████╗░██║
+██║░░░░░  ██║░░██║  ██████╔╝        ██║██╔██╗██║      ██╔██╗██║
+██║░░░░░  ██║░░██║  ██╔══██╗        ██║██║╚████║      ██║╚████║
+███████╗  ╚█████╔╝  ██║░░██║        ██║██║░╚███║      ██║░╚███║
+╚══════╝  ░╚════╝░  ╚═╝░░╚═╝        ╚═╝╚═╝░░╚══╝      ╚═╝░░╚══╝
+
+░█████╗░  ██████╗░  ███████╗    ░░░░░██╗  ░██████╗
+██╔══██╗  ██╔══██╗  ██╔════╝    ░░░░░██║  ██╔════╝
+██║░░██║  ██║░░██║  █████╗░░    ░░░░░██║  ╚█████╗░
+██║░░██║  ██║░░██║  ██╔══╝░░    ██╗░░██║  ░╚═══██╗
+╚█████╔╝  ██████╔╝  ███████╗    ╚█████╔╝  ██████╔╝
+░╚════╝░  ╚═════╝░  ╚══════╝    ░╚════╝░  ╚═════╝░**/
 //You must use  ANSI Escape Codes.There are online generators in the internet.For example: https://ansi.gabebanks.net/ 
 console.log("\x1b[33m%s\x1b[0m", "I am in yellow color");  
