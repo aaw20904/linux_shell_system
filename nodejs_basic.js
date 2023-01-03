@@ -81,4 +81,76 @@ readStream.on('error', (e)=>{
 
 //--------------------------------------------------------
  /****** s n i p p e t 3  writable & readable ******/
+const fs = require("fs");
+
+const readStream = fs.createReadStream('./bigfile');
+const writeStream = fs.createWriteStream('./bigfile.copy');
+
+
+readStream.on('data',(chunk)=>{
+  //when a new portion of data has been arrived from a 'readable' - write in into 'writable' 
+    writeStream.write(chunk);
+});
+
+readStream.on('error',(err)=>{
+    console.log("\x1b[31m", 'Error reading:', err);
+    console.log("\x1b[37m");
+})
+
+readStream.on('end',()=>{
+  //when there is no data to read - close a writable stream
+    writeStream.end();
+    console.log('Done!');
+});
+
+writeStream.on('close',()=>{
+    console.log("\x1b[33m",'Write Done!');
+    console.log("\x1b[37m");
+})
+
+
+
+/**********  s n i p p e t  4    - backpressure *********/
+/**When a writable stream has less bandwith that readable - there may by overflow.
+It leads to consume extra memory. To prevent it - stop readable stream and resume when a
+ writable has been writing a regular chunk of data*/ 
+
+const readStream = fs.createReadStream('./bigfile');
+const writeStream = fs.createWriteStream('./bigfile.copy');
+let sw = false;
+readStream.on('data',(chunk)=>{
+   const result =  writeStream.write(chunk);
+    //when there is "backpressure" - stop readable stream
+    if(!result) {
+        console.log(colors.red,'backpressure!')
+        console.log(colors.white);
+      ///stop readable stream
+        readStream.pause();
+    }    
+});
+
+readStream.on('error',(err)=>{
+    console.log(colors.red, 'Error reading:', err);
+    console.log(colors.white);
+})
+
+readStream.on('end',()=>{
+    writeStream.end();
+    console.log('Done!');
+});
+
+writeStream.on('close',()=>{
+    console.log(colors.green,'Write Done!');
+    console.log(colors.white);
+})
+//when a regular chunk of data has been written (and writable is ready)
+writeStream.on('drain', ()=>{
+    console.log(colors.green,'drained!');
+    console.log(colors.white);
+   ///resume readable string - reading data again
+    readStream.resume();
+})
+
+
+
 
