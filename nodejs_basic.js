@@ -167,7 +167,8 @@ writeStream.on('drain', ()=>{
 
 /**** s n i p p e t  5.  The  pipe()  method***/
 
-/*When we want to direct a readable stream to writable - we can use a previous example (snippet 4).
+/* Returns: <stream.Writable>.
+     When we want to direct a readable stream to writable - we can use a previous example (snippet 4).
 The same thig does the pipe() method - it allows direct a readable stream to writable.NO need to 
  care about error handling, backpressure.All this things does the pipe() method*/
 /*However, using .pipe() in production applications (for multiple streams) is not recommended for several reasons. 
