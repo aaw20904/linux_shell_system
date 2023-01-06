@@ -23,6 +23,37 @@ What makes streams unique, is that instead of a program reading
 a file into memory all at once like in the traditional way, streams read chunks of data piece by piece, processing its content 
 without keeping it all in memory.
 */
+/***s n i p e t 0.1) a readable stream using an instance of 'Readable'*/
+  const {Readable} = require('stream')
+ 
+// This data can also come from other streams :]
+let dataToStream = [
+  'This is line 1\n'
+, 'This is line 2\n'
+, 'This is line 3\n'
+]
+ 
+const myReadable = new Readable({
+ /***********read() - is required and is called automatically when new data is wanted.****/
+  read() {
+      /****Calling push() will cause the data to go into an internal buffer, and it will be 
+     consumed when something, like a piped writable stream, wants it.****/
+   
+    this.push(dataToStream.shift())
+    if (!dataToStream.length) {
+     
+     /***push(null) is required to properly 
+     end the read stream***/
+     
+      this.push(null) // End the stream
+    }
+  }
+, destroy() {
+    dataToStream = null
+  }
+})
+ 
+myReadable.pipe(process.stdout)
 
 /**** s n i p p e t  1) readable stream */
   //export 'Readable'
