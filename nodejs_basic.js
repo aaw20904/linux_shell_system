@@ -4,6 +4,15 @@
 █▀ ▀█▀ █▀█ █▀▀ ▄▀█ █▀▄▀█ █▀
 ▄█ ░█░ █▀▄ ██▄ █▀█ █░▀░█ ▄█
 */
+/*Writable streams use the eventemitteer API list of events:
+ "error" - when there is a write error;
+ "drain" - When the internal buffer of the stream reaches the HighWaterMark,
+          The method .write() returns FALSE.It means that the internal buffer is full.
+          The stream is ready for use once the data from this buffer has been consumed
+          and the "drain" event emitted.
+**/
+
+
 /*
 There are three types of streams in Node: 
 1) readable (stdin, file)
@@ -85,6 +94,7 @@ readStream.on('error', (e)=>{
 
 //--------------------------------------------------------
  /****** s n i p p e t 3  writable & readable ******/
+
 const fs = require("fs");
 
 const readStream = fs.createReadStream('./bigfile');
