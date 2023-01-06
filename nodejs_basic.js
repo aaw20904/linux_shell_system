@@ -10,6 +10,8 @@
           The method .write() returns FALSE.It means that the internal buffer is full.
           The stream is ready for use once the data from this buffer has been consumed
           and the "drain" event emitted.
+          
+   how to create custom redable/writable streams:       
  https://nodejs.org/en/docs/guides/backpressuring-in-streams/?utm_source=thenewstack&utm_medium=website&utm_content=inline-mention&utm_campaign=platform
  
 **/
@@ -56,6 +58,45 @@ const myReadable = new Readable({
 })
  
 myReadable.pipe(process.stdout)
+//----an another example with backpressure control--------------------
+const fs = require('fs');
+const stream = require('stream');
+const crypto = require('crypto');
+const util = require('util');
+
+class MyReadStream extends stream.Readable{
+
+    constructor(par){
+        super(par);
+        this.amount = 0;
+    }
+
+   async _read () {
+        if (this.amount > 1000000){
+            this.push(null);
+            return;
+        }
+        let rb = util.promisify(crypto.randomBytes);
+        let chunk = await rb(100);
+        chunk.toString('hex');
+        if (! this.push(chunk)){
+         //when there in a backpressure on writable - wait until 'drain'
+            this.pause();
+        }
+        this.amount += 1;
+    }
+
+}
+
+let filereadable = fs.createReadStream('./big.file', {highWaterMark:10000});
+//filereadable.on('drain', ()=>read.resume());
+
+let write = new fs.createWriteStream('./another.file',{flags:'a',highWaterMark:1000})
+let read = new MyReadStream({highWaterMark: 16000});
+
+//filereadable.pipe(write);
+
+read.pipe(write);
 
 /**** s n i p p e t  1) readable stream */
   //export 'Readable'
@@ -108,6 +149,7 @@ const adviceStream = new StreamFromArray(advices);
 
 adviceStream.on('data',(chunk)=>console.log(chunk.toString('utf-8')))
 adviceStream.on('end',()=>console.log('done!'));
+///******s n i p p e t    1.1
 //------------------------------------------------------------
 /*** s n i p p e t   2 ****  readable from  file to stdout ***/
 
