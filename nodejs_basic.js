@@ -10,6 +10,8 @@
           The method .write() returns FALSE.It means that the internal buffer is full.
           The stream is ready for use once the data from this buffer has been consumed
           and the "drain" event emitted.
+ https://nodejs.org/en/docs/guides/backpressuring-in-streams/?utm_source=thenewstack&utm_medium=website&utm_content=inline-mention&utm_campaign=platform
+ 
 **/
 
 
