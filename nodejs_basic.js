@@ -88,12 +88,14 @@ class StreamFromArray extends Readable {
     this.array = array;
     this.index = 0
   }
-
+   /***********read() - is required and is called automatically when new data is wanted.****/
   _read() {
-    if(this.index > this.array.length){
-        this.push(null);
-    }
+     if (this.index > this.array.length) {
+         this.push(null);
+     }
     const chunk = this.array[this.index];
+    /****Calling push() will cause the data to go into an internal buffer, and it will be 
+     consumed when something, like a piped writable stream, wants it.****/
     this.push(chunk);
     this.index += 1;
   }
