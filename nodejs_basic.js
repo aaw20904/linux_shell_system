@@ -169,7 +169,10 @@ into the stream's constructor. For normal streams,
 the highWaterMark option specifies a total number of bytes.
 For streams operating in object mode, the highWaterMark specifies 
 a total number of objects.*/
-
+/*
+when the buffer on Wriitable side is full (when we call .write() on Readable - it returns null) - there Readable must stop until
+tthe Writable emits "drain".
+*/
 const readStream = fs.createReadStream('./bigfile');
 const writeStream = fs.createWriteStream('./bigfile.copy', {
                                                            highWaterMark: 1000000, 
