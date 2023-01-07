@@ -11,7 +11,9 @@
           The stream is ready for use once the data from this buffer has been consumed
           and the "drain" event emitted.
           
-   how to create custom redable/writable streams:       
+   how to create custom redable/writable streams:   
+   https://nodejs.org/api/stream.html#api-for-stream-implementers
+   about the backpressure problem:
  https://nodejs.org/en/docs/guides/backpressuring-in-streams/?utm_source=thenewstack&utm_medium=website&utm_content=inline-mention&utm_campaign=platform
  
 **/
