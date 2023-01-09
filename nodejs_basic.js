@@ -278,7 +278,18 @@ const writeStream = fs.createWriteStream('./bigfile.copy', {
 readStream.pipe(writeStream).on('error',(e)=>{console.log(e)});
 
 /// T R A N S F O R M     stream 
+class MyTransformStream extends stream.Transform {
+    constructor(par) {
+        super();
+    }
 
+    _transform(chunk, encoding, callback) {
+        let result = chunk.toString("utf-8");
+        callback( null, result.toUpperCase())
+        
+    }
+
+}
 
 
 
