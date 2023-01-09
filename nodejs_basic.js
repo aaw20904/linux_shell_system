@@ -277,6 +277,9 @@ const writeStream = fs.createWriteStream('./bigfile.copy', {
 //create a pipe and add an error listener
 readStream.pipe(writeStream).on('error',(e)=>{console.log(e)});
 
+/// T R A N S F O R M     stream 
+
+
 
 
 
