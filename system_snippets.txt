@@ -251,3 +251,15 @@ https://nodesource.com/blog/understanding-streams-in-nodejs/
 https://nodesource.com/blog/dive-into-NodeJs-streams
 
 pseudo graphics symbols: https://fsymbols.com/generators/carty/
+
+
+█░█ █▄▄ █░█ █▄░█ ▀█▀ █░█   █▀█ █▀▀ █▄▄ █▀█ █▀█ ▀█▀
+█▄█ █▄█ █▄█ █░▀█ ░█░ █▄█   █▀▄ ██▄ █▄█ █▄█ █▄█ ░█░
+
+You can also program your machine to reboot at a specified time.
+
+sudo shutdown -r HH:MM
+
+For example, the following command will reboot my system at 8:20 pm.
+
+sudo shutdown -r 20:20
