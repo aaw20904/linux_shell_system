@@ -494,6 +494,8 @@ Book.find({title:'mumu'})
 ▄█ ██▄ █░▀█ █▄▀   █▄█ █▀▄ █▄▄ ██▄ █░▀█ █▄▄ █▄█ █▄▄ ██▄ █▄▀   █ █░▀█   █▀█ ░█░ █░▀░█ █▄▄   █▀░ █▄█ █▀▄ █░▀░█
 */
 /****SEND urlencoced in html FORM****/
+///------u s e   c o r r e c t  markup in the  H T M L   f o r m!
+// THE HTML <form> MUST have a name attribute in <input> tags. If you ignore this - you recive an empty POST on the server
 app.use(express.urlencoded({extended:true}))
 /*when a browser send a GET request - end the following content (a form)*/
 app.get('/login', (req, res, next) => {
