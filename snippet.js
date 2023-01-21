@@ -524,7 +524,7 @@ const cookieParser = require('cookie-parser')
 //************setup express app
 const app = express();
 // *************let’s you use the cookieParser in your application
-app.use(express.cookieParser());
+app.use(cookieParser());
 //************a get route for adding a cookie
 app.get('/setcookie', (req, res) => {
     res.cookie(`Cookie token name`,`encrypted cookie string Value`);
