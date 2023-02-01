@@ -2,4 +2,12 @@
 1) Press Ctrl+Shift+P - and  enter 'gitcl', select the 'Git: Clone' command, then select Clone from GitHub and press Enter.
 /*Create a branch for changes (when you are not working only in a Main branch)**/
 Open the command palette with the key combination of Ctrl + Shift + P
-
+Search for 'git branch' and select 'Git: Create Branch'.
+Enter a new branch name, such as 'test'.
+   /**Commit changes locally***/
+Open the command palette with the key combination of Ctrl + Shift + P.
+In the command palette, filter with 'Git' then select 'Commit'.
+Enter your commit message, then press Enter.
+  /**Push a local branch to GitHub***/
+Open the command palette with the key combination of Ctrl + Shift + P.
+In the command palette, filter with 'Git' then select 'Push'.
