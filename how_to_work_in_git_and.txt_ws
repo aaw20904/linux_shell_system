@@ -1,0 +1,5 @@
+/**clone repo**/
+1) Press Ctrl+Shift+P - and  enter 'gitcl', select the 'Git: Clone' command, then select Clone from GitHub and press Enter.
+/*Create a branch for changes (when you are not working only in a Main branch)**/
+Open the command palette with the key combination of Ctrl + Shift + P
+
