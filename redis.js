@@ -48,8 +48,8 @@
   ..remove 
     srem hobbies "weight lifting"
     
-   << h a s h e s    s e t >>
-  ..create a hash set , add a key 'name' with the value
+   << h a s h e s    >>
+  ..create a hash  , add a key 'name' with the value
     HSET person name kyle
   ..add a  a key - surname vith the value
     HSET person surname simpson
@@ -57,7 +57,11 @@
     HGET person name
   ..get all the keys and values
     HGETALL person
-  
+  ..delete the key - name
+    HDEL person name
+  ..is a key exists?
+    HEXISTS person name
+    
    
     
    
