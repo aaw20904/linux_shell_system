@@ -41,7 +41,25 @@
    ..pop from the begin of a list (returns the last elem of a kist and remove the one):
      lpop my_list
   << a d d   a   s e t  >>
-     
+  ..adding
+     sadd hobbies "weight lifting"
+  ..reading
+    smembers hobbies
+  ..remove 
+    srem hobbies "weight lifting"
+    
+   << h a s h e s    s e t >>
+  ..create a hash set , add a key 'name' with the value
+    HSET person name kyle
+  ..add a  a key - surname vith the value
+    HSET person surname simpson
+  ..get a value of key - name
+    HGET person name
+  ..get all the keys and values
+    HGETALL person
+  
+   
+    
    
   
    
