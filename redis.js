@@ -10,8 +10,16 @@
  ..is the pair in system?
    EXISTS my_key
    1
- ..
- 
+ ..list of exisitng keys:
+   keys *
+   1) "name"
+   2) "date"
+ ..deletes all keys in all databases:
+   flushall 
+ ..command deletes the keys in a database
+   flushdb
+   
+   
  
   
 
