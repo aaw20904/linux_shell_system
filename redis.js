@@ -18,7 +18,26 @@
    flushall 
  ..command deletes the keys in a database
    flushdb
+   << t i m e    t o  l i v e >>
+ .. time to live of the pair:
+   ttl mykey
+   -1
+  ..set a time to live of a pair - 10 sec:
+    expire name 10
+  ...or:
+    setex my_key 10 'some data'
+  ..NOTE..when a time to live as been expired - the pair will not be avaliable
+   << a d d   a  l i s t >>
+     lpush my_list item1
+   ..get a list from index0 to index -1:
+     lrange my_list 0 -1
+     1)"item1"
+   ..add an another item:
+     lpush my_list item2
+     
+     
    
+  
    
  
   
