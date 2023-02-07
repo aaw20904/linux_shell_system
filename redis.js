@@ -27,7 +27,7 @@
   ...or:
     setex my_key 10 'some data'
   ..NOTE..when a time to live as been expired - the pair will not be avaliable
-   << a d d   a  l i s t   - push on the left >>
+   << a d d   a    'l i s t'   - push on the left (at the begin) >>
      lpush my_list item1
    ..get a list from index0 to index -1:
      lrange my_list 0 -1
@@ -40,7 +40,7 @@
      rpop my_list
    ..pop from the begin of a list (returns the last elem of a kist and remove the one):
      lpop my_list
-     
+  << a d d   a   s e t  >>
      
    
   
