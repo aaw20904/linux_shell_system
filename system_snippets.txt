@@ -29,7 +29,34 @@
  ********/
 // E) OPTIONAL - test a connection from the  Power Shell as Administrator:
     ssh -i d:/aws/xone.key  ubuntu@18.134.157.188
-----------------------------------------------------------------------------	
+----------------------------------------------------------------------------
+
+█▀▀█ █▀▀ █▀▀▄ ─▀─ █▀▀ 　 ─▀─ █▀▀▄ █▀▀ ▀▀█▀▀ █▀▀█ █── █── 
+█▄▄▀ █▀▀ █──█ ▀█▀ ▀▀█ 　 ▀█▀ █──█ ▀▀█ ──█── █▄▄█ █── █── 
+▀─▀▀ ▀▀▀ ▀▀▀─ ▀▀▀ ▀▀▀ 　 ▀▀▀ ▀──▀ ▀▀▀ ──▀── ▀──▀ ▀▀▀ ▀▀▀
+
+$ sudo apt update
+$ sudo apt install redis-server
+  open a file:
+/etc/redis/redis.conf
+ find a directive:
+       supervised no
+ change it on:
+       supervised systemd
+  Save the changes and close the file.
+Finally, restart the Redis service by running:
+   $ sudo systemctl restart redis.service
+Check the status of the Redis service by running the command:
+   $ sudo systemctl status redis
+check connection: enter the following in the terminal window:
+   $ redis-cli
+This moves you to the redis-cli command prompt. To test the connectivity, run:
+  ping
+The response will be 'PONG'
+ 
+ 
+
+----------------------------------------------------------------------------
 
 ███╗░░░███╗██╗░░░██╗░██████╗░██████╗░██╗░░░░░  ░██████╗███████╗░█████╗░██╗░░░██╗██████╗░███████╗
 ████╗░████║╚██╗░██╔╝██╔════╝██╔═══██╗██║░░░░░  ██╔════╝██╔════╝██╔══██╗██║░░░██║██╔══██╗██╔════╝
