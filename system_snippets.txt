@@ -72,6 +72,9 @@ The response will be 'PONG'
 ██║██║░╚███║██████╔╝░░░██║░░░██║░░██║███████╗███████╗
 ╚═╝╚═╝░░╚══╝╚═════╝░░░░╚═╝░░░╚═╝░░╚═╝╚══════╝╚══════╝
 *****************M Y   S Q L***********  SECURE INSTALLATION *****
+$ sudo apt update
+$ sudo apt install mysql-server
+
         check a status of the service:
 $ sudo systemctl status mysql
 	after installation START the service:
