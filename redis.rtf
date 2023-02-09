@@ -8,12 +8,9 @@ Redis treats values as a byte array and doesn’t care what they are.
 ***AUTOSAVE***
 Redis saving on a disk based how many keys and data has been changed.By default, Redis will save the database every 60 seconds if 1000 or
 more keys have changed all the way to 15 minutes if 9 or less keys has changed. 
-██╗  ██╗███████╗██╗   ██╗     ██╗   ██╗ █████╗ ██╗     ██╗   ██╗███████╗    ██████╗  █████╗ ██╗██████╗     
-██║ ██╔╝██╔════╝╚██╗ ██╔╝     ██║   ██║██╔══██╗██║     ██║   ██║██╔════╝    ██╔══██╗██╔══██╗██║██╔══██╗    
-█████╔╝ █████╗   ╚████╔╝█████╗██║   ██║███████║██║     ██║   ██║█████╗      ██████╔╝███████║██║██████╔╝    
-██╔═██╗ ██╔══╝    ╚██╔╝ ╚════╝╚██╗ ██╔╝██╔══██║██║     ██║   ██║██╔══╝      ██╔═══╝ ██╔══██║██║██╔══██╗    
-██║  ██╗███████╗   ██║         ╚████╔╝ ██║  ██║███████╗╚██████╔╝███████╗    ██║     ██║  ██║██║██║  ██║    
-╚═╝  ╚═╝╚══════╝   ╚═╝          ╚═══╝  ╚═╝  ╚═╝╚══════╝ ╚═════╝ ╚══════╝    ╚═╝     ╚═╝  ╚═╝╚═╝╚═╝  ╚═╝
+
+█▄▀ █▀▀ █▄█ ▄▄ █░█ ▄▀█ █░░ █░█ █▀▀   █▀█ ▄▀█ █ █▀█
+█░█ ██▄ ░█░ ░░ ▀▄▀ █▀█ █▄▄ █▄█ ██▄   █▀▀ █▀█ █ █▀▄
 ..add key-value pair:
     SET  status  1
 ..get value by a key:
@@ -34,12 +31,9 @@ more keys have changed all the way to 15 minutes if 9 or less keys has changed.
    DECR key
 ...also
    DECRBY key
-██╗  ██╗ █████╗ ███████╗██╗  ██╗
-██║  ██║██╔══██╗██╔════╝██║  ██║
-███████║███████║███████╗███████║
-██╔══██║██╔══██║╚════██║██╔══██║
-██║  ██║██║  ██║███████║██║  ██║
-╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝
+
+█░█ ▄▀█ █▀ █░█
+█▀█ █▀█ ▄█ █▀█
    The important difference is that caches provide an extra level of indirection: a field.
    For example let`s create a hash:
  ...create a hash  
@@ -56,13 +50,9 @@ more keys have changed all the way to 15 minutes if 9 or less keys has changed.
     HKEYS car
  ..remove a field
     HDEL car num
-    
-██╗     ██╗███████╗████████╗███████╗
-██║     ██║██╔════╝╚══██╔══╝██╔════╝
-██║     ██║███████╗   ██║   ███████╗
-██║     ██║╚════██║   ██║   ╚════██║
-███████╗██║███████║   ██║   ███████║
-╚══════╝╚═╝╚══════╝   ╚═╝   ╚══════╝
+
+█░░ █ █▀ ▀█▀ █▀
+█▄▄ █ ▄█ ░█░ ▄█
  Lists let you store and manipulate an array of values for a given key. You can add values to the list, get the first or last
 value and manipulate values at a given index.
  ...LTRIM reduces a list to the specified range of elements.
@@ -76,13 +66,9 @@ value and manipulate values at a given index.
  ...RPOP does the same but from the tails of a list.
  ...LLEN returns the length of a list.
       LLEN user
-      
-███████╗███████╗████████╗███████╗
-██╔════╝██╔════╝╚══██╔══╝██╔════╝
-███████╗█████╗     ██║   ███████╗
-╚════██║██╔══╝     ██║   ╚════██║
-███████║███████╗   ██║   ███████║
-╚══════╝╚══════╝   ╚═╝   ╚══════╝- it`s a list of unique keys - they may not be duplicated
+
+█▀ █▀▀ ▀█▀ █▀
+▄█ ██▄ ░█░ ▄█- it`s a list of unique keys - they may not be duplicated
     Sets are used to store unique values and provide a number of set-based operations, like unions
  ...add values to set
      SADD cars zaz vaz vw
@@ -94,23 +80,17 @@ value and manipulate values at a given index.
     SINTER cars mycars
  ...intersection of two sets and saving resut:
     SINTERSTORE  cars mycars  commoncars
-███████╗ ██████╗ ██████╗ ████████╗███████╗██████╗     ███████╗███████╗████████╗███████╗
-██╔════╝██╔═══██╗██╔══██╗╚══██╔══╝██╔════╝██╔══██╗    ██╔════╝██╔════╝╚══██╔══╝██╔════╝
-███████╗██║   ██║██████╔╝   ██║   █████╗  ██║  ██║    ███████╗█████╗     ██║   ███████╗
-╚════██║██║   ██║██╔══██╗   ██║   ██╔══╝  ██║  ██║    ╚════██║██╔══╝     ██║   ╚════██║
-███████║╚██████╔╝██║  ██║   ██║   ███████╗██████╔╝    ███████║███████╗   ██║   ███████║
-╚══════╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝╚═════╝     ╚══════╝╚══════╝   ╚═╝   ╚══════╝
+
+█▀ █▀█ █▀█ ▀█▀ █▀▀ █▀▄   █▀ █▀▀ ▀█▀
+▄█ █▄█ █▀▄ ░█░ ██▄ █▄▀   ▄█ ██▄ ░█░
     ....create a sorted list and add members - in format 'score1 value1, score2 value2, ' 
          ZADD faveGuitarists 4 "Stephen Malkmus" 2 "Rosetta Tharpe" 3 "Bola Sete" 3 "Doug Martsch" 8 "Elizabeth Cotten" 12 "Nancy Wilson" 4 "Memphis Minnie" 12 "Michael Houser"
     ....get members with score from 0 to 2
          ZRANGE faveGuitarists 0 3
          
-████████╗██████╗  █████╗ ███╗   ██╗███████╗ █████╗  ██████╗████████╗██╗ ██████╗ ███╗   ██╗███████╗
-╚══██╔══╝██╔══██╗██╔══██╗████╗  ██║██╔════╝██╔══██╗██╔════╝╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝
-   ██║   ██████╔╝███████║██╔██╗ ██║███████╗███████║██║        ██║   ██║██║   ██║██╔██╗ ██║███████╗
-   ██║   ██╔══██╗██╔══██║██║╚██╗██║╚════██║██╔══██║██║        ██║   ██║██║   ██║██║╚██╗██║╚════██║
-   ██║   ██║  ██║██║  ██║██║ ╚████║███████║██║  ██║╚██████╗   ██║   ██║╚██████╔╝██║ ╚████║███████║
-   ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚══════╝╚═╝  ╚═╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
+
+▀█▀ █▀█ ▄▀█ █▄░█ █▀ ▄▀█ █▀▀ ▀█▀ █ █▀█ █▄░█ █▀
+░█░ █▀▄ █▀█ █░▀█ ▄█ █▀█ █▄▄ ░█░ █ █▄█ █░▀█ ▄█
     Redis is actually single-threaded, which is how every command is guaranteed to be atomic.While one command is executing, no other command will ru
     To group several commanmds as an transaction - use MULTI command, then commands, after this EXEC or DISCARD to throw away.
     MULTI
@@ -121,12 +101,9 @@ value and manipulate values at a given index.
     << antipattern >>
    !! don`t use KEYS commnad in production! It`s slow! KEYS Returns all keys matching pattern.
    
-███████╗██╗  ██╗██████╗ ██╗██████╗  █████╗ ████████╗██╗ ██████╗ ███╗   ██╗
-██╔════╝╚██╗██╔╝██╔══██╗██║██╔══██╗██╔══██╗╚══██╔══╝██║██╔═══██╗████╗  ██║
-█████╗   ╚███╔╝ ██████╔╝██║██████╔╝███████║   ██║   ██║██║   ██║██╔██╗ ██║
-██╔══╝   ██╔██╗ ██╔═══╝ ██║██╔══██╗██╔══██║   ██║   ██║██║   ██║██║╚██╗██║
-███████╗██╔╝ ██╗██║     ██║██║  ██║██║  ██║   ██║   ██║╚██████╔╝██║ ╚████║
-╚══════╝╚═╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝╚═╝  ╚═╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
+
+█▀▀ ▀▄▀ █▀█ █ █▀█ ▄▀█ ▀█▀ █ █▀█ █▄░█
+██▄ █░█ █▀▀ █ █▀▄ █▀█ ░█░ █ █▄█ █░▀█
     Redis allows you to mark a key for expiration. There are 2 variants: seconds or Unix timestamp in mS since 1970.
     ....The first command will delete the key (and associated value) after 30 seconds
        EXPIRE key 30
@@ -134,13 +111,9 @@ value and manipulate values at a given index.
        EXPIREAT key 1356933600
     ....set a string and specify a time to live (30 Sec) in a single atomic command:
        SETEX thmlKey 30 '<h1>about us</h1>....'
-       
-██████╗ ██╗   ██╗██████╗     ██╗███████╗██╗   ██╗██████╗ 
-██╔══██╗██║   ██║██╔══██╗   ██╔╝██╔════╝██║   ██║██╔══██╗
-██████╔╝██║   ██║██████╔╝  ██╔╝ ███████╗██║   ██║██████╔╝
-██╔═══╝ ██║   ██║██╔══██╗ ██╔╝  ╚════██║██║   ██║██╔══██╗
-██║     ╚██████╔╝██████╔╝██╔╝   ███████║╚██████╔╝██████╔╝
-╚═╝      ╚═════╝ ╚═════╝ ╚═╝    ╚══════╝ ╚═════╝ ╚═════╝ 
+
+█▀█ █░█ █▄▄ █░░ █ █▀ █░█   ▄▄   █▀ █░█ █▄▄ █▀ █▀▀ █▀█ █ █▄▄ █▀▀
+█▀▀ █▄█ █▄█ █▄▄ █ ▄█ █▀█   ░░   ▄█ █▄█ █▄█ ▄█ █▄▄ █▀▄ █ █▄█ ██▄
       Open a second terminal window** and enter 'redis-cli'. When a cli has been loaded - subscribe on a channel 'mychannel'
          SUBSCRIBE mychannel
       Open a first terminal with redis-cli and publish a message:
@@ -149,22 +122,16 @@ value and manipulate values at a given index.
       To unsubscribe enter the following command:
         UNSUBSCRIBE mychannel
       
-███╗   ███╗ ██████╗ ███╗   ██╗██╗████████╗ ██████╗ ██████╗ 
-████╗ ████║██╔═══██╗████╗  ██║██║╚══██╔══╝██╔═══██╗██╔══██╗
-██╔████╔██║██║   ██║██╔██╗ ██║██║   ██║   ██║   ██║██████╔╝
-██║╚██╔╝██║██║   ██║██║╚██╗██║██║   ██║   ██║   ██║██╔══██╗
-██║ ╚═╝ ██║╚██████╔╝██║ ╚████║██║   ██║   ╚██████╔╝██║  ██║
-╚═╝     ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝
+
+█▀▄▀█ █▀█ █▄░█ █ ▀█▀ █▀█ █▀█
+█░▀░█ █▄█ █░▀█ █ ░█░ █▄█ █▀▄
       long with monitor, Redis has a slowlog which acts as a great profiling tool. It logs any command which takes longer
 than a specified number of microseconds
       CONFIG SET SLOWLOG-LOG-SLOWER-THAN 0
       
-███████╗ ██████╗ ██████╗ ████████╗██╗███╗   ██╗ ██████╗ 
-██╔════╝██╔═══██╗██╔══██╗╚══██╔══╝██║████╗  ██║██╔════╝ 
-███████╗██║   ██║██████╔╝   ██║   ██║██╔██╗ ██║██║  ███╗
-╚════██║██║   ██║██╔══██╗   ██║   ██║██║╚██╗██║██║   ██║
-███████║╚██████╔╝██║  ██║   ██║   ██║██║ ╚████║╚██████╔╝
-╚══════╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚═╝╚═╝  ╚═══╝ ╚═════╝
+
+█▀ █▀█ █▀█ ▀█▀ █ █▄░█ █▀▀
+▄█ █▄█ █▀▄ ░█░ █ █░▀█ █▄█
       By default, list, set: sorting is numeric and elements are compared by their value interpreted as double precision floating point number
         SORT mylist
       ...from large to small
@@ -181,12 +148,10 @@ than a specified number of microseconds
       ----------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
-███████╗██╗  ██╗ ██████╗ ██████╗ ████████╗     ██████╗ ██████╗ ███╗   ██╗███████╗██████╗ ███████╗ ██████╗████████╗
-██╔════╝██║  ██║██╔═══██╗██╔══██╗╚══██╔══╝    ██╔════╝██╔═══██╗████╗  ██║██╔════╝██╔══██╗██╔════╝██╔════╝╚══██╔══╝
-███████╗███████║██║   ██║██████╔╝   ██║       ██║     ██║   ██║██╔██╗ ██║███████╗██████╔╝█████╗  ██║        ██║   
-╚════██║██╔══██║██║   ██║██╔══██╗   ██║       ██║     ██║   ██║██║╚██╗██║╚════██║██╔═══╝ ██╔══╝  ██║        ██║   
-███████║██║  ██║╚██████╔╝██║  ██║   ██║       ╚██████╗╚██████╔╝██║ ╚████║███████║██║     ███████╗╚██████╗   ██║   
-╚══════╝╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝        ╚═════╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝╚═╝     ╚══════╝ ╚═════╝   ╚═╝   
+
+█▀▀ █──█ █▀▀█ █▀▀█ ▀▀█▀▀ 　 █▀▀ █▀▀█ █▀▀▄ █▀▀ █▀▀█ █▀▀ █▀▀ ▀▀█▀▀ 
+▀▀█ █▀▀█ █──█ █▄▄▀ ──█── 　 █── █──█ █──█ ▀▀█ █──█ █▀▀ █── ──█── 
+▀▀▀ ▀──▀ ▀▀▀▀ ▀─▀▀ ──▀── 　 ▀▀▀ ▀▀▀▀ ▀──▀ ▀▀▀ █▀▀▀ ▀▀▀ ▀▀▀ ──▀──   
 ..add key-value pair:
     set  status  1
 ..get value by a key:
