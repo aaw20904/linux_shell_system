@@ -56,7 +56,7 @@ value and manipulate values at a given index.
  ...LLEN returns the length of a list.
       LLEN user
       
-   << S E T S >>
+   << S E T S >> - a list of unique keys - they may not be duplicated
     Sets are used to store unique values and provide a number of set-based operations, like unions
  ...add values to set
      SADD cars zaz vaz vw
@@ -110,11 +110,22 @@ than a specified number of microseconds
       CONFIG SET SLOWLOG-LOG-SLOWER-THAN 0
       
       << S O R T I N G >>
+      By default, list, set: sorting is numeric and elements are compared by their value interpreted as double precision floating point number
+        SORT mylist
+      ...from large to small
+        SORT mylist DESC
+      ...sort symbols lexicographically
+        SORT mylist ALPHA
+      ...use start point (0)  and limit of found elems (10):
+        SORT mylist LIMIT 0 10
+      
+      << Administration >>
+      It includes : Authentication, size limitation, replication , backups, scalling and Redis Cluster
       
       
 */
 
-/* S H O R T    C O N S P E C T 
+/* S H O R T    C O N S P E C T ---------------------
 ..add key-value pair:
     set  status  1
 ..get value by a key:
