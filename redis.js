@@ -122,7 +122,8 @@ than a specified number of microseconds
       << Administration >>
       It includes : Authentication, size limitation, replication , backups, scalling and Redis Cluster
       
-      
+      More: https://www.openmymind.net/redis.pdf   "the little Redis book"
+      ----------------------------------------------------------------------------------------------------------------------------------------------------
 */
 
 /* S H O R T    C O N S P E C T ---------------------
