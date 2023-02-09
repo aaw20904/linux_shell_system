@@ -1,5 +1,10 @@
-
 /*
+Redis exposes FIVE diferent data structures, only one of which is a typical key-value structure.
+  ***DATABASES*** 
+Redis contains databases.THe defaulkt DB is 0. To swith to an anoher DB - type "select 1". 
+*/
+
+/* S H O R T    C O N S P E C T 
 ..add key-value pair:
     set  status  1
 ..get value by a key:
