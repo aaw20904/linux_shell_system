@@ -60,6 +60,8 @@ value and manipulate values at a given index.
     Sets are used to store unique values and provide a number of set-based operations, like unions
  ...add values to set
      SADD cars zaz vaz vw
+ ....remove value from a set:
+     SREM cars zaz
  ...is the key in set?
      SISMEMBER cars mg
  ....intersection of two sets (common items):
@@ -90,7 +92,26 @@ value and manipulate values at a given index.
        EXPIRE key 30
     .....The second does the same at 12:00 a.m. December 31st, 2012
        EXPIREAT key 1356933600
-   
+    ....set a string and specify a time to live in a single atomic command:
+       SETEX pages:about 30 '<h1>about us</h1>....'
+       
+      << P U P L I C A T I O N  /  S U B S C R I B T I O N >>
+      Open a second terminal window** and enter 'redis-cli'. When a cli has been loaded - subscribe on a channel 'mychannel'
+         SUBSCRIBE mychannel
+      Open a first terminal with redis-cli and publish a message:
+         PUBLISH mychannel 'helloword!'
+      This message appears in the second** window.
+      To unsubscribe enter the following command:
+        UNSUBSCRIBE mychannel
+      
+      << M o n i t o r   and  S l o w  L o g >>
+      long with monitor, Redis has a slowlog which acts as a great profiling tool. It logs any command which takes longer
+than a specified number of microseconds
+      CONFIG SET SLOWLOG-LOG-SLOWER-THAN 0
+      
+      << S O R T I N G >>
+      
+      
 */
 
 /* S H O R T    C O N S P E C T 
