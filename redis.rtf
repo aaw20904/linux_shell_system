@@ -1,7 +1,12 @@
 /*
 *****CONNECT A CLIENT - to use Buffer as data format (save binary)***
 
-client = redis.createClient({ return_buffers : true });
+   import { commandOptions } from 'redis';
+   
+   client = redis.createClient({ return_buffers : true });
+   await redisClient.hSet('k1','x',b1);
+   let out = await redisClient.hGetAll(commandOptions({ returnBuffers: true }),'k1');
+
 Redis exposes FIVE diferent data structures, only one of which is a typical key-value structure.
   ***DATABASES*** 
 Redis contains databases.THe defaulkt DB is 0. To swith to an anoher DB - type "select 1". 
