@@ -4,6 +4,8 @@
 █▀ ▀█▀ █▀█ █▀▀ ▄▀█ █▀▄▀█ █▀
 ▄█ ░█░ █▀▄ ██▄ █▀█ █░▀░█ ▄█
 */
+//realise own:
+////https://www.freecodecamp.org/news/node-js-streams-everything-you-need-to-know-c9141306be93/
 /*Writable streams use the eventemitteer API list of events:
  "error" - when there is a write error;
  "drain" - When the internal buffer of the stream reaches the HighWaterMark,
