@@ -32,36 +32,35 @@ a file into memory all at once like in the traditional way, streams read chunks 
 without keeping it all in memory.
 */
 /***s n i p e t 0.1) a readable stream using an instance of 'Readable'*/
-  const {Readable} = require('stream')
- 
-// This data can also come from other streams :]
-let dataToStream = [
-  'This is line 1\n'
-, 'This is line 2\n'
-, 'This is line 3\n'
-]
- 
-const myReadable = new Readable({
- /***********read() - is required and is called automatically when new data is wanted.****/
-  read() {
-      /****Calling push() will cause the data to go into an internal buffer, and it will be 
-     consumed when something, like a piped writable stream, wants it.****/
-   
-    this.push(dataToStream.shift())
-    if (!dataToStream.length) {
-     
-     /***push(null) is required to properly 
-     end the read stream***/
-     
-      this.push(null) // End the stream
+  const stream = require('stream')
+  
+ class myReadableClass extends stream.Readable{
+  constructor(bf){
+   //call a constructor of parent class
+    super({highWaterMark:65000});
+   //assign buffer 
+    this._myBuffer = bf;
+   //set index pointer
+    this._count = 0; 
+  }
+    //this callback function must be implemented by user
+  _read(size){
+   //has an end of buffer been achived?
+    if (this._count > this._myBuffer.length) {
+     ///when yes - send NULL and close the stream
+      this.push(null);
+      return;
     }
+   //send a slice of the buffer
+    this.push(this._myBuffer.subarray(this._count, this._count + size));
+   //increase index pointer
+    this._count += size; 
   }
-, destroy() {
-    dataToStream = null
-  }
-})
- 
-myReadable.pipe(process.stdout)
+}
+
+let mystream = new myReadamleClass(Buffer.from([0x21x0x22,0x23,0x24]));
+mystream.pipe(process.stdout);
+
 //----an another example with backpressure control--------------------
 const fs = require('fs');
 const stream = require('stream');
