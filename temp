@@ -1,1 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>uploader</title>
+</head>
+<body>
+    <h1>my file uploader</h1>
+    <input type="file" name="file" id="f">
+    <button id="btnUpload">Upload..</button>
+    <div id="divOutput"></div>
+    <script>
+    const btnUpload = document.getElementById('btnUpload'); 
+    const divOutput= document.getElementById("divOutput");
+    const f = document.getElementById('f');
+
+    btnUpload.addEventListener("click",()=>{
+        const fileReader  = new FileReader();
+        const theFile = f.files[0];
+        fileReader.onload = ev =>{
+            onsole.log(ev)
+        }
+        fileReader.readAsArrayBuffer(theFile);
+    })
+    </script>
+</body>
+</html>
+
+/**************/
+
+const http = require ('http');
+const fs = require('fs');
+
+const httpServer = http.createServer(onReq);
+httpServer.on('listening',()=>console.log('listening'));
+function onReq(req, res) {
+    if(req.url === "/") {
+        //res.statusCode = 200;
+       // res.setHeader("Content-Type","text/html;charset=utf8")
+        res.end(fs.readFileSync("index.html"));
+        return
+    }
+
+        res.statusCode = 404;
+        res.setHeader("Content-Type","text/html;charset=utf8")
+        res.end("<!DOCTYPE html><body><h2>Not found!</h2></body></html")
+
+}
+
+
+httpServer.listen(80,()=>console.log('...'));
 
