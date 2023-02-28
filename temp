@@ -11,18 +11,42 @@
     <input type="file" name="file" id="f">
     <button id="btnUpload">Upload..</button>
     <div id="divOutput"></div>
+    <label for="myProgress">Downloading progress:</label>
+    <progress id="myProgress" value="0" max="100"> </progress> 
     <script>
     const btnUpload = document.getElementById('btnUpload'); 
     const divOutput= document.getElementById("divOutput");
     const f = document.getElementById('f');
+    const myProgress = document.getElementById("myProgress");
 
     btnUpload.addEventListener("click",()=>{
-        const fileReader  = new FileReader();
-        const theFile = f.files[0];
-        fileReader.onload = ev =>{
-            onsole.log(ev)
-        }
-        fileReader.readAsArrayBuffer(theFile);
+            const fileReader  = new FileReader();
+            const theFile = f.files[0];
+
+            fileReader.onload = async ev =>{
+                const fileName =((Math.random() * 1000 )|0)+ theFile.name;
+                const CHUNK_SIZE = 20000;
+                const chunkCount = ev.target.result.byteLength / CHUNK_SIZE;
+                for (let chunkId = 0; chunkId < chunkCount + 1; chunkId++) {
+                    let chunk = ev.target.result.slice(chunkId * CHUNK_SIZE, (chunkId * CHUNK_SIZE)+ CHUNK_SIZE )
+                    await fetch("http://192.168.0.121/upload",{
+                        "method":"POST",
+                        "headers":{
+                        "content-type":"application/octet-stream",
+                        "content-length":chunk.length,
+                        "file-name":fileName,
+
+                        },
+                        "body": chunk
+                    })
+                    myProgress.setAttribute("value", ((chunkId * 100) / chunkCount) |0)
+                    divOutput.textContent = ((chunkId * 100) / chunkCount) |0;
+                }
+               
+                
+            }
+            fileReader.readAsArrayBuffer(theFile);
+         
     })
     </script>
 </body>
@@ -30,8 +54,8 @@
 
 /**************/
 
-const http = require ('http');
-const fs = require('fs');
+import http from 'http'
+import fs from 'fs'
 
 const httpServer = http.createServer(onReq);
 httpServer.on('listening',()=>console.log('listening'));
@@ -42,6 +66,15 @@ function onReq(req, res) {
         res.end(fs.readFileSync("index.html"));
         return
     }
+    if(req.url === "/upload") {
+      const fileName = req.headers["file-name"];
+      req.on('data',chunk=>{
+        fs.appendFileSync(fileName, chunk)
+        console.log(`recived: ${chunk.length}`);
+      })
+      res.end("uploaded!")
+      return;
+    }
 
         res.statusCode = 404;
         res.setHeader("Content-Type","text/html;charset=utf8")
@@ -51,5 +84,3 @@ function onReq(req, res) {
 
 
 httpServer.listen(80,()=>console.log('...'));
-
-00:12:42
