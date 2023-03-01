@@ -84,3 +84,86 @@ function onReq(req, res) {
 
 
 httpServer.listen(80,()=>console.log('...'));
+
+
+/*******************************************1*****************************************************/
+const http = require ('http');
+const fs = require('fs');
+
+const httpServer = http.createServer(onReq);
+httpServer.on('listening',()=>console.log('listening'));
+async function onReq(req, res) {
+
+    if (req.method === 'POST' && req.url==='/upl') {
+       
+       /* req.on('data',chunk=>{
+            console.log(chunk);
+        })*/
+        req.pipe(process.stdout);
+        res.statusCode = 201;
+        res.end();
+        return;
+    }
+
+    if (req.method === 'GET' && req.url ==='/' ) {
+         console.log(req.headers);
+        let stat = await fs.promises.stat('index.html');
+        res.statusCode = 200;
+        res.setHeader('Content-Type','text/html,charset=utf8');
+        res.setHeader('content-length', stat.size);
+        res.write('');
+        let str = fs.createReadStream('index.html');
+        str.pipe(req.socket);
+        return;
+    }
+    res.statusCode = 404;
+    res.setHeader('content-type','text/plain,charset=utf8');
+    res.end(`not found! \n ${new Date().toLocaleTimeString()}`);
+
+}
+
+
+httpServer.listen(80,()=>console.log('...'));
+
+/****/
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>uploader</title>
+</head>
+<body>
+<script>
+let selected;
+   function readFile (mode) {
+// (A) GET SELECTED FILE
+selected = document.getElementById("demoPick").files[0]
+// (B) READ SELECTED FILE
+let reader = new FileReader();
+reader.addEventListener("load", async () => {
+console.log(reader.result);
+ await fetch("http://192.168.1.113/upl",{
+                        "method":"POST",
+                        "headers":{
+                        "content-type":"application/octet-stream",
+                        "content-length":reader.result.byteLength,
+                        "file-name":selected.name,
+
+                        },
+                        "body":reader.result,
+                    })
+
+});
+
+ reader.readAsArrayBuffer(selected); 
+
+}
+</script>
+<input type="file" value="Choose File" id="demoPick"/>
+<input type="button" value="Read As BIN" onclick="readFile(1)"/>
+
+</body>
+</html>
