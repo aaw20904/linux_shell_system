@@ -298,4 +298,5 @@ sudo shutdown -r 20:20
 
 *******T I M E Z O N E***
 $ timedatectl list-timezones
-$  sudo timedatectl set-timezone your_time_zone
+$ sudo timedatectl set-timezone your_time_zone
+$ timedatectl
