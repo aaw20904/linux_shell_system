@@ -14,6 +14,10 @@
 ██║░╚███║╚█████╔╝██████╔╝███████╗╚█████╔╝██████╔╝
 ╚═╝░░╚══╝░╚════╝░╚═════╝░╚══════╝░╚════╝░╚═════╝░
 ****/
+
+usefull modules: 'concat-stream'  'body'  in npm-js
+
+
 //lib.js:
   module.exports = class MyClass {
 	constructor(){
