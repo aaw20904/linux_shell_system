@@ -292,6 +292,52 @@ class MyTransformStream extends stream.Transform {
 
 }
 
+/***********UPLOAD file**
+Uploading file from web-browser using streams*****/
+/***server side -  parameters (req, res)***/
+//1) create readable stream - a filename is in a POST headers
+let wr = fs.createWriteStream(req.headers['file-name']);
+   
+//2) adding event listener - when all the data has been consumed
+ req.on('end',()=>{
+     res.statusCode = 201;
+     res.setHeader('content-type','text/plain,charset=utf-8');
+     res.end(`Resource ${req.headers['file-name']} Created!`);
+ })
+
+ //3) pipe a filedata into a disk
+    req.pipe(wr)
+ /****client side - html ***/
+<input class="form-control" type="file" id="myFileInput">
+<button type="button" class="btn btn-primary m-2">Upload..</button>
+<script>
+  let btn = document.querySelector(".btn");
+  btn.addEventListener('click',uploadFile);
+
+  async function uploadFile () {
+ let input = document.getElementById('myFileInput').files[0];
+    let myReader = new FileReader();
+      //start reading a file
+    myReader.readAsArrayBuffer(input);
+    myReader.addEventListener('load', async ()=>{
+     
+        //push to the server
+        let result = await  fetch('https://192.168.1.113/',{
+            method:'POST',
+            headers:{
+                'file-name':input.name,
+                'content-length':myReader.result.byteLength,
+            },
+
+            body:myReader.result
+        })
+        result = await result.text(); 
+        document.querySelector('.textout').innerText = result
+        console.log(result);
+    })
+  
+  }
+    
 
 
 
