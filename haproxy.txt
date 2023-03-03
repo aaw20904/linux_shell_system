@@ -14,6 +14,7 @@ There also enable a 'Multiple frontends to multiple backends' mode
 The HAProxy can works on layer 4 (TCP/UDP) or layer 7 (application, for example HTTP)
 Default mode - TCP (layer 4)
 
+ /****to run haproxy type -" $ sudo haproxy -f test.cfg " in the console ****/
 
 /*******s n i p p e t  o n e  - layer4 balancing  ***/
 /**save it with .cfg extantion, run $ sudo haproxy -f tst.cfg **/
