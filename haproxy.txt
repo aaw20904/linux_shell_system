@@ -12,3 +12,74 @@ Balance principle: (roundrobin, leastconn, source)
 HAProxy can runs as TLS terminator (backend http) or TLS through (backend https)
 There also enable a 'Multiple frontends to multiple backends' mode 
 The HAProxy can works on layer 4 (TCP/UDP) or layer 7 (application, for example HTTP)
+Default mode - TCP (layer 4)
+
+
+/*******s n i p p e t  o n e  - layer4 balancing  ***/
+/**save it with .cfg extantion, run $ sudo haproxy -f tst.cfg **/
+
+frontend myfrontend80
+    bind *:80
+    timeout client 60s
+    mode tcp
+    default_backend myservers
+
+backend myservers
+    timeout connect 10s
+    timeout server 100s
+    mode tcp
+    server serverone 127.0.0.1:1800
+    server servertwo 127.0.0.1:1807
+    
+ /**************************s n i p p e t   t w o - layer 7 **/
+ 
+ frontend myfrontend80
+    bind *:80
+    timeout client 60s
+    mode http
+    default_backend myservers
+
+backend myservers
+    timeout connect 10s
+    timeout server 100s
+    mode http
+    server serverone 127.0.0.1:1800
+    server servertwo 127.0.0.1:1807
+    
+    /************************************
+    when we need to create two groups of clients - one part goes to /app1  an another - to  /app2
+   *********************/
+   
+frontend myfrontend80
+    bind *:80
+    timeout client 60s
+    mode http
+    acl app1 path_end -i /app1
+    acl app2 path_end -i /app2
+
+    use_backend app1Servers if app1
+    use_backend app2Servers if app2
+
+    default_backend allservers
+
+backend app1Servers
+    timeout connect 10s
+    timeout server 10s
+    mode http
+    server serverone 127.0.0.1:1800
+    server servertwo 127.0.0.1:1801
+
+
+backend app2Servers
+    timeout connect 10s
+    timeout server 10s
+    mode http
+    server serverthree 127.0.0.1:1802
+    server serverfour 127.0.0.1:1803
+
+backend allservers
+    timeout connect 10s
+    timeout server 10s
+    mode http
+    server serverone 127.0.0.1:1800
+    server servertwo 127.0.0.1:1801
