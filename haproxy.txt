@@ -48,6 +48,7 @@ backend myservers
     
     /************************************
     when we need to create two groups of clients - one part goes to /app1  an another - to  /app2
+    when a client query has a default path '/' - then 'allservers'
    *********************/
    
 frontend myfrontend80
@@ -83,3 +84,72 @@ backend allservers
     mode http
     server serverone 127.0.0.1:1800
     server servertwo 127.0.0.1:1801
+    
+    
+/***********b a l a n c i n g   a l g o r y t h m   s e t t i n g****/
+///to making a client always connect to one server - set 'balance source'
+//when upgrade a page in browser - the request sending to the same server as the first time load
+
+frontend myfrontend80
+    bind *:80
+    timeout client 60s
+    mode http
+    acl app1 path_end -i /app1
+    acl app2 path_end -i /app2
+
+    use_backend app1Servers if app1
+    use_backend app2Servers if app2
+
+    default_backend allservers
+
+backend app1Servers
+    timeout connect 10s
+    timeout server 10s
+    balance source
+    mode http
+    server serverone 127.0.0.1:1800
+    server servertwo 127.0.0.1:1801
+
+
+backend app2Servers
+    timeout connect 10s
+    timeout server 10s
+    mode http
+    server serverthree 127.0.0.1:1802
+    server serverfour 127.0.0.1:1803
+
+backend allservers
+    timeout connect 10s
+    timeout server 10s
+    mode http
+    server serverone 127.0.0.1:1800
+    server servertwo 127.0.0.1:1801
+    
+    //****************l o c k i n g   p a t h s*******/
+    ///**to blocking path for example '/admin' in requests - use 'deny' option
+    
+frontend myfrontend80
+    bind *:80
+    timeout client 60s
+    mode http
+    acl app1 path_end -i /app1
+    acl app2 path_end -i /app2
+    http-request deny if { path -i -m beg /admin }
+    use_backend app1Servers if app1
+    use_backend app2Servers if app2
+    
+    ///**** to create HTTPS termination (public tcp , private - tls) use the following options:
+    frontend myfrontend80
+    bind *:80
+    bind *:443 ssl crt /home/ubuntu/proxy/mydomain.crt
+    timeout client 60s
+    mode http
+    acl app1 path_end -i /app1
+    acl app2 path_end -i /app2
+    http-request deny if { path -i -m beg /admin }
+    use_backend app1Servers if app1
+    use_backend app2Servers if app2
+    
+    
+
+    
