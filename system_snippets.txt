@@ -163,7 +163,17 @@ BRANCH
  /****************Certificate self-signed************/
 	$ openssl req -newkey rsa:4096 -x509 -sha256 -days 365 -nodes -out example.crt -keyout example.key
 	
-/***node SSL self-signed connection**/
+///***********************an another method - for HAProxy:
+	# Generate a unique private key (KEY)
+sudo openssl genrsa -out mydomain.key 2048
+
+# Generating a Certificate Signing Request (CSR)
+sudo openssl req -new -key mydomain.key -out mydomain.csr
+
+# Creating a Self-Signed Certificate (CRT)
+openssl x509 -req -days 365 -in mydomain.csr -signkey mydomain.key -out mydomain.crt
+	
+/*******************************node SSL self-signed connection**/
 
 const connectionDB = mysql.createConnection({
   user: 'tester',
