@@ -142,7 +142,7 @@ frontend myfrontend80
     ///**** to create HTTPS termination (public tcp , private - tls) use the following options:
     frontend myfrontend80
     bind *:80
-    bind *:443 ssl crt /home/ubuntu/proxy/mydomain.crt
+    bind *:443 ssl crt /home/ubuntu/proxy/mydomain.crt 
     timeout client 60s
     mode http
     acl app1 path_end -i /app1
@@ -151,6 +151,19 @@ frontend myfrontend80
     use_backend app1Servers if app1
     use_backend app2Servers if app2
     
-    
+    /*****************http2*************************/
+    frontend myfrontend80
+    bind *:80
+    bind *:443 ssl crt /home/ubuntu/proxy/mydomain.crt alpn h2,http/1.1
+    timeout client 60s
+    mode http
+    acl app1 path_end -i /app1
+    acl app2 path_end -i /app2
+    http-request deny if { path -i -m beg /admin }
+    use_backend app1Servers if app1
+    use_backend app2Servers if app2 
+
+    default_backend allservers
+
 
     
