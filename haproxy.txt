@@ -1,1 +1,14 @@
+/****in HAProxy you can:
+f r o n t e n d  (before balancer):
+client timeout
+acces control (for example allows USA disable Russia)
+Bind
+b a c k e n d (after balancer):
 
+timeout of connection
+timeout of server
+Balance principle: (roundrobin, leastconn, source)
+******
+HAProxy can runs as TLS terminator (backend http) or TLS through (backend https)
+There also enable a 'Multiple frontends to multiple backends' mode 
+The HAProxy can works on layer 4 (TCP/UDP) or layer 7 (application, for example HTTP)
