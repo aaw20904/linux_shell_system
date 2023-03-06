@@ -1,6 +1,6 @@
 
 /***** libuv eventLoop in nodejs  ****/
-
+process.env.UV_THREADPOOL_SIZE=6;
 /*
 
 █▀ ▀█▀ █▀█ █▀▀ ▄▀█ █▀▄▀█ █▀
