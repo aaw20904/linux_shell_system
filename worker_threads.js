@@ -4,6 +4,10 @@ When we have a heavy CPU calculations (image resizing, math calculations, encryp
 When clients are sending requests concurrently (when the first request haven`t been processed - arrive a new one) - the performance may suffer.
 There avaliable to create an additional thread for execution heavy CPU operations. Workers (threads) are useful for performing CPU-intensive JavaScript operations. 
 They DO NOT HELP MUCH with I/O-intensive work. The Node.js built-in asynchronous I/O operations are more efficient than Workers can be.
+However, Node.js itself is a multi-threaded application. This is evident when you use one of the standard library's asynchronous methods to perform I/O operations, 
+such as reading a file or making a network request. These tasks are delegated to a separate pool of threads
+that Node creates and maintains using the libuv C library.
+Although it feels like multi-threading, it's still possible for async functions to block the main event loop.
 */
 
 /*********FILE: worker.js***/
