@@ -15,7 +15,7 @@ parentPort.on('message', (number)=>{
     parentPort.postMessage(result);
 })
 
- //B) do something eavy for the CPU
+ //B) do something heavy for the CPU
 const heavyCalc =   (number) => {
 let k = 1
  for (let y=0; y< 10000000; y++) {
@@ -54,6 +54,11 @@ async function onReq (req, res) {
         });
       //E) respond with worker`s data:
       res.end(JSON.stringify({parameter: param, date:new Date().toLocaleTimeString()}));
-  
+  } else {
+   //when bad request....
+  }
   
 }
+
+
+server.listen(8080);
