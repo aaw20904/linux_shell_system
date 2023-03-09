@@ -306,7 +306,8 @@ For example, the following command will reboot my system at 8:20 pm.
 
 sudo shutdown -r 20:20
 
-*******T I M E Z O N E***
+▀█▀ █ █▀▄▀█ █▀▀ ▀█ █▀█ █▄░█ █▀▀   █░█ █▄░█ █ ▀▄▀
+░█░ █ █░▀░█ ██▄ █▄ █▄█ █░▀█ ██▄   █▄█ █░▀█ █ █░█
 $ timedatectl list-timezones
 $ sudo timedatectl set-timezone your_time_zone
 $ timedatectl
