@@ -1,3 +1,4 @@
+-----F I R S T   T O O L-----
 https://www.npmjs.com/package/loadtest
 /*******first install globally********/
 //******running from console - 10 requests with 4 concurrent (sending next when the current hasn`t been finished): ****/
@@ -7,3 +8,11 @@ $ loadtest http://remotehost/ -n 10 -c 4
 /***loadtest allows you to set a rate or requests per second with the --rps option. **********/
 
 $ loadtest -c 10 --rps 200 http://mysite.com/
+-------S E C O N D   T O O L-----
+install apache benchmarking tool (ab) on windows:
+1.download apache binaries from an apache recommended download site (https://www.apachelounge.com/download/)
+2.Open downloaded zip. Copy the /bin/ab.exe to a folder of your choice (i.e.: c:\temp)
+3.start a command prompt and run it in console:   
+    ab -n 100 -c 10 http://yourserver/yourapi
+ /**** sends 100requests with concurrent level 10: ***/
+  ab -n 100 -c 10 https://blog.sedicomm.com/
