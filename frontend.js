@@ -1,3 +1,4 @@
+//about bundler: https://blixtdev.com/you-dont-need-webpack-3-better-alternatives-for-building-your-javascript/
 //***create a button like an image***/
   //a button
         let btn  = document.createElement('input');
