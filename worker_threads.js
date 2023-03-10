@@ -1,4 +1,6 @@
 
+/***my testing notes:  with high loads (50 concurrent requests) - a server falled down... ***/
+
 /*
 When we have a heavy CPU calculations (image resizing, math calculations, encryption) - the main event loop in the engine waiting until the operation complete.
 When clients are sending requests concurrently (when the first request haven`t been processed - arrive a new one) - the performance may suffer.
