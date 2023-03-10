@@ -1,5 +1,8 @@
 
-/***my testing notes:  with high loads (50 concurrent requests) - a server falled down... ***/
+/***my testing notes:  with high loads and sharp.js I scalled pictures (50 concurrent requests) - a server falled down...
+As I`m supposing - it may be memory intensive tasks. THe second test I did with crypto native module. The results be better when 
+ a task took 700-800mSec. A time of running the constructor  (new Worker()) is 170mSec. When a task running less - THERE ISN'T ANY PROFIT:
+  parallel requests are running slower that without the Worker***/
 
 /*
 When we have a heavy CPU calculations (image resizing, math calculations, encryption) - the main event loop in the engine waiting until the operation complete.
