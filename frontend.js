@@ -1,4 +1,13 @@
 //about bundler: https://blixtdev.com/you-dont-need-webpack-3-better-alternatives-for-building-your-javascript/
+/****srcset responsive html image*/
+     <img src="image.jpg" 
+     srcset="small.jpg 300w,
+             medium.jpg 600w,
+             large.jpg 900w"
+     sizes="(max-width: 300px) 100vw, 
+            (max-width: 600px) 50vw, 
+            (max-width: 900px) 33vw,
+             900px" />
 //***create a button like an image***/
   //a button
         let btn  = document.createElement('input');
