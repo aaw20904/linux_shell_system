@@ -1,5 +1,7 @@
 
 https://blog.logrocket.com/optimizing-node-js-app-performance-clustering/
+/***it help only in heavy CPU tasks (for example math calculation, crypto)- which leads to blocking eventLoop. Because I/O ports multiplexing between processes - and there is usually only one
+ network interface on a server.**/
 
 /***clustering may help increase performance when we have concurrent requests: for example we have heavy 
 calculations that can blocking eventloop. For example heavy math calculations , cryptography.
