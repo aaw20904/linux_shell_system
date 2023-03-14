@@ -311,3 +311,11 @@ sudo shutdown -r 20:20
 $ timedatectl list-timezones
 $ sudo timedatectl set-timezone your_time_zone
 $ timedatectl
+
+/******save pre keys for the wireshark******/
+in linux:
+ $ export SSLKEYLOGFILE=/home/ubuntu/mysslprekeys.log
+ //*****run a tcpdump in an anther window in background*******/
+ $ curl ---insecure https://ipadress
+ in windows:
+ create an envrenment varable SSLKEYLOGFILE and assign it a path c:/temp/prekey.log
