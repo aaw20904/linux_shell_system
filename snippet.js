@@ -820,8 +820,114 @@ server.listen(8443,()=>console.log('Listen http2  on 8443...'));
 
 /********************************************************************/
 
-/***push content***/
+/***
 
+█▀█ █░█ █▀ █░█
+█▀▀ █▄█ ▄█ █▀█
+***/
+const http2 = require('http2');
+const fs = require("fs");
+const mime = require('mime-types');
+const path = require('path');
+
+const {
+    HTTP2_HEADER_METHOD,
+    HTTP2_HEADER_PATH,
+    HTTP2_HEADER_STATUS,
+    HTTP2_HEADER_CONTENT_TYPE,
+    HTTP2_HEADER_CONTENT_LENGTH,
+    HTTP2_HEADER_ACCEPT_CHARSET,
+    HTTP2_HEADER_SERVER,
+  } = http2.constants;
+
+
+main();
+
+
+async function main(){
+  /**create a server */
+  let server = http2.createSecureServer({
+    key: fs.readFileSync('key.key'),
+    cert: fs.readFileSync('cert.pem'),
+  })
+
+
+ //**get all the files in directory */
+ let files = await findAllTheFiles();
+ /***register a function */
+ server.on('stream', onStream);
+
+    async function onStream(stream, headers) { 
+      console.log(headers)
+      /***when the path is main - start pushing  */
+      if (headers[HTTP2_HEADER_PATH]==='/index.html') {
+                /**set a headers for the main file  index.html*/
+            stream.respond({ [HTTP2_HEADER_STATUS]:200, 
+                    [HTTP2_HEADER_CONTENT_TYPE]:'text/html',
+                    [HTTP2_HEADER_CONTENT_LENGTH]:files.get('index.html').size,
+
+            })
+          
+            /***iterate all the files in the folder - excluse index.html */
+            files.forEach(async(val, key)=>{
+              if (key != 'index.html') { 
+                  pushContent(stream, key);
+              }
+            })
+            /**response with a main file /index.html */
+                stream.end(fs.readFileSync('./content/index.html'));
+
+        } else { 
+            /**when the path isn`t main */
+            stream.respond({ [HTTP2_HEADER_STATUS]:200,   })
+            stream.end('');
+         }
+
+  }
+    
+    server.listen(8443,()=>console.log('Listen on 8443'))
+ 
+}
+
+
+
+  /**search all the files  */
+  async function findAllTheFiles(dir='./content'){
+    let contentBase = new Map();
+      let filenames = await fs.promises.readdir(dir);
+     
+      for (let idx = 0; idx < filenames.length; idx++) {
+        let info = await fs.promises.stat(`${dir}/${filenames[idx]}`);
+        contentBase.set(filenames[idx], info);
+      }
+    return contentBase;
+    }
+   /***push procedure */
+
+     function pushContent (streamWeb, fName) {
+          /**reading a file from HDD */
+        let fBuffer = fs.readFileSync(`./content/${fName}`);
+        /***define headers */
+        const pushHeaders = { 
+          [HTTP2_HEADER_STATUS]:200,
+          [HTTP2_HEADER_CONTENT_LENGTH]: fBuffer.length,
+          [HTTP2_HEADER_CONTENT_TYPE]: mime.lookup(fName),
+          [HTTP2_HEADER_SERVER]:'Kozak/1.0 Unix',
+        }
+        /***create a push stream */
+        streamWeb.pushStream({[HTTP2_HEADER_PATH]: `/${fName}`}, (err, pushStream, headers) => {
+          if (err) {
+            return err
+          }
+          /**write headers for pushing */
+          pushStream.respond(pushHeaders);
+          console.log(`PUSHED:${fName}`)
+          /**push with the file and headers */
+          pushStream.end(fBuffer);         
+        })
+     
+   
+  }
 
  /**
  
