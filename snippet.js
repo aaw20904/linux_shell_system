@@ -1,4 +1,4 @@
-/******
+/******https://connectreport.com/blog/tuning-http-keep-alive-in-node-js/
 
 ██╗███╗░░░███╗██████╗░░█████╗░██████╗░████████╗░░░░██╗███████╗██╗░░██╗██████╗░░█████╗░██████╗░████████╗  
 ██║████╗░████║██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝░░░██╔╝██╔════╝╚██╗██╔╝██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝  
@@ -642,6 +642,187 @@ var svgCaptcha = require('svg-captcha');
  var captcha = svgCaptcha.create();
  /*returned {text,data} text-i`s a plain text, data -it1s a SVG*/
  
+/**********
+█░█   █▀█   █░█░█     ▀█▀   █▀█       █▀▀   ▀▄▀   █▀█   █▀█   █▀█   ▀█▀     ▄▀█  
+█▀█   █▄█   ▀▄▀▄▀     ░█░   █▄█       ██▄   █░█   █▀▀   █▄█   █▀▄   ░█░     █▀█  
+
+█▀▀ █░░ ▄▀█ █▀ █▀   █ █▄░█   █▄░█ █▀█ █▀▄ █▀▀ ░░█ █▀
+█▄▄ █▄▄ █▀█ ▄█ ▄█   █ █░▀█   █░▀█ █▄█ █▄▀ ██▄ █▄█ ▄█*****/
+//in 'package.json' file
+{
+	"type": "module",
+	"name: ....
+}
+	
+
+//some file 'mylib.js'
+
+export default class myClass {
+	constructor (s) {
+	this.x = s;	
+	}
+	doSomething() {
+		console.log(this.x);
+	}
+}
+//in main.js
+
+import express from 'express';
+import crypto from 'crypto';
+import myClass  from './mylib.js';
+
+let inst = new myClass("hello");
+inst.doSomething();
+
+/****
+░█████╗░  ░█████╗░  ███╗░░██╗  ░██████╗  ░█████╗░  ██╗░░░░░  ███████╗    
+██╔══██╗  ██╔══██╗  ████╗░██║  ██╔════╝  ██╔══██╗  ██║░░░░░  ██╔════╝    
+██║░░╚═╝  ██║░░██║  ██╔██╗██║  ╚█████╗░  ██║░░██║  ██║░░░░░  █████╗░░    
+██║░░██╗  ██║░░██║  ██║╚████║  ░╚═══██╗  ██║░░██║  ██║░░░░░  ██╔══╝░░    
+╚█████╔╝  ╚█████╔╝  ██║░╚███║  ██████╔╝  ╚█████╔╝  ███████╗  ███████╗    
+░╚════╝░  ░╚════╝░  ╚═╝░░╚══╝  ╚═════╝░  ░╚════╝░  ╚══════╝  ╚══════╝    
+
+████████╗  ███████╗  ██╗░░██╗  ████████╗        ░█████╗░  ░█████╗░
+╚══██╔══╝  ██╔════╝  ╚██╗██╔╝  ╚══██╔══╝        ██╔══██╗  ██╔══██╗
+░░░██║░░░  █████╗░░  ░╚███╔╝░  ░░░██║░░░        ██║░░╚═╝  ██║░░██║
+░░░██║░░░  ██╔══╝░░  ░██╔██╗░  ░░░██║░░░        ██║░░██╗  ██║░░██║
+░░░██║░░░  ███████╗  ██╔╝╚██╗  ░░░██║░░░        ╚█████╔╝  ╚█████╔╝
+░░░╚═╝░░░  ╚══════╝  ╚═╝░░╚═╝  ░░░╚═╝░░░        ░╚════╝░  ░╚════╝░
+
+██╗░░░░░  ░█████╗░  ██████╗░        ██╗███╗░░██╗      ███╗░░██╗
+██║░░░░░  ██╔══██╗  ██╔══██╗        ██║████╗░██║      ████╗░██║
+██║░░░░░  ██║░░██║  ██████╔╝        ██║██╔██╗██║      ██╔██╗██║
+██║░░░░░  ██║░░██║  ██╔══██╗        ██║██║╚████║      ██║╚████║
+███████╗  ╚█████╔╝  ██║░░██║        ██║██║░╚███║      ██║░╚███║
+╚══════╝  ░╚════╝░  ╚═╝░░╚═╝        ╚═╝╚═╝░░╚══╝      ╚═╝░░╚══╝
+
+░█████╗░  ██████╗░  ███████╗    ░░░░░██╗  ░██████╗
+██╔══██╗  ██╔══██╗  ██╔════╝    ░░░░░██║  ██╔════╝
+██║░░██║  ██║░░██║  █████╗░░    ░░░░░██║  ╚█████╗░
+██║░░██║  ██║░░██║  ██╔══╝░░    ██╗░░██║  ░╚═══██╗
+╚█████╔╝  ██████╔╝  ███████╗    ╚█████╔╝  ██████╔╝
+░╚════╝░  ╚═════╝░  ╚══════╝    ░╚════╝░  ╚═════╝░**/
+//You must use  ANSI Escape Codes.There are online generators in the internet.For example: https://ansi.gabebanks.net/ 
+console.log("\x1b[33m%s\x1b[0m", "I am in yellow color");  
+Reset = "\x1b[0m"
+Bright = "\x1b[1m"
+Dim = "\x1b[2m"
+Underscore = "\x1b[4m"
+Blink = "\x1b[5m"
+Reverse = "\x1b[7m"
+Hidden = "\x1b[8m"
+
+FgBlack = "\x1b[30m"
+FgRed = "\x1b[31m"
+FgGreen = "\x1b[32m"
+FgYellow = "\x1b[33m"
+FgBlue = "\x1b[34m"
+FgMagenta = "\x1b[35m"
+FgCyan = "\x1b[36m"
+FgWhite = "\x1b[37m"
+FgGray = "\x1b[90m"
+
+BgBlack = "\x1b[40m"
+BgRed = "\x1b[41m"
+BgGreen = "\x1b[42m"
+BgYellow = "\x1b[43m"
+BgBlue = "\x1b[44m"
+BgMagenta = "\x1b[45m"
+BgCyan = "\x1b[46m"
+BgWhite = "\x1b[47m"
+BgGray = "\x1b[100m"
+
+/**
+
+██╗░░██╗████████╗████████╗██████╗░██████╗░
+██║░░██║╚══██╔══╝╚══██╔══╝██╔══██╗╚════██╗
+███████║░░░██║░░░░░░██║░░░██████╔╝░░███╔═╝
+██╔══██║░░░██║░░░░░░██║░░░██╔═══╝░██╔══╝░░
+██║░░██║░░░██║░░░░░░██║░░░██║░░░░░███████╗
+╚═╝░░╚═╝░░░╚═╝░░░░░░╚═╝░░░╚═╝░░░░░╚══════╝
+**/
+////a simple static file server that returns content divided small slices osing pipes
+const http2 = require('http2');
+const fs = require("fs");
+const mime = require('mime-types');
+const path = require('path');
+/**define header names**/
+const {
+    HTTP2_HEADER_METHOD,
+    HTTP2_HEADER_PATH,
+    HTTP2_HEADER_STATUS,
+    HTTP2_HEADER_CONTENT_TYPE,
+    HTTP2_HEADER_CONTENT_LENGTH,
+    HTTP2_HEADER_ACCEPT_CHARSET
+  } = http2.constants;
+
+/**create a TLS http2 server ***/
+const server = http2.createSecureServer({
+    "key":fs.readFileSync("./key.key"),
+    "cert":fs.readFileSync("./cert.pem")
+})
+
+/**event handlers registration**/
+
+server.on("error",(err)=>{
+  console.log(err);
+})
+
+////main handler when a stream event
+server.on('stream', onStream);
+
+
+
+async function onStream(stream, headers) {
+ /*making an URL to parse search params when exists*/
+  let myUrl = new URL(`https://host${headers[HTTP2_HEADER_PATH]}`);
+/*get a main resource*/	
+  let resource = path.basename(myUrl.pathname);
+  let stat;
+  try{
+  //reading file info from HDD
+    stat  = fs.statSync(`./content/${resource}`);
+  } catch(e) {
+  //when the file hasn`t been found:
+    let erMsg = 'Not found!';
+  //write headers and a status code
+    stream.respond({
+      [HTTP2_HEADER_STATUS]: 404,
+      [HTTP2_HEADER_CONTENT_TYPE]:"text/plain",
+      [HTTP2_HEADER_ACCEPT_CHARSET]: "utf-8",
+      [HTTP2_HEADER_CONTENT_LENGTH]: erMsg.length,
+    })
+   //send 404 to a client
+    stream.end(erMsg);
+    return;
+  }
+  /*****when a file has been found*****/
+  let readable = fs.createReadStream(`./content/${resource}`);
+  /*****write headers*****/
+  stream.respond({
+    [HTTP2_HEADER_STATUS]: 200,
+    [HTTP2_HEADER_CONTENT_TYPE]:mime.lookup(resource),
+    [HTTP2_HEADER_CONTENT_LENGTH]:stat.size
+  })
+  /****write headers into the stream***/
+  stream.write('');
+  /***pipe a file readable stream into an http stream**/
+  readable.pipe(stream);
+  
+   stream.on('error',(e)=>{
+    console.log(e);
+  })
+
+
+}
+///listen
+server.listen(8443,()=>console.log('Listen http2  on 8443...'));
+
+/********************************************************************/
+
+/***push content***/
+
+
  /**
  
 █▀▀   █▀█   █▀█   █▄░█   ▀█▀   █▀▀   █▄░█   █▀▄
@@ -738,94 +919,4 @@ var svgCaptcha = require('svg-captcha');
     return thead
   }
 }
-
-/**********
-█░█   █▀█   █░█░█     ▀█▀   █▀█       █▀▀   ▀▄▀   █▀█   █▀█   █▀█   ▀█▀     ▄▀█  
-█▀█   █▄█   ▀▄▀▄▀     ░█░   █▄█       ██▄   █░█   █▀▀   █▄█   █▀▄   ░█░     █▀█  
-
-█▀▀ █░░ ▄▀█ █▀ █▀   █ █▄░█   █▄░█ █▀█ █▀▄ █▀▀ ░░█ █▀
-█▄▄ █▄▄ █▀█ ▄█ ▄█   █ █░▀█   █░▀█ █▄█ █▄▀ ██▄ █▄█ ▄█*****/
-//in 'package.json' file
-{
-	"type": "module",
-	"name: ....
-}
-	
-
-//some file 'mylib.js'
-
-export default class myClass {
-	constructor (s) {
-	this.x = s;	
-	}
-	doSomething() {
-		console.log(this.x);
-	}
-}
-//in main.js
-
-import express from 'express';
-import crypto from 'crypto';
-import myClass  from './mylib.js';
-
-let inst = new myClass("hello");
-inst.doSomething();
-
-/****
-░█████╗░  ░█████╗░  ███╗░░██╗  ░██████╗  ░█████╗░  ██╗░░░░░  ███████╗    
-██╔══██╗  ██╔══██╗  ████╗░██║  ██╔════╝  ██╔══██╗  ██║░░░░░  ██╔════╝    
-██║░░╚═╝  ██║░░██║  ██╔██╗██║  ╚█████╗░  ██║░░██║  ██║░░░░░  █████╗░░    
-██║░░██╗  ██║░░██║  ██║╚████║  ░╚═══██╗  ██║░░██║  ██║░░░░░  ██╔══╝░░    
-╚█████╔╝  ╚█████╔╝  ██║░╚███║  ██████╔╝  ╚█████╔╝  ███████╗  ███████╗    
-░╚════╝░  ░╚════╝░  ╚═╝░░╚══╝  ╚═════╝░  ░╚════╝░  ╚══════╝  ╚══════╝    
-
-████████╗  ███████╗  ██╗░░██╗  ████████╗        ░█████╗░  ░█████╗░
-╚══██╔══╝  ██╔════╝  ╚██╗██╔╝  ╚══██╔══╝        ██╔══██╗  ██╔══██╗
-░░░██║░░░  █████╗░░  ░╚███╔╝░  ░░░██║░░░        ██║░░╚═╝  ██║░░██║
-░░░██║░░░  ██╔══╝░░  ░██╔██╗░  ░░░██║░░░        ██║░░██╗  ██║░░██║
-░░░██║░░░  ███████╗  ██╔╝╚██╗  ░░░██║░░░        ╚█████╔╝  ╚█████╔╝
-░░░╚═╝░░░  ╚══════╝  ╚═╝░░╚═╝  ░░░╚═╝░░░        ░╚════╝░  ░╚════╝░
-
-██╗░░░░░  ░█████╗░  ██████╗░        ██╗███╗░░██╗      ███╗░░██╗
-██║░░░░░  ██╔══██╗  ██╔══██╗        ██║████╗░██║      ████╗░██║
-██║░░░░░  ██║░░██║  ██████╔╝        ██║██╔██╗██║      ██╔██╗██║
-██║░░░░░  ██║░░██║  ██╔══██╗        ██║██║╚████║      ██║╚████║
-███████╗  ╚█████╔╝  ██║░░██║        ██║██║░╚███║      ██║░╚███║
-╚══════╝  ░╚════╝░  ╚═╝░░╚═╝        ╚═╝╚═╝░░╚══╝      ╚═╝░░╚══╝
-
-░█████╗░  ██████╗░  ███████╗    ░░░░░██╗  ░██████╗
-██╔══██╗  ██╔══██╗  ██╔════╝    ░░░░░██║  ██╔════╝
-██║░░██║  ██║░░██║  █████╗░░    ░░░░░██║  ╚█████╗░
-██║░░██║  ██║░░██║  ██╔══╝░░    ██╗░░██║  ░╚═══██╗
-╚█████╔╝  ██████╔╝  ███████╗    ╚█████╔╝  ██████╔╝
-░╚════╝░  ╚═════╝░  ╚══════╝    ░╚════╝░  ╚═════╝░**/
-//You must use  ANSI Escape Codes.There are online generators in the internet.For example: https://ansi.gabebanks.net/ 
-console.log("\x1b[33m%s\x1b[0m", "I am in yellow color");  
-Reset = "\x1b[0m"
-Bright = "\x1b[1m"
-Dim = "\x1b[2m"
-Underscore = "\x1b[4m"
-Blink = "\x1b[5m"
-Reverse = "\x1b[7m"
-Hidden = "\x1b[8m"
-
-FgBlack = "\x1b[30m"
-FgRed = "\x1b[31m"
-FgGreen = "\x1b[32m"
-FgYellow = "\x1b[33m"
-FgBlue = "\x1b[34m"
-FgMagenta = "\x1b[35m"
-FgCyan = "\x1b[36m"
-FgWhite = "\x1b[37m"
-FgGray = "\x1b[90m"
-
-BgBlack = "\x1b[40m"
-BgRed = "\x1b[41m"
-BgGreen = "\x1b[42m"
-BgYellow = "\x1b[43m"
-BgBlue = "\x1b[44m"
-BgMagenta = "\x1b[45m"
-BgCyan = "\x1b[46m"
-BgWhite = "\x1b[47m"
-BgGray = "\x1b[100m"
 
