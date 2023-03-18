@@ -772,7 +772,7 @@ server.on("error",(err)=>{
 server.on('stream', onStream);
 
 
-
+/**MUST BE SYNCRONOUS - otherwise will be errors! **/
 async function onStream(stream, headers) {
  /*making an URL to parse search params when exists*/
   let myUrl = new URL(`https://host${headers[HTTP2_HEADER_PATH]}`);
@@ -780,7 +780,10 @@ async function onStream(stream, headers) {
   let resource = path.basename(myUrl.pathname);
   let stat;
   try{
-  //reading file info from HDD
+  /*********reading file info it MUST BY SYNCRONOUS method, otherwise there 
+	  will be errors during executions. You may using results
+	 of searching that has been caled later  ***/
+	  
     stat  = fs.statSync(`./content/${resource}`);
   } catch(e) {
   //when the file hasn`t been found:
