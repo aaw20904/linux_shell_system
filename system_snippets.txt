@@ -1,4 +1,6 @@
  
+ //hiogh relability reserve serer:
+ https://youtu.be/Zgy1miPsTNs?list=PLQnljOFTspQWGuRmwojJ6LiV0ejm6eOcs
  LET~S ENCRYPT runs with Nodejs:
  https://itnext.io/node-express-letsencrypt-generate-a-free-ssl-certificate-and-run-an-https-server-in-5-minutes-a730fbe528ca
  chep certs COMODO:
