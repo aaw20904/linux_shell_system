@@ -1,4 +1,5 @@
  
+ https://auth0.com/docs/libraries/custom-signup
  https://auth0.com/blog/customize-user-registration-experience-with-auth0-actions/
  //hiogh relability reserve serer VRRP protocol:
  https://youtu.be/Zgy1miPsTNs?list=PLQnljOFTspQWGuRmwojJ6LiV0ejm6eOcs
