@@ -1,1 +1,31 @@
+/***s h o r t l y*****/
+
+1) create a dir  ./docker/app
+2)create a files ./docker/Dockerfile
+                 ./docker/index.js
+  
+FROM node:18
+WORKDIR /home/ubuntu/newdir/app
+COPY app /home/ubuntu/newdir/app
+RUN npm install
+CMD npm run app
+EXPOSE 80
+
+/*it means - Nodejs version 18,  listen on port 80 */
+
+3) In app folder create a file index.js with a scrypt.
+4) Init NPM
+5) In package.json in the "scripts" article write a command for executing "node index.js"
+6) In index.js write a simple server code
+7) build a container with a command (from the ./docker dir):
+   $ sudo docker build -t nodeapp .
+8) Start an execution (from the ./docker dir):
+   $ sudo docker run --name nodeapp -p 80:80 nodeapp
+9) Or runs as a daemon with the -d key (previous commmand)
+10) S T O P:
+   $ sudo docker stop nodeapp
+11) Remove a container 
+   $ sudo docker rm nodeapp
+
+
 
