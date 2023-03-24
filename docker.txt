@@ -19,13 +19,35 @@ EXPOSE 80
 6) In index.js write a simple server code
 7) build a container with a command (from the ./docker dir):
    $ sudo docker build -t nodeapp .
+7a) for the specific platform:
+   $ docker build --platform linux/amd64 -t YOUR-USER-NAME/getting-started . 
 8) Start an execution (from the ./docker dir):
-   $ sudo docker run --name nodeapp -p 80:80 nodeapp
+   $ docker run -dp 3000:3000 nodeapp
 9) Or runs as a daemon with the -d key (previous commmand)
 10) S T O P:
    $ sudo docker stop nodeapp
 11) Remove a container 
    $ sudo docker rm nodeapp
 
+/**********m o r e    d e t a i l s*****************/
+show images:
+$ docker image ls
+ show all the containers that are running now ( get the container ID:): 
+$ docker ps
+ stop running using a container id:
+$ docker stop <the-container-id>
+ force stop and remove:
+$ docker rm -f <the-container-id>
 
+to push a container to the DockerHub:
+a) login:
+$ docker login -u YOUR-USER-NAME
+b) give an image a new name:
+$ docker tag myapp YOUR-USER-NAME/myapp
+c) pushing a nw container into dockrHub:
+$ docker push docker/containername
 
+d)deploy from dockerHub:
+$  sudo docker run --rm -dp 3000:3000 username/reponame
+
+ 
