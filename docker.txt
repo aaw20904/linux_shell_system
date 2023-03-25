@@ -30,21 +30,23 @@ EXPOSE 80
    $ sudo docker rm nodeapp
 
 /**********m o r e    d e t a i l s*****************/
-show images:
+  show images:
 $ docker image ls
- show all the containers that are running now ( get the container ID:): 
+  remove an image:
+$ docker image rm --force <IMAGE ID>
+  show all the containers that are running now ( get the container ID:): 
 $ docker ps
- stop running using a container id:
+  stop running using a container id:
 $ docker stop <the-container-id>
- force stop and remove:
+  force stop and remove:
 $ docker rm -f <the-container-id>
 
 to push a container to the DockerHub:
-a) login:
+  a) login:
 $ docker login -u YOUR-USER-NAME
-b) give an image a new name:
+  b) give an image a new name:
 $ docker tag myapp YOUR-USER-NAME/myapp
-c) pushing a nw container into dockrHub:
+  c) pushing a nw container into dockrHub:
 $ docker push docker/containername
 
 d)deploy from dockerHub:
