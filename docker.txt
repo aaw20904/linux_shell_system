@@ -52,4 +52,13 @@ $ docker push docker/containername
 d)deploy from dockerHub:
 $  sudo docker run --rm -dp 3000:3000 username/reponame
 
+/***enter inside the container - interactive mode COMMAND LINE of the container: ***/
+
+$ docker exec nameofcontainer -it /bin/bash
  
+/***connect an external directory to a container. Start with a -volume option:
+- the directory on the host mashine "/home/ubuntu/dir1" mounts into the container as "/mydir" ***/
+
+$ docker run -v /home/ubuntu/dir1:/mydir -dp 80:80 containername
+
+
