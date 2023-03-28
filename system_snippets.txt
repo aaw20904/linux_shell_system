@@ -199,6 +199,7 @@ const connectionDB = mysql.createConnection({
 
 
   RUN NODEJS app as a daemon
+  this approach not running successful always, therefore please SEE THE NEXT!
 // 1)create a file :  /etc/systemd/system/my-app.service
 
 			[Unit]
@@ -228,7 +229,53 @@ const connectionDB = mysql.createConnection({
 		$ journalctl -u service-name.service
 // 6) optional: when  .my-app.service file as been changed - please reload configuration
                 $ systemctl daemon-reload
-		
+
+/*********RELAIBLE start! **********/	
+/**this approach runs successfully in most cases***/
+
+A) create a service file in directory  '/etc/systemd/system/nodeapp.service'. The mode of file must be 777.
+B) create a directory with your project - it MUST be in system directories (not in /home/ubuntu-user).
+   The linux prevents running system daemons from the user directory - there will be a message after start in the systemjournal-
+   ".service: Failed at step CHDIR spawning /usr/bin/node: Permission denied"
+   All the files in working directoty must have 666 or 777 access modes - use a 'chmod' command to set the one.
+   Here is an example of the service  file  '/etc/systemd/system/nodeapp.service' below: 
+############################################################################
+   [Unit]
+Description=My super nodejs app
+
+[Service]
+# set the working directory to have consistent relative paths
+WorkingDirectory=/var/www/app
+
+# start the server file (file is relative to WorkingDirectory here)
+ExecStart=/usr/bin/node scrypt.js
+
+# if process crashes, always try to restart
+Restart=always
+
+# let 60000ms between the crash and the restart
+RestartSec=60000ms
+
+# send log tot syslog here (it doesn't compete with other log config in the app itself)
+StandardOutput=syslog
+StandardError=syslog
+
+# nodejs process name in syslog
+SyslogIdentifier=nodejs
+
+# user and group starting the app - the Admin (root) only can runs it (I think so))
+User=root
+Group=root
+
+# set the environement (dev, prod…)
+Environment=NODE_ENV=production
+
+
+[Install]
+# start node at multi user system level (= sysVinit runlevel 3)
+WantedBy=multi-user.target
+
+#########################################################################
 		
 /*******CLEAN daemon system journal*********/
     $ sudo journalctl --flush --rotate
