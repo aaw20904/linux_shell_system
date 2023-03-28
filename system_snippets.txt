@@ -232,13 +232,13 @@ const connectionDB = mysql.createConnection({
 
 /*********RELAIBLE start! **********/	
 /**this approach runs successfully in most cases***/
-
+/********************************************
 A) create a service file in directory  '/etc/systemd/system/nodeapp.service'. The mode of file must be 777.
 B) create a directory with your project - it MUST be in system directories (not in /home/ubuntu-user).
    The linux prevents running system daemons from the user directory - there will be a message after start in the systemjournal-
    ".service: Failed at step CHDIR spawning /usr/bin/node: Permission denied"
    All the files in working directoty must have 666 or 777 access modes - use a 'chmod' command to set the one.
-   Here is an example of the service  file  '/etc/systemd/system/nodeapp.service' below: 
+   Here is an example of the service  file  '/etc/systemd/system/nodeapp.service' below (the content of the file is between sharp lines): *****/
 ############################################################################
    [Unit]
 Description=My super nodejs app
@@ -276,7 +276,18 @@ Environment=NODE_ENV=production
 WantedBy=multi-user.target
 
 #########################################################################
-		
+/*************to start restart ***************/
+
+$ service nodeapp start
+
+$ service nodeapp stop
+
+$ service nodeapp restart
+
+/***to see sysjournal*****/
+
+ $ journalctl -u nodeapp.service
+ 
 /*******CLEAN daemon system journal*********/
     $ sudo journalctl --flush --rotate
     $ sudo journalctl --vacuum-time=1s
