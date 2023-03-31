@@ -1,4 +1,16 @@
  
+█▄░█ █▀█ █▀▄ █▀▀ ░░█ █▀   █▀▄▀█ █▀█ █▀▄ █▀▀ █▀
+█░▀█ █▄█ █▄▀ ██▄ █▄█ ▄█   █░▀░█ █▄█ █▄▀ ██▄ ▄█
+
+Node.js assumes it's always running in a development environment. You can signal
+Node.js that you are running in production by setting the NODE_ENV=production environment variable.
+
+$ export NODE_ENV=production
+
+You can also apply the environment variable by prepending it to your application initialization command:
+
+NODE_ENV=production node app.js
+
  https://medium.com/@suJJJan/node-authentication-using-passport-js-760f7b52ce14
  https://auth0.com/docs/libraries/custom-signup
  https://auth0.com/blog/customize-user-registration-experience-with-auth0-actions/
