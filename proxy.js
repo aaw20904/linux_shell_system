@@ -1,4 +1,13 @@
+/**
+socket.setTimeout() works for this: it sets a timer that expires after n milliseconds of inactivity; that includes connecting. **/
+/*
+  var socket = net.connect(/* ... */);
+  socket.setTimeout(5e3, () => socket.destroy());
+  socket.once('connect', () => socket.setTimeout(0));
+*/
+ /** I'm closing this as the existing APIs have this covered.
 
+**/
 const tls = require('node:tls');
 const fs = require('node:fs');
 const net = require('node:net');
