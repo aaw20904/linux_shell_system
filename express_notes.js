@@ -1,9 +1,11 @@
 /**when a new request arrives in Express - it can 
-be processing by Middleware functions***/
+be processing by Middleware functions. They calls in order of program code***/
 
 /**...by the express.use() method: **/
 let app = express();
+  //firstly executes it
 app.use(myMiddleware1);
+  //secondly executes it:
 app.use(myMiddleware2);
 
 function myMiddleware1(req, resp, next){
@@ -56,7 +58,9 @@ app.get('/',(req,res)=>{
 });
 
 /***to fix it there must be an error handler: ***/
-  //catching:
+app.use(md1FirstFunc);
+app.use(mdLastFunc);
+   //catching: the handler must be after last middleware - to coorecctly cathing errors
 app.use(errorHandler);
   //processing:
 function errorHandler (err, req, res, next) {
@@ -64,3 +68,4 @@ function errorHandler (err, req, res, next) {
     res.send('<h1>there was an error!</h1>');
   }
 }
+
