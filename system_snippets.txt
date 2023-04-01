@@ -158,6 +158,7 @@ RUN sql script:
 GET one file from github - 
    wget	https://raw.githubusercontent.com/aaw20904/exem_app/main/session_learn.sql
    wget	https://raw.githubusercontent.com/aaw20904/linux_shell_system/main/swap.sh
+   wget	https://raw.githubusercontent.com/aaw20904/linux_shell_system/main/itarmy.sh
 BRANCH 
    git clone --branch <branchname> <remote-repo-url>
 -----------------------------####-----------------------------
