@@ -5,12 +5,15 @@ https://www.passportjs.org/concepts/authentication/downloads/html/ */
 /*** t h e   l o c a l   s t r a t e g y***/
 
 /***
-A client send a name and a password => server
+client 
+credantails    =>    server
+
 client         <=   server validate them and create
                     a session in the DB.
-                    Sends a sessionID as a cookie
-client request =>   server
-client          <=  verify the cookie and send 
+                    
+client         <=   A server sends a sessionID as a cookie
+                   
+client`s query =>  verify the cookie and send 
                     back a response.When fail - 
                     sends 403.
 
