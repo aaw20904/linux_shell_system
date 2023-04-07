@@ -1,3 +1,5 @@
+/***mongo shell:***/
+$ mongosh
 /***show databases***/
 show dbs
 /**select the dbase*/
