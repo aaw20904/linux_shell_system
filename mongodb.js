@@ -11,3 +11,5 @@ db.collection_name_here.find().pretty();
 /***remote acess**/
 sudo ufw allow from remote_machine_ip to any port 27017
 sudo ufw reload
+/****/
+https://repost.aws/knowledge-center/ec2-linux-resource-over-utilization
