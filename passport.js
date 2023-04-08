@@ -2,6 +2,9 @@
 https://www.passportjs.org/concepts/authentication/downloads/html/ */
 /***  https://github.com/zachgoll/express-jwt-authentication-starter/tree/final   **/
 
+/**** '.env' file: ***/
+DB_STRING=mongodb://localhost:27017/base1
+SECRET=hole1235
 /*** t h e   l o c a l   s t r a t e g y***/
 
 /***
