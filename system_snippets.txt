@@ -34,6 +34,8 @@ NODE_ENV=production node app.js
 	ssh-keygen
 	
 // enter a filename (for example mykey.key), and  password
+
+
 //after generation - there will be TWO files: 'mykey.key' - (a private key) 'mykey.key.pub' - (a public key)
 
 // B) Open the remote server - a file  /userName/.ssh/authorized_keys
@@ -375,3 +377,8 @@ in linux:
  $ curl ---insecure https://ipadress
  in windows:
  create an envrenment varable SSLKEYLOGFILE and assign it a path c:/temp/prekey.log
+
+/**********Z I P*********/
+$ sudo apt install zip unzip
+//to zip a folder:
+$ zip -r filename.zip folder
