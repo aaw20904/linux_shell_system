@@ -21,3 +21,5 @@ client`s query =>  verify the cookie and send
                     sends 403.
 
 ***/
+
+https://github.com/Stevealila/passport_local/blob/main/routes/users.js
