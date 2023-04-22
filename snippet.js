@@ -108,8 +108,9 @@ const getContent = function(url) {
 █▄▄ ▄▀█ █▀▀ █▄▀ █▀▀ █▄░█ █▀▄   █▀▀ ▀▄▀ █▀█ █▀█ █▀▀ █▀ █▀ ░░▄▀ █▀▄▀█ █▄█ █▀ █▀█ █░░ ░░▄▀ █▀▀ ▀▄▀ █▀█ █▀█ █▀▀ █▀ █▀
 █▄█ █▀█ █▄▄ █░█ ██▄ █░▀█ █▄▀   ██▄ █░█ █▀▀ █▀▄ ██▄ ▄█ ▄█ ▄▀░░ █░▀░█ ░█░ ▄█ ▀▀█ █▄▄ ▄▀░░ ██▄ █░█ █▀▀ █▀▄ ██▄ ▄█ ▄█
 ******S N I P P E T S************/
-
-/*MySQL
+/****To create a new table - write column names in `  ` quotes.
+  To makin a request - use " " quotes**/
+ /*MySQL
  conecting
   multiple queries
 */
