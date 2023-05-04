@@ -1,2 +1,3 @@
 https://pptr.dev/  -  bot for working through Google Croome API
 https://highload.today/uk/category/back-end-uk/
+https://hackernoon.com/oauth-20-for-dummies
