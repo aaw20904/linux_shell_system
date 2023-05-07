@@ -1,4 +1,5 @@
-
+///https://www.ncdxf.org/beacon/
+---IT-----
 ////google auth
 https://codevoweb.com/google-oauth-authentication-react-and-node/
 /*****base command in background process***/
