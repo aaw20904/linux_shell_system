@@ -1,6 +1,6 @@
 ///https://www.ncdxf.org/beacon/
 ---IT-----
-////google auth
+////google auth 
 https://codevoweb.com/google-oauth-authentication-react-and-node/
 /*****base command in background process***/
 docker run  -d -it --rm --pull always --net=host ghcr.io/porthole-ascend-cinnamon/mhddos_proxy -t 500 --lang UA
