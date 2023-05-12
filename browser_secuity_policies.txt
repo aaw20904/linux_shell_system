@@ -17,17 +17,21 @@ cross-site scripting (XSS) and injection attacks. Folr example, tere is a header
   COOP will process-isolate your document and potential attackers can't access your global 
   object if they were to open it in a popup, preventing a set of cross-origin attacks dubbed XS-Leaks    
   There are three variants:
-    -------"Cross-Origin-Opener-Policy: unsafe-none"  ------
-    This is the default value. Allows the document to be added to its opener's browsing 
-    context group unless the opener itself has a COOP of 
-    same-origin or same-origin-allow-popups.
-    -------"Cross-Origin-Opener-Policy: same-origin-allow-popups"-------
-    Retains references to newly opened windows or tabs that either don't set COOP or that
-    opt out of isolation by setting a COOP of unsafe-none.
-    -------"Cross-Origin-Opener-Policy: same-origin"-----------
+          -------"Cross-Origin-Opener-Policy: unsafe-none"  ------
+          This is the default value. Allows the document to be added to its opener's browsing 
+          context group unless the opener itself has a COOP of 
+          same-origin or same-origin-allow-popups.
+          -------"Cross-Origin-Opener-Policy: same-origin-allow-popups"-------
+          Retains references to newly opened windows or tabs that either don't set COOP or that
+          opt out of isolation by setting a COOP of unsafe-none.
+          -------"Cross-Origin-Opener-Policy: same-origin"-----------
+          Isolates the browsing context exclusively to same-origin documents. 
+          Cross-origin documents are not loaded in the same browsing context.
+    
     
   <<  Cross-Origin-Resource-Policy  >>
   The HTTP Cross-Origin-Resource-Policy response header conveys a desire that the browser blocks
   no-cors cross-origin/cross-site requests to the given resource. There ar three values:
-     Cross-Origin-Resource-Policy: same-site | same-origin | cross-origin
+     "Cross-Origin-Resource-Policy: same-site | same-origin | cross-origin"
+     
 
