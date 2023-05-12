@@ -1,1 +1,33 @@
 
+<< Content-Security-Policy  >>
+This header allows execute scripts from domains, that has been included in this HTTP header.
+. The security layer helps mitigate attackers from taking advantage of vulnerabilities like
+cross-site scripting (XSS) and injection attacks. Folr example, tere is a header below:
+      'Content-Security-Policy-Report-Only', 
+      "default-src 'self'; 
+      script-src 'self' https://code.jquery.com https://cdnjs.cloudflare.com https://stackpath.bootstrapcdn.com ; 
+      style-src 'self' https://stackpath.bootstrapcdn.com; 
+      font-src 'self' https://cdnjs.cloudflare.com;
+      img-src 'self'; 
+      frame-src 'self'"
+      
+ <<  Cross-Origin-Opener-Policy  >>
+  The HTTP Cross-Origin-Opener-Policy (COOP) response header allows you to ensure a top-level
+  document does not share a browsing context group with cross-origin documents.
+  COOP will process-isolate your document and potential attackers can't access your global 
+  object if they were to open it in a popup, preventing a set of cross-origin attacks dubbed XS-Leaks    
+  There are three variants:
+    -------"Cross-Origin-Opener-Policy: unsafe-none"  ------
+    This is the default value. Allows the document to be added to its opener's browsing 
+    context group unless the opener itself has a COOP of 
+    same-origin or same-origin-allow-popups.
+    -------"Cross-Origin-Opener-Policy: same-origin-allow-popups"-------
+    Retains references to newly opened windows or tabs that either don't set COOP or that
+    opt out of isolation by setting a COOP of unsafe-none.
+    -------"Cross-Origin-Opener-Policy: same-origin"-----------
+    
+  <<  Cross-Origin-Resource-Policy  >>
+  The HTTP Cross-Origin-Resource-Policy response header conveys a desire that the browser blocks
+  no-cors cross-origin/cross-site requests to the given resource. There ar three values:
+     Cross-Origin-Resource-Policy: same-site | same-origin | cross-origin
+
