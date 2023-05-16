@@ -382,3 +382,5 @@ in linux:
 $ sudo apt install zip unzip
 //to zip a folder:
 $ zip -r filename.zip folder
+//**----checking updates--------**/
+$ npx npm-check-updates -u
