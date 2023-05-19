@@ -3,7 +3,7 @@
 ////google auth 
 https://codevoweb.com/google-oauth-authentication-react-and-node/
 //facebook authorization
-https://medium.com/@jackrobertscott/facebook-auth-with-node-js-c4bb90d03fc0
+https://morioh.com/p/296017f5fd48
 /*****base command in background process***/
 docker run  -d -it --rm --pull always --net=host ghcr.io/porthole-ascend-cinnamon/mhddos_proxy -t 500 --lang UA
 
