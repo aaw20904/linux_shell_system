@@ -97,4 +97,6 @@ docker pull ghcr.io/porthole-ascend-cinnamon/mhddos_proxy:latest
 Для поставки задач з пабліку IT ARMY of Ukraine
 docker run -it --rm --pull always ghcr.io/porthole-ascend-cinnamon/mhddos_proxy -t 1000 --itarmy --debug
 
-To run a Docker container in the background, $ docker run -d -it --rm --pull always ghcr.io/porthole-ascend-cinnamon/mhddos_proxy -t 1000 --itarmy --debug      
+To run a Docker container in the background, $ docker run -d -it --rm --pull always ghcr.io/porthole-ascend-cinnamon/mhddos_proxy -t 1000 --itarmy --debug 
+
+https://psyfactor.org/lib/zln5.htm
