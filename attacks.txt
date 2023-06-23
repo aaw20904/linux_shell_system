@@ -1,4 +1,4 @@
-//https://blog.appsignal.com/2023/02/08/puppeteer-in-nodejs-common-mistakes-to-avoid.html
+//https://blog.appsignal.com/2023/02/08/puppeteer-in-nodejs-common-mistakes-to-avoid.html?user=880460538
 ///https://www.ncdxf.org/beacon/
 ---IT-----
 ////google auth 
@@ -7,6 +7,7 @@ https://codevoweb.com/google-oauth-authentication-react-and-node/
 https://morioh.com/p/296017f5fd48
 /*****base command in background process***/
 docker run  -d -it --rm --pull always --net=host ghcr.io/porthole-ascend-cinnamon/mhddos_proxy -t 500 --lang UA
+
 
 https://code-boxx.com/push-notifications-nodejs/
 
