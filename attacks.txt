@@ -1,5 +1,6 @@
 ---psy--
 https://www.youtube.com/watch?v=ws2YJBI-qM8
+https://www.youtube.com/watch?v=haOTE6WHDeg
 //https://blog.appsignal.com/2023/02/08/puppeteer-in-nodejs-common-mistakes-to-avoid.html?user=880460538
 ///https://www.ncdxf.org/beacon/
 ---IT-----
