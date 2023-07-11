@@ -5,6 +5,7 @@ https://www.youtube.com/watch?v=haOTE6WHDeg
 ///https://www.ncdxf.org/beacon/
 ---IT-----
 //rdbms
+https://www.javatpoint.com/dbms-questions-on-normalization
 https://condor.depaul.edu/gandrus/240IT/lectures/
 ////google auth 
 https://codevoweb.com/google-oauth-authentication-react-and-node/
