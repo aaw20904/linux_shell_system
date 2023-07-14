@@ -1,3 +1,30 @@
 
 An entity in a database is a thing, place, person or object that is independent of another.
 An entity is uniquely identifiable.
+***
+Union (∪): The union operation combines tuples from two relations and returns a new relation
+that contains all the tuples from both relations, eliminating any duplicate tuples.
+The two relations involved in the union operation must have the same attribute structure 
+(same number of attributes and compatible types).
+
+Intersection (∩): The intersection operation compares two relations and returns a
+new relation that contains only the tuples that appear in
+both relations. In other words, it selects the common tuples shared by
+both relations. Again, the two relations must have the same attribute structure.
+
+Difference (−): The difference operation compares two relations and returns a new
+relation that contains the tuples that appear in the first relation but not in the second relation. 
+It removes the tuples that are common to both relations. Like with union and intersection,
+the two relations must have the same attribute structure.
+
+Keys of Relations
+
+We say a set of one or more attributes { A i,A 2 , ... , An} is a key for a relation
+R if:
+1. Those attributes functionally determine all other attributes of the relation.
+That is, it is impossible for two distinct tuples of R to agree on all
+of A i , A 2 , . . . , A n.
+2. No proper subset of { A i,A 2 , . . . , A n} functionally determines all other
+attributes of R; i.e., a key must be minimal.
+When a key consists of a single attribute A, we often say that A (rather than
+{A}) is a key.
