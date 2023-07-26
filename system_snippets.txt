@@ -393,3 +393,7 @@ $ sudo apt install zip unzip
 $ zip -r filename.zip folder
 //**----checking updates--------**/
 $ npx npm-check-updates -u
+
+█▀█ █▀▄ █▀▀   █▀▀ █▀▄ █ ▀█▀ █▀█ █▀█
+█▀▀ █▄▀ █▀░   ██▄ █▄▀ █ ░█░ █▄█ █▀▄
+https://www.ilovepdf.com
