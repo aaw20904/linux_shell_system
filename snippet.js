@@ -32,6 +32,49 @@ https://auth0.com/blog/developing-real-time-web-applications-with-server-sent-ev
 This value resets to zero once all queued data has been sent. 
 This value does not reset to zero when the connection is closed; if you keep calling send(), this will continue to climb. */
 /*
+
+█░█ █▀▀ █░░ █▀▄▀█ █▀▀ ▀█▀   █▀▀ █▀ █▀█
+█▀█ ██▄ █▄▄ █░▀░█ ██▄ ░█░   █▄▄ ▄█ █▀▀
+/*
+*/
+app.use(  //add helmet as a middleware
+  helmet({ 
+    contentSecurityPolicy: {
+      directives: {
+        defaultSrc: ["'self'"],
+	      /*fonts...*/
+        fontSrc: ["'self'", "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1", 
+                    "https://maxcdn.bootstrapcdn.com", 
+                    "https://cdn.jsdelivr.net",
+                    "https://cdnjs.cloudflare.com",
+                    "https://fonts.gstatic.com",
+                    "https://fonts.googleapis.com"
+                  ],
+       /* styles ; unsafe-inline means that allows to download an any resource from domain
+         ,for example: instead of "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css"
+	  you can write "https://cdn.jsdelivr.net" with "'unsafe-inline'", */
+	      
+        styleSrc: [ "'self'", "'unsafe-inline'",
+                    "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css",
+                    "https://cdn.jsdelivr.net",
+                    "https://cdnjs.cloudflare.com",
+                    "https://maxcdn.bootstrapcdn.com",
+                    "https://fonts.googleapis.com/css"
+                   ],
+
+        scriptSrc: ["'self'", "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js",
+                        "https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/"
+                   ],
+
+        imgSrc: ["'self'", "https://mdbcdn.b-cdn.net"],
+
+                 
+        
+        // Add other directives as needed
+      },
+    },
+  })
+
 █▄▄ ▄▀█ █░░ ▄▀█ █▄░█ █▀▀ █ █▄░█ █▀▀   █░█░█ █▀▀ █▄▄ █▀ █▀█ █▀▀ █▄▀ █▀▀ ▀█▀ █▀
 █▄█ █▀█ █▄▄ █▀█ █░▀█ █▄▄ █ █░▀█ █▄█   ▀▄▀▄▀ ██▄ █▄█ ▄█ █▄█ █▄▄ █░█ ██▄ ░█░ ▄█
 https://tsh.io/blog/how-to-scale-websocket/
