@@ -1,3 +1,15 @@
+/****
+
+░█▀▀▀█ ▀▀█▀▀ ░█▀▄▀█ 　 █▀▀█ █▀█ 　 ░█▀▀▄ 　 ░█▀▄▀█ 　 ─█▀▀█ 
+─▀▀▀▄▄ ─░█── ░█░█░█ 　 ──▀▄ ─▄▀ 　 ░█─░█ 　 ░█░█░█ 　 ░█▄▄█ 
+░█▄▄▄█ ─░█── ░█──░█ 　 █▄▄█ █▄▄ 　 ░█▄▄▀ 　 ░█──░█ 　 ░█─░█
+***/
+/* When a DMA request has been completed - the register CNDTR contains zero (this register defines how many pieces (byte,word,dword) of data can be transferred).
+ To restore it - you can disable the DMA channel (flag EN) in DMA_CCRx register because you  can`t change CNDTR when a channel enable */
+
+
+
+
 /*TSP #32 - Tutorial on the Theory, Design and Measurement of Delta-Sigma Analog to Digital Converters 
 https://www.youtube.com/watch?v=z9u-QTDAeaM */
 /****/
