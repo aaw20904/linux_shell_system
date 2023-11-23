@@ -1036,3 +1036,95 @@ async function main(){
   }
 }
 
+/**
+
+██╗░░░██╗████████╗███████╗░░░░░░░█████╗░  ██████╗░░█████╗░░██████╗███████╗░█████╗░░░██╗██╗
+██║░░░██║╚══██╔══╝██╔════╝░░░░░░██╔══██╗  ██╔══██╗██╔══██╗██╔════╝██╔════╝██╔═══╝░░██╔╝██║
+██║░░░██║░░░██║░░░█████╗░░█████╗╚█████╔╝  ██████╦╝███████║╚█████╗░█████╗░░██████╗░██╔╝░██║
+██║░░░██║░░░██║░░░██╔══╝░░╚════╝██╔══██╗  ██╔══██╗██╔══██║░╚═══██╗██╔══╝░░██╔══██╗███████║
+╚██████╔╝░░░██║░░░██║░░░░░░░░░░░╚█████╔╝  ██████╦╝██║░░██║██████╔╝███████╗╚█████╔╝╚════██║
+░╚═════╝░░░░╚═╝░░░╚═╝░░░░░░░░░░░░╚════╝░  ╚═════╝░╚═╝░░╚═╝╚═════╝░╚══════╝░╚════╝░░░░░░╚═╝
+
+*/
+//you must also generate nonce for inline scripts (otherwise browser blocking your inline script):
+//here is an example of middleware function with Express and Helmet: 
+app.use(async (req, res, next) => {
+  // Generate a random nonce for each request
+ 
+     res.locals.nonce = await new Promise((resolve, reject) => {
+                            crypto.randomBytes(16,(err,buf)=>{
+                              resolve(buf.toString('base64'))
+                            })
+      });
+
+      helmet({
+        contentSecurityPolicy: {
+          directives: {
+                defaultSrc: ["'self'"],
+                scriptSrc: ["'self'", `nonce-${res.locals.nonce}`],
+                fontSrc: ["'self'", 
+                            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1", 
+                            "https://maxcdn.bootstrapcdn.com", 
+                            "https://cdn.jsdelivr.net",
+                            "https://cdnjs.cloudflare.com",
+                            "https://fonts.gstatic.com",
+                            "https://fonts.googleapis.com"
+                          ],
+
+                styleSrc: [ "'self'", 
+                            "'unsafe-inline'",
+                            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css",
+                            "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css",
+                            "https://cdn.jsdelivr.net",
+                            "https://cdnjs.cloudflare.com",
+                            "https://maxcdn.bootstrapcdn.com",
+                            "https://fonts.googleapis.com"
+                          ],
+
+                scriptSrc: ["'self'",
+                            "https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js",
+                            "https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/"
+                          ],
+
+                imgSrc: ["'self'", "https://mdbcdn.b-cdn.net","https://mdbootstrap.com"],
+
+                        
+                
+                // Add other directives as needed
+          },
+        },
+      })
+
+  next();
+});
+///-----------------backend part:
+ let JsonString =JSON.stringify([{city:"Київ", address:"Хрещатик",house:26},{a:1,b:2,c:3}]);
+//creating a buffer
+  let buf = Buffer.from(JsonString,'utf-8');
+//encode to Base64
+  const base64String = buf.toString("base64");
+///render in express Ejs Engine:
+  res.render('index', { title: 'Express', myVar:base64String });
+///-----------------frontend part in EJS (at the top of <body>):
+<script defer nonce="<%= nonce %>">
+    window.myVar = '<%= myVar %>';
+  </script>
+//----an anothr script - that include at the end of html page as a js file:
+window.onload=function(){
+    
+    function base64ToBytes(base64) {
+        const binString = atob(base64);
+        return Uint8Array.from(binString, (m) => m.codePointAt(0));
+      }
+      
+      function Decodeuint8arr(uint8array){
+        return new TextDecoder("utf-8").decode(uint8array);
+    }
+        //let props = JSON.parse(window.myVar);
+        console.log(window.myVar);
+        var decodedJsonString =  base64ToBytes(window.myVar);
+
+      console.log(Decodeuint8arr(decodedJsonString));
+
+    
+}
