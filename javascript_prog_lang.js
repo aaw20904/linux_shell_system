@@ -91,8 +91,40 @@ the second has two optional fields:
 //The "loadstart" event is fired when a file read operation has begun.
 // The "progress" event is fired periodically as the FileReader reads data.
 
+/* 
 
+█▀ █▄░█ █ █▀█ █▀█ █▀▀ ▀█▀   ▄▄   █▀█ █▀▀ ▄▀█ █▀▄   █▄▄ █▄█   █▀▀ █░█ █░█ █▄░█ █▄▀ █▀
+▄█ █░▀█ █ █▀▀ █▀▀ ██▄ ░█░   ░░   █▀▄ ██▄ █▀█ █▄▀   █▄█ ░█░   █▄▄ █▀█ █▄█ █░▀█ █░█ ▄█
+*/
 
+async function onChange (input) {
+  const chSize = 128;
+  let file = input.files[0]
+  console.log(file);
+  
+  //file.size
+  //an amounts of chunks
+  let currentPos = 0;
+  let chunks = file.size / chSize;
+  if (chunks < 1) {
+    chunks = 1;
+  }  
+  for (let idx=0; idx<chunks; idx++) {
+      let slice = file.slice(currentPos, currentPos+chSize);
+      currentPos += chSize;
+
+      let returned = await new Promise((resolve, reject) => {
+          let reader = new FileReader ();
+            reader.onload = function () {
+              resolve(reader.result);
+            }
+          reader.readAsText(slice);
+      });
+
+      console.log(`<<<<${idx}>>>>${returned}`);
+
+  
+  }
 
 
 
