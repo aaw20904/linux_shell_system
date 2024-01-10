@@ -110,4 +110,45 @@ ctx.beginPath();
         ctx.drawImage(imageObj, 0, 0, width, height);
       };
       imageObj.src = 'http://www.html5canvastutorials.com/demos/assets/darth-vader.jpg';
-    
+
+    /* To C R O P  (draw a pice of existing image)   using HTML5 Canvas, we can add six additional arguments
+    to the drawImage() method, sourceX, sourceY, sourceWidth, sourceHeight, destWidth and destHeight. */
+      var imageObj = new Image();
+
+      imageObj.onload = function() {
+        // draw cropped image
+        var sourceX = 150;
+        var sourceY = 0;
+        var sourceWidth = 150;
+        var sourceHeight = 150;
+        var destWidth = sourceWidth;
+        var destHeight = sourceHeight;
+        var destX = canvas.width / 2 - destWidth / 2;
+        var destY = canvas.height / 2 - destHeight / 2;
+
+        ctx.drawImage(imageObj, sourceX, sourceY, sourceWidth, sourceHeight, destX, destY, destWidth, destHeight);
+      };
+   /*
+   
+▀█▀ █▀▀ ▀▄▀ ▀█▀
+░█░ ██▄ █░█ ░█░
+   */
+      ctx.textAlign = 'left';  //it may be start, end, left, center, or right
+     // textBaseline aligns text vertically relative to font style
+      ctx.textBaseline = 'middle';  //it may be top, hanging, middle, alphabetic, ideographic, and bottom.
+      ctx.lineWidth=2;
+      ctx.font =  '60pt Calibri';
+      ctx.fillStyle = 'blue'
+  ///draw fill text
+      ctx.fillText('Hello World!', 150, 100);
+//or stroke text (contour)
+       ctx.strokeText('Hello World!', 150, 150);
+/*
+█▀▄▀█ █▀▀ ▄▀█ █▀ █░█ █▀█ █▀▀   ▀█▀ █▀▀ ▀▄▀ ▀█▀
+█░▀░█ ██▄ █▀█ ▄█ █▄█ █▀▄ ██▄   ░█░ ██▄ █░█ ░█░
+*/
+ // get text metrics
+     var text = "Helo Word"
+      var metrics = context.measureText(text);
+//'metrics' object contaings several properties
+      var width = metrics.width;
