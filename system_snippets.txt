@@ -40,7 +40,7 @@ NODE_ENV=production node app.js
 // A) create an asymmetric ssh - key:
 // run on the CLIENT mashine (who will have been coonecting to the remote server) as Admin in the terminal - 
 
-	ssh-keygen
+	ssh-keygen -t ed25519
 	
 // enter a filename (for example mykey.key), and  password
 
