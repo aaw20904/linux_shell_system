@@ -8,7 +8,7 @@ function MyButton() {
     </button>
   );
 }
-
+//The "export default" keywords specify the main component in the file
 export default function MyApp() {
   return (
     <div>
