@@ -212,8 +212,9 @@ const connectionDB = mysql.createConnection({
 })
 
 
-█▄░█ █▀█ █▀▄ █▀▀ ░░█ █▀   █▀▄ ▄▀█ █▀▀ █▀▄▀█ █▀█ █▄░█   █▀█ █░█ █▄░█
-█░▀█ █▄█ █▄▀ ██▄ █▄█ ▄█   █▄▀ █▀█ ██▄ █░▀░█ █▄█ █░▀█   █▀▄ █▄█ █░▀█
+█▄░█ █▀█ █▀▄ █▀▀   █░░ ▄▀█ ▀█▀ █▀▀ █▀ ▀█▀   █▀ ▀█▀ ▄▀█ █▄▄ █░░ █▀▀
+█░▀█ █▄█ █▄▀ ██▄   █▄▄ █▀█ ░█░ ██▄ ▄█ ░█░   ▄█ ░█░ █▀█ █▄█ █▄▄ ██▄
+
 -------------------------------###----------------
 	NODEJS LAST STABLE VERSION
 	***
@@ -221,7 +222,8 @@ const connectionDB = mysql.createConnection({
 	sudo npm install -g n
 	sudo n stable
 --------------------------------####--------------------
-
+█▄░█ █▀█ █▀▄ █▀▀ ░░█ █▀   █▀▄ ▄▀█ █▀▀ █▀▄▀█ █▀█ █▄░█   █▀█ █░█ █▄░█
+█░▀█ █▄█ █▄▀ ██▄ █▄█ ▄█   █▄▀ █▀█ ██▄ █░▀░█ █▄█ █░▀█   █▀▄ █▄█ █░▀█
 
   RUN NODEJS app as a daemon
   this approach not running successful always, therefore please SEE THE NEXT!
