@@ -399,3 +399,43 @@ $ npx npm-check-updates -u
 █▀█ █▀▄ █▀▀   █▀▀ █▀▄ █ ▀█▀ █▀█ █▀█
 █▀▀ █▄▀ █▀░   ██▄ █▄▀ █ ░█░ █▄█ █▀▄
 https://www.ilovepdf.com
+
+
+█▀█ █▀▀ █▀▄▀█ █▀█ ▀█▀ █▀▀   █▀▄ █▀▀ █▄▄ █░█ █▀▀   █░█ █▀ █▀▀ █▀█ █▀▄ █▀▀
+█▀▄ ██▄ █░▀░█ █▄█ ░█░ ██▄   █▄▀ ██▄ █▄█ █▄█ █▄█   ▀▄▀ ▄█ █▄▄ █▄█ █▄▀ ██▄
+create new launch.json file - you can find it in 'Debug' section on the left.The ontent belowe:
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "attach",
+            "name": "Attach to Program",
+            "port": 9229,
+            "address": "localhost",
+            "restart": true,
+            "sourceMaps": false,
+            "outFiles": ["${workspaceFolder}/**/*.js"]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Program with sudo",
+            "runtimeExecutable": "sudo",
+            "runtimeArgs": ["node", "--inspect=0.0.0.0:9229", "${workspaceFolder}/app.js"],
+            "skipFiles": ["<node_internals>/**"],
+            "outFiles": ["${workspaceFolder}/**/*.js"]
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Launch and Attach",
+            "configurations": ["Launch Program with sudo", "Attach to Program"]
+        }
+    ]
+}
+
+To start remote debugging - find a small window with green triangle button and dropdown menu on the right;
+Select "Launch and attach".To stop debuggging - push "Disconnect".To terminate processes in background after debugging-
+enter "ps aux | grep node".And terminate processes with "sudo kill procees_identifier" and press enter
+
