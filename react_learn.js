@@ -17,3 +17,5 @@ export default function MyApp() {
     </div>
   );
 }
+/*to generate React app don`t use "create-react-app" because it is deprecated**/
+/**us VITE.JS tool**/
