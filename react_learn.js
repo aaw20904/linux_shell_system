@@ -19,3 +19,10 @@ export default function MyApp() {
 }
 /*to generate React app don`t use "create-react-app" because it is deprecated**/
 /**us VITE.JS tool**/
+/***LISTS
+When you generating content from an array- you must pass the "key" property inside 
+each item-component: because React must know the order of your components in list 
+**/
+ let content = places.map((x)=><TravelCard tr={x} key={x.key} />)
+//You musn`t assign each DOM element "key" property:   <section key="a">....</section>
+ //You pass "key" when you render the component as a variable , NOT as a property
