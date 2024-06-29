@@ -101,9 +101,11 @@ After this , we insert exported components snside th structure in the Main file*
    <Router>
       <div>
       <h5>navbar</h5>
+        /*here is our navigation menu*/
       <Navbar />
       </div>
      <Routes>
+       /*here are our routes*/
         <Route path="/" element={<Home />} />
         <Route path="/menu" element={<Menu />} />
         <Route path="/contact" element={<Contact />} />
