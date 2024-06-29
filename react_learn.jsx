@@ -117,3 +117,77 @@ After this , we insert exported components snside th structure in the Main file*
 /*The navigation menu can be created by the "Link" or "NavLink" objects.
 */
 
+/*
+
+█▀▀ █▀█ █▄░█ ▀█▀ █▀▀ ▀▄▀ ▀█▀   ▄▀█ █▀█ █
+█▄▄ █▄█ █░▀█ ░█░ ██▄ █░█ ░█░   █▀█ █▀▀ █
+*/
+/*Aloows us to pass context in other modules and components.So the variables 
+can be avaliable outside in an another module without passing directly (as a parameter) like exchange.
+It may be usefull in case of update/change state variables*/
+//For example main file App.jsx:
+ import { Home } from './Home'
+ import { Profile } from './Profile'
+ import { Contact } from './Contact'
+ import {Navbar} from './Navbar'
+
+import { useState,  createContext } from 'react'
+  //creating global context
+ export const AppContext = createContext();
+
+function App() {
+  //-----------create state variable
+  const [username, setUsername] = useState("PedroTech");
+ return ( 
+  <div className='container d-flex flex-column'>
+          //------begin area of exchange ---names of the variables, which must be stored into our context
+        <AppContext.Provider value={{username, setUsername}}>
+         <Router>
+            <div>
+            <h5>navbar</h5>
+            <Navbar />
+            </div>
+           <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/profile" element={<Profile />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="*" element={<p>Page not found</p>}/>
+           </Routes>
+         </Router>
+          ///----end area of exchange 
+       </AppContext.Provider>
+       </div> 
+       )
+      }  
+
+   ////----the component "Profile":
+
+ 
+///useContext hook - to use context (imported) from another module 
+ import { useContext } from "react"
+///importing context from an another module
+import { AppContext } from "./App"
+
+export const Profile = (props) =>{
+  ///extracting as a property and setter
+    const {username, setUsername} = useContext(AppContext)
+  const [newUserName, setNewUserName] = useState("");
+    return(
+        <div>
+            <input onChange={(event)=>{
+                  setNewUserName(event.target.value); }} />
+           <button className="btn btn-dark mx-2" onClick={
+                    ()=>{ setUsername(newUserName);
+                     }}> Change user Name
+           </button>
+         
+        </div>
+       
+    )
+
+}
+   
+
+   
+    
+
