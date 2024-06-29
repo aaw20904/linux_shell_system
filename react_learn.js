@@ -27,7 +27,11 @@ each item-component: because React must know the order of your components in lis
 //You musn`t assign each DOM element "key" property:   <section key="a">....</section>
  //You pass "key" when you render the component as a variable , NOT as a property
 
-  /// h o o k s
+  /*
+  
+█░█ █▀ █▀▀   █▀ ▀█▀ ▄▀█ ▀█▀ █▀▀     █░█ █▀█ █▀█ █▄▀
+█▄█ ▄█ ██▄   ▄█ ░█░ █▀█ ░█░ ██▄     █▀█ █▄█ █▄█ █░█
+  */
 /*The web app can have several states : for example: button has been pushed, http request is in process, http process finished, 
  , http fetching error,correct ansver, incorrect ansver. You must avoid redundancy in states.In according to each state we can
   have diferent content.So, we can use different rendering depends on state.To represent each 
@@ -44,3 +48,16 @@ stateVarSetter(NEW_VALUE);
 because we can`t change sataeVariable directly (it must be immutable).
 To renew object, use ... spread operator and re-define properties**/
   stateVarSetter({...stateVar,myProperty:"new_value"});
+
+
+useEffect(setup, dependencies?) 
+/* you can only call it at the top level of your component or your
+own Hooks. You can’t call it inside loops or conditions.*/
+
+//for example
+const [x, setx] = useState(0)
+useEffect(()=>{  /*runs when a component had been added*/
+                  return ()=>{ /*optionally, runs when component is removed from the DOM*/ }
+              },  [x]);
+
+//To run once , insert an empty array in "dependencies"
