@@ -59,7 +59,7 @@ own Hooks. You can’t call it inside loops or conditions.*/
 
 //for example
 const [x, setx] = useState(0)
-useEffect(()=>{  /*runs when a component had been added*/
+useEffect(()=>{  /*runs when a component had been added to the DOM*/
                   return ()=>{ /*optionally, runs when component is removed from the DOM*/ }
               },  [x]);
 
