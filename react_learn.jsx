@@ -186,8 +186,56 @@ export const Profile = (props) =>{
     )
 
 }
+   /*
    
+█▀█ █▀▀ ▄▀█ █▀▀ ▀█▀   █▀█ █░█ █▀▀ █▀█ █▄█   █░░ █ █▄▄
+█▀▄ ██▄ █▀█ █▄▄ ░█░   ▀▀█ █▄█ ██▄ █▀▄ ░█░   █▄▄ █ █▄█
+   */
+//    npm i @tanstack/react-query
+/*
+THis library allows to fetching, re-fetching resources from the API or WEB.
+*/
 
-   
+/*
+The main App file where are inner components
+*/
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
+//the cparameter in constructor is optionally 
+const client = new QueryClient({
+   defaultOptions:{
+      queries:{  ///---------refresh when you change focus of pages in a browser
+         refetchOnWindowFocus: false
+      }
+   }
+});
+
+return (
+  ///--------create wrapper-providre and pass a client inside 
+    <QueryClientProvider client={client}>
+       <Test />
+    </QueryClientProvider>
+)
+
+
+
+   /*************************The code of a component "Test"********************/
+import {useQuery} from "@tanstack/react-query"
+import Axios from "axios"
+
+const Test =()=>{
+    const {data,isFetched, refetch } = useQuery({queryKey:["cat"], queryFn: ()=>{
+        return Axios.get("https://catfact.ninja/fact").then((res=>res.data))
+    }})
+
+    return (
+        <div>
+          <h2>cat fact</h2>
+          <p>{data?.fact}</p>
+        <button onClick={refetch} className="btn btn-dark">Fetching again (update)</button>
+        </div>
+    )
+}
+
+export {Test}
     
 
