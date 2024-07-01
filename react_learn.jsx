@@ -192,6 +192,7 @@ export const Profile = (props) =>{
 █▀▄ ██▄ █▀█ █▄▄ ░█░   ▀▀█ █▄█ ██▄ █▀▄ ░█░   █▄▄ █ █▄█
    */
 //    npm i @tanstack/react-query
+///   https://tanstack.com/query/latest/docs/framework/react/quick-start
 /*
 THis library allows to fetching, re-fetching resources from the API or WEB.
 */
