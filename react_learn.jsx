@@ -54,7 +54,8 @@ To renew object, use ... spread operator and re-define properties**/
 █▄█ ▄█ ██▄   ██▄ █▀░ █▀░ ██▄ █▄▄ ░█░     █▀█ █▄█ █▄█ █░█
 */
 useEffect(setup, dependencies?) 
-/* you can only call it at the top level of your component or your
+/*This hook used when you want initialize a component before rendering  or change a component after rendering. 
+All the function (interval, timeout, fetch) must be declared inside hook.You can only call it at the top level of your component or your
 own Hooks. You can’t call it inside loops or conditions.*/
 
 //for example
@@ -63,8 +64,41 @@ useEffect(()=>{  /*runs when a component had been added to the DOM*/
                   return ()=>{ /*optionally, runs when component is removed from the DOM*/ }
               },  [x]);
 
-//To run once , insert an empty array in "dependencies".There may be any state variables
+/*
+The first argument - a function , that runs when we execute useEffect.Returns value (optional) it is a callback for cleaning 
+when a component demounting.
+When we want that this hook call once - when a component is rendering - the second parameter must be an empty array [].
+To run a hook after rendering - insert names of variables into the array (second parameter).When any of variables has been changed-
+ the hook runs (executes the first parameter). When we have a function that do anything inside hook - it must be declared inside. 
+EXAMPLE - we fetching resource when a component mount , and update it using another state variable "flag" , that must be inserted (it`s name)
+ as a second parameter.When "flag* has benn changed - the hook runs again. When the useState hook has been used  instead 
+  the application will run as loop  - continuously fetch a data /
 
+█░█ █▀ █▀▀   █▀█ █▀▀ █▀▀   █░█ █▀█ █▀█ █▄▀
+█▄█ ▄█ ██▄   █▀▄ ██▄ █▀░   █▀█ █▄█ █▄█ █░█
+/*
+
+/*In vanilla JS for access to the element using document.querySelector() , getElementById(). In React for access to a 
+DOM eleemnt  using  the useRef() hook. To do this: declare hook-variable, bind it to the DOM element (assign value to "ref"
+ property. As a result - access to all the properties of a DOM element*/
+
+///---------declare a hook variable
+   ///-----we have only ONE property in this variable-hook : "current"
+   const inputEl = useRef(null);
+   //button handler
+   const chPlaceholder = ()=>{
+      //assign to a placeholdre new value
+      inputEl.current.placeholder=Date.now().toString()
+      //read value:
+      console.log(inputEl.current.value);
+   }
+ return (
+    <div className='container'>
+    {/*link our variable to the <input> using "ref" property  */}
+    <input ref={inputEl} type="text" placeholder='dfhdrhh' />
+      <button onClick={chPlaceholder}>Change placeholder</button>
+     </div>
+ )
 /*
 
 █▀█ █▀▀ ▄▀█ █▀▀ ▀█▀ ▄▄ █▀█ █▀█ █░█ ▀█▀ █▀▀ █▀█ ▄▄ █▀▄ █▀█ █▀▄▀█   █░░ █ █▄▄ █▀█ ▄▀█ █▀█ █▄█
