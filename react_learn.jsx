@@ -55,7 +55,7 @@ To renew object, use ... spread operator and re-define properties**/
 */
 useEffect(setup, dependencies?) 
 /*This hook used when you want initialize a component before rendering  or change a component after rendering. 
-All the function (interval, timeout, fetch) must be declared inside hook.You can only call it at the top level of your component or your
+All  functions (interval, timeout, fetch) that are calling inside a hook ,must be declared inside hook.You can only call it at the top level of your component or your
 own Hooks. You can’t call it inside loops or conditions.*/
 
 //for example
