@@ -147,8 +147,74 @@ import {useContext} from "react"
     )
  }
  export {Btn}
+/*
+█░█ █▀ █▀▀   █▀█ █▀▀ █▀▄ █░█ █▀▀ █▀▀ █▀█   █░█ █▀█ █▀█ █▄▀
+█▄█ ▄█ ██▄   █▀▄ ██▄ █▄▀ █▄█ █▄▄ ██▄ █▀▄   █▀█ █▄█ █▄█ █░█
 
+When you would have more that 1 state for stste variable - this hook using for it.
+In case when there are several state variables, there also are many functoins
+for each variable. It leads to complex code and "spread" logic.It is particularly useful 
+for handling multiple related state variables and side effects, simplifying the
+state management compared to multiple useState calls.
+*/
+ 
+import {  useReducer} from "react"
+/*
+Initial state after rendering  
+ */
+
+const initialState={
+  count:0, time:false
+}
+
+/* This function make descision - what to to 
+  in dependence of an event.Returns a new object.
+  "state"-previous state. 
+  "action"-type of event. */
+
+function reducer(state, action) {
+  switch(action.type){
+    case "increment":
+       return {...state, count: state.count+1}
+    break;
+    case "decrement":
+       return {...state, count: state.count-1}
+    break;
+    case "zero":
+       return {time:action.time ,count: 0}
+    break;
+    default:
+       throw new Error("WRONG event!!!")
+  }
+}
+
+
+
+ function Btn(){
+  const [state, dispatch] = useReducer(reducer, initialState);
+  /*---"state" is an object.It contains props ,
+   that had been defined in  initialSate.  
+   ---"dispatch" it is a setter,that set new state value.
+   Te parameter  must be an object with "type" property */
+    return (
+      <>    
+        <h2>{state.count}</h2>
+        <h3>{state?.time}</h3>
+        {/**ATTENTION! you MUST wrap a function calls to prevent
+        infinite loop */}
+         <button  onClick={()=>dispatch({type:"increment"})} className="btn btn-dark m-1">+</button>
+         <button  onClick={()=>dispatch({type:"decrement"})} className="btn btn-dark m-1">-</button>
+         {/*to pass any value to reducer(), use any property:*/}
+         <button  onClick={()=>dispatch({type:"zero", time:Date.now()})} className="btn btn-dark m-1">x</button>
+      </>
   
+    )
+ }
+ export {Btn}
+
+
+
+  /*
 █▀█ █▀▀ ▄▀█ █▀▀ ▀█▀ ▄▄ █▀█ █▀█ █░█ ▀█▀ █▀▀ █▀█ ▄▄ █▀▄ █▀█ █▀▄▀█   █░░ █ █▄▄ █▀█ ▄▀█ █▀█ █▄█
 █▀▄ ██▄ █▀█ █▄▄ ░█░ ░░ █▀▄ █▄█ █▄█ ░█░ ██▄ █▀▄ ░░ █▄▀ █▄█ █░▀░█   █▄▄ █ █▄█ █▀▄ █▀█ █▀▄ ░█░
 */
