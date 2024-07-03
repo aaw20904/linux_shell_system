@@ -81,6 +81,8 @@ EXAMPLE - we fetching resource when a component mount , and update it using anot
 /*In vanilla JS for access to the element using document.querySelector() , getElementById(). In React for access to a 
 DOM eleemnt  using  the useRef() hook. To do this: declare hook-variable, bind it to the DOM element (assign value to "ref"
  property. As a result - access to all the properties of a DOM element*/
+/*----When you change the ref.current property, React does not re-render your component. 
+React is not aware of when you change it because a ref is a plain JavaScript object*/
 
 ///---------declare a hook variable
    ///-----we have only ONE property in this variable-hook : "current"
@@ -101,6 +103,52 @@ DOM eleemnt  using  the useRef() hook. To do this: declare hook-variable, bind i
  )
 /*
 
+
+/*
+
+█░█ █▀ █▀▀   █▀▀ █▀█ █▄░█ ▀█▀ █▀▀ ▀▄▀ ▀█▀   █░█ █▀█ █▀█ █▄▀
+█▄█ ▄█ ██▄   █▄▄ █▄█ █░▀█ ░█░ ██▄ █░█ ░█░   █▀█ █▄█ █▄█ █░█
+
+THis hook using to pass a context for example from main file to a component file.
+It helps avoid passing data to a component  through parameters
+*/
+///--------in Main file: create context and export it
+export const Mycontext =  createContext();
+
+function App() {
+  ///declare our variables
+ const [state, setState] = useState(false)
+
+   return (
+     ///-----insert the provider and pass to it variables, that you want to provide
+       <Mycontext.Provider value={[state,setState]}>
+        <div className='container'>
+           <Btn />
+        </div>  
+       </Mycontext.Provider >
+   )
+}
+
+
+/////-------------------in a component:
+///import context firstly:
+import {Mycontext} from "./App"
+import {useContext} from "react"
+
+ function Btn(){
+   ////----extract variables from context
+       const [state, setState] = useContext(Mycontext);
+   /////-------and use imported variable in a handler of a button:
+    return (
+    <>
+       <button onClick={()=>setState(x=>Date.now())} className="btn btn-dark">GetMS</button>
+       <h1>{state}</h1>
+     </>
+    )
+ }
+ export {Btn}
+
+  
 █▀█ █▀▀ ▄▀█ █▀▀ ▀█▀ ▄▄ █▀█ █▀█ █░█ ▀█▀ █▀▀ █▀█ ▄▄ █▀▄ █▀█ █▀▄▀█   █░░ █ █▄▄ █▀█ ▄▀█ █▀█ █▄█
 █▀▄ ██▄ █▀█ █▄▄ ░█░ ░░ █▀▄ █▄█ █▄█ ░█░ ██▄ █▀▄ ░░ █▄▀ █▄█ █░▀░█   █▄▄ █ █▄█ █▀▄ █▀█ █▀▄ ░█░
 */
@@ -329,6 +377,8 @@ const MyForm = () =>{
     </form>
     ) 
 }
+
+
 
 export {MyForm}
  
