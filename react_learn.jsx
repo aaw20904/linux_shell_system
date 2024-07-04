@@ -220,8 +220,42 @@ function reducer(state, action) {
 
 /*
 When you have some deep calculations in your program - it can leads to decrease performance - 
-because there 
+because these calculations usually runs n each rendering. The hook allows to run deep calculating 
+ functions ONLY when the variable (that pass as the second parameter to the hook) has been changed.
+ EXMAPLE
 */
+
+import { useEffect, useState, useMemo } from "react";
+         
+  function MemoTutorial ({str="abcd"}) {
+    
+   //statve variables: for sorted string and color of a button
+  const [sw, setSw] = useState(false);
+  const [sorted, setSorted] = useState(0);
+
+  console.log("Rendring...") 
+
+  const sorting=(par)=>{
+    //----a function with deep calculations
+    console.log("DEEP calculations...")
+    return    str.split("").sort().join("");
+  }
+
+    /*----when "str" has been changed - this deep function will be running
+     othervise not.*/
+  const sortedStr= useMemo(()=>sorting(str),[str])
+
+  return(
+  <div className="d-flex flex-column">
+    {//we are changing background of a button after a push}
+   <button onClick={ ()=>setSw(!sw) } className={sw ? "btn btn-success" : "btn btn-dark"}>Update</button>
+    <h4>{ sortedStr}</h4>
+  </div>
+  )
+}
+
+export {MemoTutorial}
+
 
   /*
 █▀█ █▀▀ ▄▀█ █▀▀ ▀█▀ ▄▄ █▀█ █▀█ █░█ ▀█▀ █▀▀ █▀█ ▄▄ █▀▄ █▀█ █▀▄▀█   █░░ █ █▄▄ █▀█ ▄▀█ █▀█ █▄█
