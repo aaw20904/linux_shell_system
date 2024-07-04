@@ -212,7 +212,16 @@ function reducer(state, action) {
  }
  export {Btn}
 
+/*
 
+█░█ █▀ █▀▀   █▀▄▀█ █▀▀ █▀▄▀█ █▀█   █░█ █▀█ █▀█ █▄▀
+█▄█ ▄█ ██▄   █░▀░█ ██▄ █░▀░█ █▄█   █▀█ █▄█ █▄█ █░█
+*/
+
+/*
+When you have some deep calculations in your program - it can leads to decrease performance - 
+because there 
+*/
 
   /*
 █▀█ █▀▀ ▄▀█ █▀▀ ▀█▀ ▄▄ █▀█ █▀█ █░█ ▀█▀ █▀▀ █▀█ ▄▄ █▀▄ █▀█ █▀▄▀█   █░░ █ █▄▄ █▀█ ▄▀█ █▀█ █▄█
