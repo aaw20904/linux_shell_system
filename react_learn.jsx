@@ -336,6 +336,55 @@ const [state, setState] = useState(false)
  )
 
 }
+
+/*
+
+█░█ █▀ █▀▀   █░░ ▄▀█ █▄█ █▀█ █░█ ▀█▀   █▀▀ █▀▀ █▀▀ █▀▀ █▀▀ ▀█▀   █░█ █▀█ █▀█ █▄▀
+█▄█ ▄█ ██▄   █▄▄ █▀█ ░█░ █▄█ █▄█ ░█░   ██▄ █▀░ █▀░ ██▄ █▄▄ ░█░   █▀█ █▄█ █▄█ █░█
+*/
+
+/*In contrast to useEffect() that runs  asynchronously  , useLayoutEffect runs immediately , before React updates the DOM*/
+
+const CatFact = ()=>{
+  const [trig, setTrig] = useState(false);
+  const [data, setData] = useState(false);
+  useEffect(()=>{
+     ///----declare a function inside - to run corectly
+      const getResource = async ()=>{
+                              const y = await fetch("https://catfact.ninja/fact").then(data=>data.json())
+                              setData(y); 
+                            }
+    //---call the one
+      getResource();
+  }, [trig])
+  
+  useLayoutEffect(()=>{
+      document.title = data ? "Uploaded" :"Empty"
+  }, [data])
+
+  return(
+    <div className="d-flex flex-column">
+     <button className="btn btn-dark" onClick={()=>{
+          setTrig(x=>!x);
+      }}>Push</button>
+     <h2>{data?.fact}</h2>
+    </div>
+  )
+
+ }
+ 
+ 
+function App() {
+const [state, setState] = useState(false)
+   
+ return (
+  <div className='container d-flex flex-column'>
+  <CatFact />
+  </div>
+ )
+
+}
+ 
  
     
   /*
