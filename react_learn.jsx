@@ -247,7 +247,7 @@ import { useEffect, useState, useMemo } from "react";
 
   return(
   <div className="d-flex flex-column">
-    {//we are changing background of a button after a push}
+    {/*we are changing background of a button after a push*/}
    <button onClick={ ()=>setSw(!sw) } className={sw ? "btn btn-success" : "btn btn-dark"}>Update</button>
     <h4>{ sortedStr}</h4>
   </div>
@@ -256,7 +256,88 @@ import { useEffect, useState, useMemo } from "react";
 
 export {MemoTutorial}
 
+/*
+ 
+█▀█ █▀▀ ▄▀█ █▀▀ ▀█▀   █▀▄▀█ █▀▀ █▀▄▀█ █▀█
+█▀▄ ██▄ █▀█ █▄▄ ░█░   █░▀░█ ██▄ █░▀░█ █▄█   
+*/
 
+    /*This hook using for child components: because in React when anything
+    in a parent component has been changed -  child components re-rendering
+     automatically.To improve performance and avoid useless re-rendering
+     React.memo hook has been built*/
+
+ const Child = React.memo( ()=>{
+   ///chis component will be re-rendering only when something changed inside:
+      const [time, setTime] = useState(new Date().toLocaleTimeString());
+    console.log(`rendered ${Date.now()}`)
+      return (
+      <div className="container d-flex flex-column">
+        <button onClick={()=>{setTime(new Date().toLocaleTimeString())}} 
+            className='btn btn-dark'>Time now..
+        </button>
+        <h2>{time}</h2>
+      </div>
+      )
+    }  );
+ 
+ 
+function App() {
+const [state, setState] = useState(false)
+ return (
+  <div className='container d-flex flex-column'>
+    <button onClick={()=>setState((x)=>!x)} className={state ? "btn btn-danger":"btn btn-success"}>Change color </button>
+    <Child/>
+  </div>
+ )
+
+}
+ 
+
+/*
+    
+█░█ █▀ █▀▀   █▀▀ ▄▀█ █░░ █░░ █▄▄ ▄▀█ █▀▀ █▄▀   █░█ █▀█ █▀█ █▄▀
+█▄█ ▄█ ██▄   █▄▄ █▀█ █▄▄ █▄▄ █▄█ █▀█ █▄▄ █░█   █▀█ █▄█ █▄█ █░█
+    */   
+
+
+    /*When we have a child component and a function-callback , that we
+    pass to the child component, this function re-rendering when a 
+    component re-rendering.But usual a function body the same.To avoid 
+    re-building the function we using the useCallback() hook */
+
+  
+const Child = ({ cbk }) => {
+  console.log("Child Rendered", Date.now());
+  return (
+    <div>
+      {/*we call a passed callback*/}
+      <button onClick={() => cbk()} className='btn btn-dark'>
+        push!
+      </button>
+    </div>
+  );
+});
+ 
+ 
+ 
+function App() {
+ 
+const [state, setState] = useState(false)
+
+///create cached function for next renderings - to avoid re-rendering it
+ const cachedCangeState  = useCallback(()=>setState(old=>!old),[])
+   
+ return (
+  <div className='container d-flex flex-column'>
+   <Child cbk={ cachedCangeState }/>
+   <h2 className={state ? "text-success" : "text-danger"}>Some test</h2>
+  </div>
+ )
+
+}
+ 
+    
   /*
 █▀█ █▀▀ ▄▀█ █▀▀ ▀█▀ ▄▄ █▀█ █▀█ █░█ ▀█▀ █▀▀ █▀█ ▄▄ █▀▄ █▀█ █▀▄▀█   █░░ █ █▄▄ █▀█ ▄▀█ █▀█ █▄█
 █▀▄ ██▄ █▀█ █▄▄ ░█░ ░░ █▀▄ █▄█ █▄█ ░█░ ██▄ █▀▄ ░░ █▄▀ █▄█ █░▀░█   █▄▄ █ █▄█ █▀▄ █▀█ █▀▄ ░█░
