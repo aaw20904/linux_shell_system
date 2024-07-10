@@ -304,7 +304,8 @@ const [state, setState] = useState(false)
     /*When we have a child component and a function-callback , that we
     pass to the child component, this function re-rendering when a 
     component re-rendering.But usual a function body the same.To avoid 
-    re-building the function we using the useCallback() hook */
+    re-building the function we using the useCallback() hook.The 
+    second parameter - dependencies.When not - empty array */
 
   
 const Child = ({ cbk }) => {
@@ -317,7 +318,7 @@ const Child = ({ cbk }) => {
       </button>
     </div>
   );
-});
+},[]);
  
  
  
