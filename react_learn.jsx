@@ -78,7 +78,10 @@ EXAMPLE - we fetching resource when a component mount , and update it using anot
 █▄█ ▄█ ██▄   █▀▄ ██▄ █▀░   █▀█ █▄█ █▄█ █░█
 /*
 
-/*In vanilla JS for access to the element using document.querySelector() , getElementById(). In React for access to a 
+/*In compare to useState() hook, the useRef() hook remember values between renderings.When you change
+ state variable (usseState) re-rendering occurs. In case of useRef() the component stay the same -
+  NO any re-rendering.
+In vanilla JS for access to the element using document.querySelector() , getElementById(). In React for access to a 
 DOM eleemnt  using  the useRef() hook. To do this: declare hook-variable, bind it to the DOM element (assign value to "ref"
  property. As a result - access to all the properties of a DOM element*/
 /*----When you change the ref.current property, React does not re-render your component. 
