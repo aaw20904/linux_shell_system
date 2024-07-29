@@ -224,7 +224,8 @@ function reducer(state, action) {
 /*
 When you have some deep calculations in your program - it can leads to decrease performance - 
 because these calculations usually runs n each rendering. The hook allows to run deep calculating 
- functions ONLY when the variable (that pass as the second parameter to the hook) has been changed.
+ functions ONLY when the variable (that pass as the second parameter to the hook) has been changed 
+  B e t w e e n  renderings .
  EXMAPLE
 */
 
