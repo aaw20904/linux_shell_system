@@ -1,4 +1,4 @@
-;stm8s003f4 include
+;stm8s003f4 register file.Some register may be absent
 ;-------------SPI----------
 
 #define SPI_CR1  $5200;
