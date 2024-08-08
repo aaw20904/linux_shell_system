@@ -1,4 +1,4 @@
-** getting user media
+## getting user media
 ```javascript
  const getstreamAndAssignToVideoElement = async () =>{
     try{
@@ -11,8 +11,8 @@
   
  }
 
-** take a picture from video
-```javascript
+## take a picture from video
+
 const takePicureFromVdeo = async () =>{
     let streaming = false;
     var canvas = document.querySelector('canvas');
