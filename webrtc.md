@@ -1,6 +1,6 @@
-## getting user media
+
 ```javascript
-<code>
+///get media
  const getstreamAndAssignToVideoElement = async () =>{
     try{
             const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
@@ -11,8 +11,8 @@
     }
   
  }
-</code>
-## take a picture from video
+
+//// take a picture from video
 
 const takePicureFromVdeo = async () =>{
     let streaming = false;
