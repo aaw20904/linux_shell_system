@@ -1,9 +1,12 @@
 ** getting user media
 ```javascript
-  navigator.mediaDevices.getUserMedia({ video: true, audio: true })
-    .then(stream=>{
-        var video = document.querySelector('video');
-        video.srcObject = stream;
-    }).catch(err=>{
-        alert(err);
-    });
+ const getstreamAndAssignToVideoElement = async () =>{
+    try{
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
+            var video = document.querySelector('video');
+            video.srcObject = stream;
+    }catch(e){
+        alert(e);
+    }
+  
+ }
