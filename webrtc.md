@@ -1,6 +1,5 @@
-
+### Get audio/video streams from a browser, and assig it to <video> tag
 ```javascript
-///get media
  const getstreamAndAssignToVideoElement = async () =>{
     try{
             const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true })
@@ -13,7 +12,7 @@
  }
  ```
 
-**take a picture from video
+### Taking picture from videostream
 ```javascript
 const takePicureFromVdeo = async () =>{
     let streaming = false;
