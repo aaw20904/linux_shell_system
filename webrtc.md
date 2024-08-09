@@ -11,9 +11,10 @@
     }
   
  }
+ ```
 
-//// take a picture from video
-
+**take a picture from video
+```javascript
 const takePicureFromVdeo = async () =>{
     let streaming = false;
     var canvas = document.querySelector('canvas');
@@ -39,3 +40,4 @@ const takePicureFromVdeo = async () =>{
     }
   
  }
+```
