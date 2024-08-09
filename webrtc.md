@@ -40,3 +40,5 @@ const takePicureFromVdeo = async () =>{
   
  }
 ```
+
+#### pag43
