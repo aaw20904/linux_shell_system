@@ -178,7 +178,9 @@ const initialState={
 /* This function make descision - what to to 
   in dependence of an event.Returns a new object.
   "state"-previous state. 
-  "action"-type of event. */
+  "action"-type of event.
+  NAMES of parameters  MUST BE as in example,
+  otherwise it leads to errors*/
 
 function reducer(state, action) {
   switch(action.type){
