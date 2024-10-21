@@ -1,5 +1,9 @@
 /**IMPORT/EXPORT in React use ES6 rules for export*/
-/**examples**/
+/**A) import:-*******I M A G E S*************
+ import myImg from './picture.jpeg'
+ <img src={myImg} />
+ 
+/**B)import:******C O M P O N E N T S****** examples**/
 /*[lib.jsx]*/
 function Mycomponent({parameter}){
 return (
