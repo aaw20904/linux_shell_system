@@ -16,6 +16,21 @@ export {Mycomponent1,MyComponent2}
 /*In main file**[App.jsx]****import and use:/
 import {MyComponent1,MyComponent2} from './lib.jsx'
  <MyComponent1 parameter='some text' >
+ /*********************Create acollection of components***/
+///to create collection, like UL elems in a list, 
+//you should create an array and push elements there:
+
+function App() {
+  let content=[];
+  for (let x=0;x<10;x++){
+    content.push(<MyComponent key={x} parameter='xyz'/>);
+  }
+  return (
+    <div>
+      {content}
+    </div>
+  )
+}
 
 /* React component names MUST always start with a capital letter, while HTML tags must be lowercase.
 For example:*/
