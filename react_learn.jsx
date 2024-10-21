@@ -1,3 +1,18 @@
+/**IMPORT/EXPORT in React use ES6 rules for export*/
+/**examples**/
+/*[lib.jsx]*/
+function Mycomponent(){
+return (
+  <h1>HelloWorld!</h1>
+  )
+}
+function MyComponent2(){
+  return (
+    <h2>Lorem</h2>
+  )
+}
+export {Mycomponent1,MyComponent2}
+
 /* React component names MUST always start with a capital letter, while HTML tags must be lowercase.
 For example:*/
 
