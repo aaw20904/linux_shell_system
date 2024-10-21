@@ -12,6 +12,8 @@ function MyComponent2(){
   )
 }
 export {Mycomponent1,MyComponent2}
+/*In main file**[App.jsx]**/
+import {MyModule1,MyModule2} from './lib.jsx'
 
 /* React component names MUST always start with a capital letter, while HTML tags must be lowercase.
 For example:*/
