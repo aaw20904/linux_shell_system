@@ -1,9 +1,10 @@
 /**IMPORT/EXPORT in React use ES6 rules for export*/
 /**examples**/
 /*[lib.jsx]*/
-function Mycomponent(){
+function Mycomponent({parameter}){
 return (
   <h1>HelloWorld!</h1>
+  <h2>{parameter}</h2>
   )
 }
 function MyComponent2(){
@@ -12,8 +13,9 @@ function MyComponent2(){
   )
 }
 export {Mycomponent1,MyComponent2}
-/*In main file**[App.jsx]**/
-import {MyModule1,MyModule2} from './lib.jsx'
+/*In main file**[App.jsx]****import and use:/
+import {MyComponent1,MyComponent2} from './lib.jsx'
+ <MyComponent1 parameter='some text' >
 
 /* React component names MUST always start with a capital letter, while HTML tags must be lowercase.
 For example:*/
