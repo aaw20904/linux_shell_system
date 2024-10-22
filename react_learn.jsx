@@ -36,7 +36,8 @@ function App() {
   )
 }
 
-/* React component names MUST always start with a capital letter, while HTML tags must be lowercase.
+/* React component names MUST always start with a capital letter, 
+while HTML tags must be lowercase.
 For example:*/
 
 function MyButton() {
@@ -70,13 +71,19 @@ each item-component: because React must know the order of your components in lis
 █░█ █▀ █▀▀   █▀ ▀█▀ ▄▀█ ▀█▀ █▀▀     █░█ █▀█ █▀█ █▄▀
 █▄█ ▄█ ██▄   ▄█ ░█░ █▀█ ░█░ ██▄     █▀█ █▄█ █▄█ █░█
   */
-/*The web app can have several states : for example: button has been pushed, http request is in process, http process finished, 
- , http fetching error,correct ansver, incorrect ansver. You must avoid redundancy in states.In according to each state we can
-  have diferent content.So, we can use different rendering depends on state.To represent each 
-  state React offers us  using the state variables. */
-                          const [stateVar, stateVarSetter] = React.useState(INITIAL_VALUE);
-/* when we want to change view - we use these state variables.When a state variable has been changed,
-React see - which parts of the content must be re-rendering and change them, when it neccessary.
+/*The web app can have several states : for example: button has been pushed, 
+http request is in process, http process finished, 
+ , http fetching error,correct ansver, incorrect ansver. You must avoid 
+ redundancy in states.In according to each state we can
+  have diferent content.So, we can use different rendering depends on state.
+  To represent each  state React offers us  using the state variables. */
+
+          const [stateVar, stateVarSetter] = React.useState(INITIAL_VALUE);
+
+/* when we want to change view - we use these state variables
+.When a state variable has been changed,
+React see - which parts of the content must be re-rendering 
+and change them, when it neccessary.
 The DOM element rendering again*/
 ///Set a new value to the state variable:
 stateVarSetter(NEW_VALUE);
@@ -92,8 +99,11 @@ To renew object, use ... spread operator and re-define properties**/
 █▄█ ▄█ ██▄   ██▄ █▀░ █▀░ ██▄ █▄▄ ░█░     █▀█ █▄█ █▄█ █░█
 */
 useEffect(setup, dependencies?) 
-/*This hook used when you want initialize a component before rendering  or change a component after rendering. 
-All  functions (interval, timeout, fetch) that are calling inside a hook ,must be declared inside hook.You can only call it at the top level of your component or your
+/*This hook used when you want initialize a component before rendering  
+or change a component after rendering. 
+All  functions (interval, timeout, fetch) that are calling inside a hook 
+,must be declared inside hook.
+You can only call it at the top level of your component or your
 own Hooks. You can’t call it inside loops or conditions.*/
 
 //for example
@@ -103,29 +113,34 @@ useEffect(()=>{  /*runs when a component had been added to the DOM*/
               },  [x]);
 
 /*
-The first argument - a function , that runs when we execute useEffect.Returns value (optional) it is a callback for cleaning 
-when a component demounting.
-When we want that this hook call once - when a component is rendering - the second parameter must be an empty array [].
-To run a hook after rendering - insert names of variables into the array (second parameter).When any of variables has been changed-
- the hook runs (executes the first parameter). When we have a function that do anything inside hook - it must be declared inside. 
-EXAMPLE - we fetching resource when a component mount , and update it using another state variable "flag" , that must be inserted (it`s name)
- as a second parameter.When "flag* has benn changed - the hook runs again. When the useState hook has been used  instead 
+The first argument - a function , that runs when we execute useEffect.Returns value 
+(optional) it is a callback for cleaning when a component demounting.
+When we want that this hook call once - when a component is rendering -
+the second parameter must be an empty array [].
+To run a hook after rendering - insert names of variables into the array (second parameter).
+When any of variables has been changed- the hook runs (executes the first parameter). 
+When we have a function that do anything inside hook - it must be declared inside. 
+EXAMPLE - we fetching resource when a component mount , and update it using another state 
+variable "flag" , that must be inserted (it`s name) as a second parameter.
+When "flag* has benn changed - the hook runs again.
+When the useState hook has been used  instead 
   the application will run as loop  - continuously fetch a data /
 
 █░█ █▀ █▀▀   █▀█ █▀▀ █▀▀   █░█ █▀█ █▀█ █▄▀
 █▄█ ▄█ ██▄   █▀▄ ██▄ █▀░   █▀█ █▄█ █▄█ █░█
 /*
 
-/*In compare to useState() hook, the useRef() hook remember values between renderings.When you change
- state variable (usseState) re-rendering occurs. In case of useRef() the component stay the same -
-  NO any re-rendering.*/
+/*In compare to useState() hook, the useRef() hook remember values between renderings.
+When you change state variable (usseState) re-rendering occurs. 
+In case of useRef() the component stay the same -  NO any re-rendering.*/
 
 const ref1 = useRef(2);
 const onPushButton = (evt) =>ref1.current++;
 
 /*
-In vanilla JS for access to the element using document.querySelector() , getElementById(). In React for access to a 
-DOM eleemnt  using  the useRef() hook. To do this: declare hook-variable, bind it to the DOM element (assign value to "ref"
+In vanilla JS for access to the element using document.querySelector() , getElementById(). 
+In React for access to a DOM eleemnt  using  the useRef() hook. 
+To do this: declare hook-variable, bind it to the DOM element (assign value to "ref"
  property. As a result - access to all the properties of a DOM element*/
 /*----When you change the ref.current property, React does not re-render your component. 
 React is not aware of when you change it because a ref is a plain JavaScript object*/
