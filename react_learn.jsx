@@ -371,7 +371,7 @@ const [state, setState] = useState(false)
     re-building the function we using the useCallback() hook.The 
     second parameter - dependencies.When not - empty array */
 
-  
+  //THe component MUST NOT be in the main (App()) function! 
 const Child = ({ cbk }) => {
   console.log("Child Rendered", Date.now());
   return (
