@@ -15,6 +15,10 @@ FLOWCAHRT
 7. Closing Sockets:  closesocket(clientSocket); closesocket(serverSocket);
 8.Clean up WSA: WSACleanup();
 */
+
+/*
+NOTE: Go to Project Settings → Parameters → Add -lws2_32 to link the Winsock library.
+*/
 #include <stdio.h>
 #include <winsock2.h>
 
