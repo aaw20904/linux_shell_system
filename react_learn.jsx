@@ -1,3 +1,14 @@
+/**********https://vite.dev/
+Yb    dP 88 888888 888888 
+ Yb  dP  88   88   88__   
+  YbdP   88   88   88""   
+   YP    88   88   888888 
+
+ dP""b8  dP"Yb  8888b.  888888      dP""b8 888888 88b 88 888888 88""Yb    db    888888  dP"Yb  88""Yb     
+dP   `" dP   Yb  8I  Yb 88__       dP   `" 88__   88Yb88 88__   88__dP   dPYb     88   dP   Yb 88__dP     
+Yb      Yb   dP  8I  dY 88""       Yb  "88 88""   88 Y88 88""   88"Yb   dP__Yb    88   Yb   dP 88"Yb      
+ YboodP  YbodP  8888Y"  888888      YboodP 888888 88  Y8 888888 88  Yb dP""""Yb   88    YbodP  88  Yb 
+*********/
 /**IMPORT/EXPORT in React use ES6 rules for export*/
 /**A) import:-*******I M A G E S*************
  import myImg from './picture.jpeg'
