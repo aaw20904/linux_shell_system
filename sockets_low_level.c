@@ -72,7 +72,9 @@ int main() {
     }
     printf("Client connected.\n");
 
-    // 6. Receive Data
+    // 6. Receive Data 
+   /*this funtion blocking thread.This function waits (freeze thread of execution) until appears new data from a client.
+   */
     int bytesReceived = recv(clientSocket, buffer, sizeof(buffer), 0);
     if (bytesReceived > 0) {
         printf("Received message: %s\n", buffer);
