@@ -286,6 +286,84 @@ function reducer(state, action) {
  }
  export {Btn}
 
+//****************an****************anothe********example******
+const initialState={
+  success: false,
+  error: false,
+  fetching: false
+}
+
+function reducer(state, action) {
+  switch(action.type){
+    case 'process':
+      return {...initialState, fetching:true}
+      break;
+    case 'error':
+      //when error - assign error from the 'action' object
+      return {...initialState, error:action.error}
+      break;
+    case 'done':
+      //when data has been fetched - assign content data from 'action' object:
+      return {...initialState, success:action.content}
+      break;
+  }
+}
+
+  const MyComponent3 = memo(()=>{
+
+    const [btnState, btnSetter] = useState(false);
+
+
+    const [state, dispatch] = useReducer(reducer, initialState);
+
+    console.log(Date.now());
+    //btn handler
+    const onClick1 = useCallback(() => {
+        btnSetter(x => !x);
+    }, []);
+    //fetching procedure
+    useEffect(
+        ()=>{
+          //a)declare async function
+          async function fetchData(params) {
+            //set 'waiting' state:
+            dispatch({type:'process'})
+            try {
+                    let result = await fetch('https://catfact.ninja/fact?max_length=140');
+                    result = await result.json();
+                    //when data fetched successfully: save content inside object as 'content' property
+                    dispatch({type:'done', content:result.fact});
+
+            } catch(e) {
+              //when error: save error os property of an object
+              dispatch({type:'error', error:e.msg});
+            }
+      
+            
+          }
+          //b)call it immediately
+          fetchData();
+        }
+
+    , [btnState]); 
+
+    return(
+        <div className='container d-flex flex-column m-1'>
+          <h2 className={state.error ? 'h-2 m-1 text-danger' : 'd-none'}>{state.error}</h2>
+          <h2 className={state.success ? 'h-2 m-1 text-success' : 'd-none'}>{state.success}</h2>
+          <div className={state.fetching ? 'd-flex' : 'd-none'}>
+             <div className="spinner-border text-warning" role="status">
+               <span className="visually-hidden"></span>
+             </div>
+          </div>
+          <div>
+            <button className='btn btn-primary m-1 p-2' onClick={()=>onClick1()}>Fetch fact</button>
+          </div>
+        </div>
+    )
+  })
+
+
 /*
 
 █░█ █▀ █▀▀   █▀▄▀█ █▀▀ █▀▄▀█ █▀█   █░█ █▀█ █▀█ █▄▀
