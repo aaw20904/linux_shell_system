@@ -336,7 +336,7 @@ function reducer(state, action) {
 
             } catch(e) {
               //when error: save error os property of an object
-              dispatch({type:'error', error:e.msg});
+              dispatch({type:'error', error:e.message});
             }
       
             
