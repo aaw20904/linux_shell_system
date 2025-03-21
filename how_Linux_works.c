@@ -17,7 +17,7 @@ tcflush()	  Clears the UART buffer
 /*
 To monitoring asyncronous events ( TCP,UDP, UART)
 there is the usefull function pool().
-It`s puts execution thread into sleep - until timeout period or an event.
+It`s puts execution thread into sleep - until timeout period or an event happens.
 For example - there are two events: socket incoming data ready, UART incoming data ready.
 So, when any of these events happens - the pool() wakes up an execution thread and 
 set type of the event in a special variable-structure.
@@ -34,7 +34,27 @@ set type of the event in a special variable-structure.
 #define TCP_BUFFER_SIZE 512
 
 int main() {
+ //1) open port
     int uart_fd = open("/dev/ttyAMA0", O_RDWR | O_NOCTTY | O_NDELAY);
+         ///O_NOCTTY - not becomes a system termnal (console)
+        /// O_RDWR - open for reading and writing
+         //O_NDELAY - non blocking mode
+    struct termios options;
+ //2) read attributes
+  tcgetattr(uart_fd, &options);
+ //3)modify speed
+  cfsetispeed(&options, B115200);
+  cfsetospeed(&options, B115200);
+//4)set UART parameters:
+// Set 8 data bits, no parity, 1 stop bit
+options.c_cflag &= ~PARENB; // No parity
+options.c_cflag &= ~CSTOPB; // 1 stop bit
+options.c_cflag &= ~CSIZE;  
+options.c_cflag |= CS8; // 8-bit
+options.c_cflag |= CREAD | CLOCAL; // Enable receiver, disable modem control
+//5)Apply new params to UART
+tcsetattr(uart_fd, TCSANOW, &options);
+ 
     int tcp_fd = socket(AF_INET, SOCK_STREAM, 0);
     // Assume tcp_fd is connected to a remote server
 
