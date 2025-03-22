@@ -70,7 +70,14 @@ tcsetattr(uart_fd, TCSANOW, &options);
  
     int tcp_fd = socket(AF_INET, SOCK_STREAM, 0);
     // Assume tcp_fd is connected to a remote server
-
+    /*
+    structure pollfd description:
+    struct pollfd {
+                   int fd;        // File descriptor to monitor
+                   short events;  // Events to watch for
+                   short revents; // Events that occurred
+                  };
+    */
     struct pollfd fds[2];
     fds[0].fd = uart_fd;
     fds[0].events = POLLIN;  // Watch for UART incoming data
