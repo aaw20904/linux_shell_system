@@ -13,6 +13,19 @@ tcsetattr()	Sets UART port settings
 tcflush()	  Clears the UART buffer
 **/
 
+/*
+█░█ ▄▀█ █▀█ ▀█▀
+█▄█ █▀█ █▀▄ ░█░
+*/
+/**
+     1.open port (non-console mode, blocking/non-blocking mode , etc)
+       2. read exists parameters (attributes) into structure
+         3.   modify structure (speed, parity)
+          4. write updated attributes in system 
+              5   write/read operations 
+             close UART port when it no needs anymore
+     
+**/
 /*** the pool() function**/
 /*
 To monitoring asyncronous events ( TCP,UDP, UART)
