@@ -119,3 +119,33 @@ tcsetattr(uart_fd, TCSANOW, &options);
     return 0;
 }
 
+/*
+
+▀█▀ █▀▀ █▀█   █▀ █▀█ █▀▀ █▄▀ █▀▀ ▀█▀
+░█░ █▄▄ █▀▀   ▄█ █▄█ █▄▄ █░█ ██▄ ░█░
+*/
+/******SERVER
+    1. create socket
+    2.Bind the socket
+    3.Listen
+       |
+       |-----------------------<---------------------| 
+   4 accept (blocking until new client conn)         |
+       |                                             |
+       |----------<---------------|                  |
+   5 recv(blocking/non-blocking)  |                  |
+       |                          |                  |
+   6 send()                       |                  |  
+       |-------->-----------------|                  |  
+     7 close                                         |
+       |----------------------->---------------------|
+       |
+*/
+
+/*****CLIENT
+  1.Create socket
+  2.Set parameters (IP, port, etc)
+  3.Connect (blocking exec)
+  4.Communication process: Send() & Recv(blocking/non-blocking) 
+  5.Close
+*/
