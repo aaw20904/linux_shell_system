@@ -149,3 +149,5 @@ tcsetattr(uart_fd, TCSANOW, &options);
   4.Communication process: Send() & Recv(blocking/non-blocking) 
   5.Close
 */
+
+
