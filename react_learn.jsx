@@ -228,6 +228,10 @@ In case when there are several state variables, there also are many functoins
 for each variable. It leads to complex code and "spread" logic.It is particularly useful 
 for handling multiple related state variables and side effects, simplifying the
 state management compared to multiple useState calls.
+===============NOTE========================================
+1)ALWAYS return a state object (never undefined).
+2)Include a default case in your switch statement to handle unknown actions.
+3)Never mutate the existing state—always return a new object.
 */
  
 import {  useReducer} from "react"
