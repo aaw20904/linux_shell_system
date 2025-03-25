@@ -158,14 +158,14 @@ tcsetattr(uart_fd, TCSANOW, &options);
 #include <arpa/inet.h>
 
 #define PORT 8080
-int tcpFd, newSocket;
+int serverFd, newSocket;
 struct sockaddr_in address;
 char tcpBuffer[1024] = {0};
 char *message = "Hello, Client!\n";
 
 //1)Create a socket:
-tcpFd = socket(AF_INET, SOCK_STREAM, 0);
-  if (server_fd == 0) {
+serverFd = socket(AF_INET, SOCK_STREAM, 0);
+  if (serverFd == 0) {
    //when a socket can`t be created (error):
           perror("Socket failed");
           exit(EXIT_FAILURE);
@@ -175,3 +175,34 @@ tcpFd = socket(AF_INET, SOCK_STREAM, 0);
     address.sin_addr.s_addr = INADDR_ANY;
     address.sin_port = htons(PORT);
 
+ if (bind(serverFd, (struct sockaddr *)&address, sizeof(address)) < 0) {
+      perror("Bind failed");
+      exit(EXIT_FAILURE);
+ }
+
+// 3. Listen for connections
+    if (listen(serverFd, 3) < 0) {
+        perror("Listen failed");
+        exit(EXIT_FAILURE);
+    }
+  printf("Server listening on port %d...\n", PORT);
+
+// 4. Accept client connection
+    newSocket = accept(serverFd, (struct sockaddr *)&address, (socklen_t *)&addrlen);
+    if (newSocket < 0) {
+        perror("Accept failed");
+        exit(EXIT_FAILURE);
+    }
+ // 5. Send and receive data
+    read(newSocket, tcpBuffer, 1024);
+   printf("%.5s \n",tcpBuffer);
+    send(newSocket, "HelloFromServer! \n", 18, 0);
+
+ // 6. Close sockets
+    close(newSocket);
+    close(serverFd);
+
+    return 0;
+
+
+   
