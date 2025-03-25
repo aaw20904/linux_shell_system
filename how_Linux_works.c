@@ -150,4 +150,26 @@ tcsetattr(uart_fd, TCSANOW, &options);
   5.Close
 */
 
+/**********TCP Server*********/
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <arpa/inet.h>
+
+#define PORT 8080
+int tcpFd, newSocket;
+struct sockaddr_in address;
+char tcpBuffer[1024] = {0};
+char *message = "Hello, Client!\n";
+
+//1)Create a socket:
+tcpFd = socket(AF_INET, SOCK_STREAM, 0);
+  if (server_fd == 0) {
+   //when a socket can`t be created (error):
+          perror("Socket failed");
+          exit(EXIT_FAILURE);
+  }
+//2)Bind 
+
 
