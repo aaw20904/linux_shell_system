@@ -165,12 +165,36 @@ char *message = "Hello, Client!\n";
 
 //1)Create a socket:
 serverFd = socket(AF_INET, SOCK_STREAM, 0);
+/*
+ The first "domain" argument specifies a communication domain;
+ this selects the protocol family which will be used for communication.
+ AF_INET - IPv4 Internet protocols 
+
+ The second parameter, "type" means socket has the indicated type,
+ which specifies the communication semantics.
+ SOCK_STREAM  Provides sequenced, reliable, two-way, connection-based
+              byte streams.
+
+  The thrid "protocol" specifies a particular protocol to be used with the
+  socket.  Normally only a single protocol exists to support a
+  particular socket type within a given protocol family, in which
+  case protocol can be specified as 0.
+
+ 
+*/
   if (serverFd == 0) {
    //when a socket can`t be created (error):
           perror("Socket failed");
           exit(EXIT_FAILURE);
   }
  // 2) Bind socket
+     /*
+       struct sockaddr_in {
+           sa_family_t     sin_family;     /* AF_INET */
+           in_port_t       sin_port;       /* Port number */
+           struct in_addr  sin_addr;       /* IPv4 address */
+       };
+    */
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = INADDR_ANY;
     address.sin_port = htons(PORT);
