@@ -125,21 +125,22 @@ tcsetattr(uart_fd, TCSANOW, &options);
 ░█░ █▄▄ █▀▀   ▄█ █▄█ █▄▄ █░█ ██▄ ░█░
 */
 /******SERVER
-    1. create socket
+    1. create server socket (a descriptor)
     2.Bind the socket
     3.Listen
        |
        |-----------------------<---------------------| 
-   4 accept (blocking until new client conn)         |
+   4 accept (block until conn., get incom. socket)   |
        |                                             |
        |----------<---------------|                  |
    5 recv(blocking/non-blocking)  |                  |
        |                          |                  |
    6 send()                       |                  |  
        |-------->-----------------|                  |  
-     7 close                                         |
+     7 close incoming socket                         |
        |----------------------->---------------------|
        |
+       8.Close server socket (descriptor)
 */
 
 /*****CLIENT
@@ -162,6 +163,8 @@ int serverFd, newSocket;
 struct sockaddr_in address;
 char tcpBuffer[1024] = {0};
 char *message = "Hello, Client!\n";
+socklen_t addrlen = sizeof(address);
+
 
 //1)Create a socket:
 serverFd = socket(AF_INET, SOCK_STREAM, 0);
@@ -188,13 +191,18 @@ serverFd = socket(AF_INET, SOCK_STREAM, 0);
           exit(EXIT_FAILURE);
   }
  // 2) Bind socket
-     /*
-       struct sockaddr_in {
-           sa_family_t     sin_family;     /* AF_INET */
-           in_port_t       sin_port;       /* Port number */
-           struct in_addr  sin_addr;       /* IPv4 address */
-       };
-    */
+   /*     
+         struct sockaddr_in {
+               sa_family_t    sin_family; // address family: AF_INET 
+               in_port_t      sin_port;   // port in network byte order 
+               struct in_addr sin_addr;   // internet address 
+           };
+
+           //--- Internet address
+           struct in_addr {
+               uint32_t       s_addr;     // address in network byte order 
+           };
+*/
     address.sin_family = AF_INET;
     address.sin_addr.s_addr = INADDR_ANY;
     address.sin_port = htons(PORT);
