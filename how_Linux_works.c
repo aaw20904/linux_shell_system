@@ -236,5 +236,95 @@ serverFd = socket(AF_INET, SOCK_STREAM, 0);
 
     return 0;
 
+//---------------test code-------------29 03 25-----------
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <unistd.h>
+#include <stdio.h>
+#include <string.h>
+
+struct sockaddr_in srvAddress;
+struct sockaddr_in clientAddress;
+int server_fd, new_socket;
+char string[256]={0};
+char tcpBuffer[1024] = {0};
+char responseBuffer[1024] ={0};
+
+int main (void) {
+//create a socket firstly 
+char *message = "Hello, Client!\n";
+socklen_t addrlen = sizeof(srvAddress);
+int closeSrvSwitch=1;
+int closeClientSwitch=1;
+//create a socket
+
+server_fd= socket(AF_INET, SOCK_STREAM, 0);
+
+if (server_fd == 0) {
+    perror("Socket failed");
+    return -1;
+}
+
+//fill a struct with data
+srvAddress.sin_family = AF_INET;
+srvAddress.sin_addr.s_addr = INADDR_ANY;
+srvAddress.sin_port = htons(8080);
+///bind a socket
+if (bind(server_fd, (struct sockaddr *)&srvAddress, sizeof(srvAddress)) < 0) {
+    perror("Bind failed");
+    return -1;
+}
+
+//listen
+if (listen(server_fd,3) < 0) {
+    perror("Listen filed!");
+    return -1;
+}
+printf("Server listen.. \n");
+while(closeSrvSwitch) {
+    //accept incoming message
+    new_socket = accept(server_fd, (struct sockaddr *)&srvAddress, &addrlen);
+    if (new_socket < 0) {
+        perror("Accept failed");
+       return-1;
+    }
+        while(closeClientSwitch) {
+            //A)checking - is there a switch to exit?
+            if (strchr(tcpBuffer,0x0040)) {  //@
+                closeClientSwitch = 0;
+            }
+            //B)read client adress and print into a string
+            if ( getpeername(new_socket, (struct sockaddr *)&clientAddress, &addrlen ) == 0) {
+                //address
+                sprintf(string, "addr: %s, port: %d", inet_ntoa(clientAddress.sin_addr), ntohs(clientAddress.sin_port));
+            }
+            //C)read incoming message
+            read (new_socket, tcpBuffer, sizeof(tcpBuffer));
+            printf("%25s \n",tcpBuffer);
+            //D)respond with a string
+            snprintf (responseBuffer, 64, "%s %s \n\0", string, tcpBuffer);
+            write(new_socket, responseBuffer, strlen(responseBuffer));
+        
+        }
+
+    close(new_socket);
+    //checking - is there a switch to exit?
+    if (strchr(tcpBuffer,0x0023)) { //#
+        closeSrvSwitch = 0;
+    }
+
+
+}
+
+close(server_fd);
+
+
+
+}
+
+
+
 
    
