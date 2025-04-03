@@ -75,4 +75,5 @@ main:
     movaps xmm0, [array1]  ; Load 4 packed floats
     movaps xmm1, [array2]  ; Load another 4 packed floats
     mulps xmm0, xmm1       ; Multiply all 4 pairs
+;-------https://youtu.be/336BQT_o5qg
 
