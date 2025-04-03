@@ -38,3 +38,36 @@ main:
 
     push 0
     call ExitProcess
+;---multiplication----------------
+section .data
+    hello_msg db "Hello, World! %llu %llu", 0   ; Format string for 2 quadwords
+    align 16  ; Ensure proper memory alignment
+    array dq   32, 32    ; Two 64-bit (quadword) values
+    operand2 dq 1, 4    ; Two 64-bit (quadword) values
+    test_array resq 2    ; Space for result (2 quadwords)
+
+section .text
+    global main
+    extern printf, ExitProcess   ; Declare external functions
+
+main:
+    ;----- Load data into XMM registers -----
+    movdqu xmm0, [array]     ; Load 128-bit (2x64-bit) into xmm0
+    movdqu xmm1, [operand2]  ; Load 128-bit (2x64-bit) into xmm1
+    pmuludq xmm0, xmm1       ; Multiply lower 32-bits of each 64-bit value
+
+    movdqu [test_array], xmm0 ; Store result in memory
+
+    ;-------- Print results --------
+    mov esi, test_array   ; Load base address of results
+    push dword [esi+12]    ; Push second 32-bit result
+    push dword [esi+8]      ; Push first 32-bit result
+    push dword [esi+4]    ; Push second 32-bit result
+    push dword [esi]      ; Push first 32-bit result
+    push hello_msg        ; Push format string
+    call printf           ; Call printf
+
+    add esp, 20           ; Clean up 3 pushes (each push = 8 bytes except the format string)
+
+    push 0
+    call ExitProcess
