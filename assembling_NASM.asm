@@ -76,4 +76,47 @@ main:
     movaps xmm1, [array2]  ; Load another 4 packed floats
     mulps xmm0, xmm1       ; Multiply all 4 pairs
 ;-------https://youtu.be/336BQT_o5qg
+;-----4.04.25-----------------
+section .data
+    hello_msg db "Hello, World! %x %x %x %x", 0   ; Null-terminated string
+    format_str_float32 db "floats-> %x, %x, %x, %x"
+    inp_var1 dd 1230
+        align 16                      ; Ensure the data is 16-byte aligned
+    array dd  10, 20, 30, 40   ; 16 bytes of data
+   operand2 dd 2, 3, 4, 5  ; Add 1 to each byte
+   ;------------fLOAT------------
+   align 16
+    var1 dd -2.0, 0.6, 0.7, 4.0
+    var2 dd 1.0, 4.5, 5.5, 1.0
+   ;------------------------- 
+    test_array resb 32  ;to strore data
 
+section .text
+    global main
+    extern printf, ExitProcess   ; Declare external function
+
+main:
+    ;-----enter data
+    ; Load data into XMM registers
+    movaps xmm0, [var1]     ; Load 16 bytes into xmm0
+    movaps xmm1, [var2]  ; Load 16 bytes of "1"s into xmm1
+    mulps xmm0, xmm1         ; Add 1 to each byte
+    movaps [test_array], xmm0 ; Store back to memory
+    ;--------plot--------
+    ;mov eax, [test_array]
+    mov esi, test_array
+    push dword [esi]
+    add esi, 4
+    push dword [esi]
+    add esi, 4
+    push dword [esi]
+    add esi, 4
+    push dword [esi]
+    push  format_str_float32; Push string argument
+    call printf      ; Call printf
+    add esp, 20       ; Clean up the stack
+
+    push 0
+    call ExitProcess
+
+    ret              ; Return from main
