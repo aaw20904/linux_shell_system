@@ -120,4 +120,28 @@ main:
     call ExitProcess
 
     ret              ; Return from main
-;  https://youtu.be/PZRI1IfStY0
+; float numbers represetation https://youtu.be/PZRI1IfStY0
+
+;----------C and assembly---------------------
+///main.c file
+//OPTION: open in projectOptions->parameters->add library
+#include <stdio.h>
+
+extern int sum(int, int);
+
+int main() {
+    int result = sum(5, 7);
+    printf("Result: %d\n", result);
+    return 0;
+}
+;translated so:   nasm -f win32 5.asm -o 5.obj
+;---library 5.asm file
+global _sum
+
+section .text
+_sum:
+    mov eax, [esp+4]
+    add eax, [esp+8]
+    ret
+
+
