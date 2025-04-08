@@ -123,6 +123,7 @@ main:
 ; float numbers represetation https://youtu.be/PZRI1IfStY0
 
 ;----------C and assembly---------------------
+;--https://www.stefanobordoni.cloud/howto-easily-use-nasm-into-windows-c-c-applications/
 ///main.c file
 //OPTION: open in projectOptions->parameters->add library
 #include <stdio.h>
