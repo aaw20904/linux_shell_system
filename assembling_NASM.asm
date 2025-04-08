@@ -144,5 +144,112 @@ _sum:
     mov eax, [esp+4]
     add eax, [esp+8]
     ret
+;===============08 04 25====
+;-----------COMPILE--LINK--------------------------------
+;to compile - use the folowing command:
+;   D:\NASM>nasm -f win32 3.asm -o 3.obj
+;to link with MyLink - use the following command:
+;   D:\NASM>GoLink /entry main /console 3.obj msvcrt.dll kernel32.dll
+section .data
+    format_int db "-> %d",10,0
+    hello_msg db "Hello, World! %x %x %x %x ",10, 0   ; Null-terminated string
+    format_str_float32 db "floats-> %x, %x, %x, %x " ,10, 0
+    format_scanf_f32 db "%f",0
+    inp_var1 dd 1230
+        align 16                      ; Ensure the data is 16-byte aligned
+    array dd  10, 20, 30, 40   ; 16 bytes of data
+   operand2 dd 2, 3, 4, 5  ; Add 1 to each byte
+   ;------------fLOAT------------
+        align 16
+    var1 dd -1.0, 1.0, 1.0, 1.0
+    var2 dd 1.0, 1.0, 1.0, 1.0
+   ;------------------------- 
+    test_array resb 32  ;to strore data
+
+section .text
+    global main
+    extern printf,scanf, ExitProcess   ; Declare external function
+
+;==========test function=====
+float32ToString:
+;-p1@int32, p2@int32
+;----STACK----(address)---
+; v1
+; v2
+; esi (old)     <-ESI
+; returnAddr
+; par1
+; par2
+;------------(address+24)---
+  %define par1_001 8
+  %define par2_001 12
+  %define var1_001 -4
+  %define var2_001 -8
+  push esi ;store ESI
+  mov esi, esp ;init with a new value
+  sub esp, 8 ; allocate two 32bit variables 
+  ;***********copy params to local variables
+  mov eax, [esi + par1_001]
+  mov ebx, [esi + par2_001]
+  mov [esi + var1_001], eax
+  mov [esi + var2_001], ebx
+  ;clear regs
+  xor eax, eax
+  xor ebx, ebx
+  ;load again
+  mov eax, [esi+var1_001]
+  ;sutract
+  sub eax, [esi+var2_001]
+  ; now the result is in eax 
+ 
+  ;----restore registers and stack
+  add esp, 8 ;free 
+  pop esi ;restore ESI
+  ret
+main:
+    ;-----enter data
+     ;---scanf
+    push var1
+    push format_scanf_f32
+    call scanf  
+    add esp, 8
+    ; Load data into XMM registers
+    movaps xmm0, [var1]     ; Load 16 bytes into xmm0
+    movaps xmm1, [var2]  ; Load 16 bytes of "1"s into xmm1
+    mulps xmm0, xmm1         ; Add 1 to each byte
+    movaps [test_array], xmm0 ; Store back to memory
+    ;--------plot--------
+    ;mov eax, [test_array]
+    mov esi, test_array
+    push dword [esi]
+    add esi, 4
+    push dword [esi]
+    add esi, 4
+    push dword [esi]
+    add esi, 4
+    push dword [esi]
+    push  format_str_float32 ; Push string argument
+    call printf             ; Call printf
+    add esp, 20             ; restore stack
+    ;---T E S T  begin--
+    mov eax, 5  ;second
+    push eax
+    mov eax, 15  ;first
+    push eax
+    call float32ToString  ;call test function
+    add esp, 8            ;restore stack
+     ;print result
+    push eax
+    push format_int
+    call printf
+    add esp, 8             ;restore stack
+    ;---T E S T  end----
+ 
+    push 0
+    call ExitProcess
+
+    ret              ; Return from main
+
+    ;https://www.youtube.com/playlist?list=PLBlnK6fEyqRgLLlzdgiTUKULKJPYc0A4q
 
 
