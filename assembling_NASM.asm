@@ -251,5 +251,150 @@ main:
     ret              ; Return from main
 
     ;https://www.youtube.com/playlist?list=PLBlnK6fEyqRgLLlzdgiTUKULKJPYc0A4q
+;13.040.25
+;-----------COMPILE--LINK--------------------------------
+; To compile:
+;   D:\NASM>nasm -f win32 4.asm -o 4.obj
+; To link with GoLink:
+;   D:\NASM>GoLink /entry main /console 4.obj msvcrt.dll kernel32.dll
+
+section .data
+    hello_msg   db "Hello, World!", 10, 0
+    format_str  db "Here is string: %s", 10, 0
+    format_integer db "Int: %d",10,0
+    test_array  resb 32  ; To store data
+
+section .text
+    global main
+    extern printf, ExitProcess
+
+int32ToString:
+   ;-----stack frame
+   ;charPtr         -12
+   ;int32Value      -8
+   ;remainder       -4
+   ;esi (of caller) -<<---ESI is here
+   ;RETURN_ADDRESS  +4
+   ;par32Intefer    +8  (first input param)
+   ;parPtoChar      +12  (second input param)
+   ;-----------------
+   %define charPtr      [esi - 12]
+   %define int32Value   [esi - 8]
+   %define remainder    [esi - 4]
+   %define par32Integer [esi + 8]
+   %define parPtoChar   [esi + 12]
+   ;init regs and allocate memory
+   push esi
+   mov esi, esp
+   sub esp, 12
+  ;(1)init variables
+   mov eax, par32Integer
+   mov int32Value, eax
+   mov eax, parPtoChar
+   mov charPtr, eax
+   ;(1.1) convert it o positive
+    mov eax, int32Value
+    test eax, eax
+    jns skip_neg
+    neg eax  
+skip_neg:
+    mov int32Value, eax
+main_iter:
+   ;(2) (3) divide the number by 10, update the number and save a remainder 
+   mov eax, int32Value
+   cdq                     ; sign-extend eax into edx
+   mov ebx, 0ah  ;divided by 10 (0x0A)
+   idiv ebx
+   mov remainder, edx 
+   mov int32Value, eax  ;quotient (result of dividion)
+   ;(4) Print ascii character
+    add edx, 30h   ;to ascii
+    mov ebx, charPtr
+    mov  [ebx], dl ;store to a string
+    inc  ebx 
+    mov charPtr, ebx  ;update a pointer
+
+     ;(6) Is the result of division (quotient) greater that 0?
+     mov eax, int32Value
+    cmp eax, 0
+    jg main_iter
+
+    ;(8) Is the number negative?
+    inc ebx
+    mov eax, par32Integer
+    test eax, eax
+    jns l_num_pos
+        mov ebx, charPtr
+        mov byte [ebx],  2dh  ;dash
+l_num_pos:
+    ;(8) print end of a string
+    inc ebx
+    mov byte [ebx], 0
+    ;restore regs, free memory
+    add esp, 12
+    pop esi
+    ret
+mirrorString:
+  ;charBuffer    -20
+  ;charDestPtr   -16
+  ;charSrcPtr    -12
+  ;int32Counter   -8
+  ;int32StringLen -4 
+  ;ESI (caller)  -<<-ESI
+  ;--RET--    +4
+  ;parCharPtr   +8
+  ;-----------
+  %define charBuffer [esi-20]
+  %define charDestPtr [esi-16]
+  %define charSrcPtr [esi-12]
+  %define int32Counter [esi-8]
+  %define int32StringLen [esi-4]
+  %define parCharPtr [esi+8]
+  ;allocate memory
+  push esi
+  mov esi, esp
+  sub esp, 20
+  ;(1) length of string
+  mov ebx, parCharPtr
+loop1:
+   mov al, [ebx]  
+   cmp al, 20h   
+   inc ebx
+   jns loop1  ;iterate until data less 20h
+  mov ecx, parCharPtr 
+  sub ecx, ebx    ;calculate length
+  mov ecx, int32StringLen
+  ;*test
+  mov eax, ecx
+  ;free memory
+  add esp, 20
+  pop esi
+  ret
+
+;===========================
+; main entry point
+;===========================
+main:
+  
+
+    ; Optional hello message
+   
+    ;mov eax, -4096
+    ; push test_array
+    ; push eax
+    ;call int32ToString
+    ;add esp, 8
+    push hello_msg
+    call mirrorString
+    add esp, 4
+
+    ;push eax
+    ;push format_integer
+    ;call printf
+    ;add esp, 8
+
+    ; Exit
+    push 0
+    call ExitProcess
 
 
