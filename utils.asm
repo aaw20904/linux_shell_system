@@ -3,7 +3,7 @@
 ;Before calling these procedures save context with PUSHAD and restore after return with POPAD
 section .text
 
-     global printGpioRegs, printMemorySlice
+    global printGpioRegs, print64BytesOfMemory, printMemorySlice
     extern printf, scanf, ExitProcess
  
 
@@ -44,6 +44,81 @@ loop002:
   ret
 
 printMemorySlice:
+;----------------
+  ;ESI      0  <- (ESI)
+  ;PC      +4
+  ;ptr     +8
+  ;length  +12
+  ;----------
+  %define ptr_132727   [esi+8]
+  %define lenght_132727 [esi+12]
+  ;-EDX -counter
+  ;-EBX -pointer to data
+  push esi
+  mov esi, esp
+  ;-----title 1
+  mov eax, ptr_132727
+  push eax ;
+  push fmt_132727_integer_title
+  call printf
+  add esp, 8
+  ;load counter and pointer value
+  mov edx, lenght_132727 
+  mov ebx, ptr_132727
+lab01_132727:
+  ;save context
+  push ebx ;save context
+  push edx ;save context
+  ;load data to print
+  movzx eax, byte [ebx] 
+  push eax
+  push fmt_132727_hex8
+
+  call printf
+  add esp ,8
+  ;restore context
+  pop edx ;restore context
+  pop ebx ;restoer context
+  ;increment a pointer by one byte
+  inc ebx
+  ;iterate until zero in EDX
+  dec edx
+  jnz lab01_132727
+  ;-and as asc2
+  ;-next string
+  ;title2
+  push fmt_132727_asc2_title
+  call printf
+  add esp, 4
+     ;load counter and pointer value
+  mov edx, lenght_132727 
+  mov ebx, ptr_132727
+lab002_132727:
+  ;save context
+  push ebx ;save context
+  push edx ;save context
+  ;load data to print
+  movzx eax, byte [ebx] 
+  push eax
+  push fmt_132727_asc2
+  call printf
+  add esp ,8
+  ;restore context
+  pop edx ;restore context
+  pop ebx ;restoer context
+  ;increment a pointer by one byte
+  inc ebx
+  ;iterate until zero in EDX
+  dec edx
+  jnz lab002_132727
+
+  ;restore regs and quit
+  pop esi
+  ret 
+
+  ;****
+
+print64BytesOfMemory:
   ;----------
   ;ESI      0  (ESI)
   ;PC      +4
@@ -115,7 +190,7 @@ lab002:
   ret 
 
 section .data
-    fmt_132727_regs1  db "EAX: %x, ECX: %x, EDX: %x, EBX: %x, ESP: %x, EBP: %x, ESI: %x, EDI: %x",10, 0, 0
+    fmt_132727_regs1  db "EAX: %08x, ECX: %08x, EDX: %08x, EBX: %08x, ESP: %08x, EBP: %08x, ESI: %08x, EDI: %08x",10, 0, 0
      fmt_132727_asc2_title db  0ah , " In ASCII:" ,0ah ,0
      fmt_132727_integer_title db 10, " In HEX , address is [ %08X ] :" , 10, 0
      fmt_132727_hex8 db "%02X ",0,0,0
