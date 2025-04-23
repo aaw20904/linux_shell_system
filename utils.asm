@@ -8,8 +8,16 @@ section .text
  
 
 printGpioRegs:
-  ;--IMPORTANT: all regs must be stord inside stack by
-  ;pushad and restore after return by popad instructions
+  ;--IMPORTANT: flags firstly,   regs secondly  must be stored inside stack by
+  ;pushad,  and restore regs firstly, flags secondly  after return by popad instructions
+  ;EXAMPLE 
+  ;  pushfd  ;1)push EFLAGS
+  ;  pushad  ;2)push REGS
+  ; CALL printGpioRegs
+  ;  popad   ;4)pop REGS
+  ;  popfd   ;5)pop EFLAG
+  ;
+  ;
   ;---stack frame---
   ;ESI          0
   ;EIP(return) +4
@@ -21,6 +29,7 @@ printGpioRegs:
   ;EDX   +28
   ;ECX   +32
   ;EAX   +36
+  ;EFLAGS +40
   ;---CONVENTIONS---:
   ; ESI pointer, 
   ; EDX-counter
@@ -38,8 +47,31 @@ loop002:
   mov eax, fmt_132727_regs1
   push eax
   call printf
-  add esp, 36 ;free stack after call
-  ;--------
+  add esp, 36   ;free stack after call
+  ;-------plot--flags------
+  mov ebx, esi  ;ebx is ptr
+  sub ebx, 0   ;flags is already here
+  mov eax, [ebx]  ;load flags
+  ;--load pointer to a string
+  mov ebx, fmt_13227_cpu_flags
+  mov ecx, 00000001h ; comparand
+  mov edx, 16 ;counter
+  ;----switch-constuction
+flags_132727_loop:  
+  test eax, ecx
+  jz to_bit2_132727
+    pushad
+    push ebx
+    call printf
+    add esp, 4
+    popad
+to_bit2_132727:
+  shl ecx, 1
+  add ebx, 7
+  dec edx
+  jnz flags_132727_loop
+  
+  ;------------
   pop esi  ;restore stack
   ret
 
@@ -195,3 +227,4 @@ section .data
      fmt_132727_integer_title db 10, " In HEX , address is [ %08X ] :" , 10, 0
      fmt_132727_hex8 db "%02X ",0,0,0
      fmt_132727_asc2 db "%c",0,0,0
+     fmt_13227_cpu_flags db "CF    ",0,0," ... ",0,"PF    ",0,0," ... ",0,"AF    ",0,0," ... ",0," ZF   ",0," TF   ",0 ," IF   ",0," DF   ",0," OF   ",0,"IOPL0 ",0,"IOPL1 ",0," NT   ",0,0," ... ",0," RF   ",0," VM   ",0," AC   ",0," VIF  ",0," VIP  ",0," ID   ",0
