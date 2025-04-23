@@ -3,7 +3,7 @@
 ;Before calling these procedures save context with PUSHAD and restore after return with POPAD
 section .text
 
-    global printGpioRegs, print64BytesOfMemory, printMemorySlice
+    global printGpioRegs, print64BytesOfMemory, printMemorySlice, printSSE
     extern printf, scanf, ExitProcess
  
 
@@ -74,6 +74,36 @@ to_bit2_132727:
   ;------------
   pop esi  ;restore stack
   ret
+
+printSSE:
+  ;---before call please save and restore flags and registers:
+  ;1)pushfd 2)pushad  _call_ 3)popad 4)popfd
+  ;stack---
+  ; var128  -32  
+  ; esi     0
+  ; return  +4 
+  %define var128 [esi-16]
+  push esi
+  mov esi, esp
+  sub esp, 16
+  ; copy xmm
+  mov ebx, esi
+  sub ebx, 16
+  ;movaps [ebx], xmm0
+  ;print
+   mov eax ,00000001h
+   push eax
+   push eax
+   push eax
+   push eax
+   push fmt_13227_xmm7
+  call printf
+  add esp, 20
+ ;free memory
+ add esp, 16
+ pop esi
+  ret
+
 
 printMemorySlice:
 ;----------------
@@ -228,3 +258,12 @@ section .data
      fmt_132727_hex8 db "%02X ",0,0,0
      fmt_132727_asc2 db "%c",0,0,0
      fmt_13227_cpu_flags db "CF    ",0,0," ... ",0,"PF    ",0,0," ... ",0,"AF    ",0,0," ... ",0," ZF   ",0," TF   ",0 ," IF   ",0," DF   ",0," OF   ",0,"IOPL0 ",0,"IOPL1 ",0," NT   ",0,0," ... ",0," RF   ",0," VM   ",0," AC   ",0," VIF  ",0," VIP  ",0," ID   ",0
+     fmt_13227_xmm0 db "XMM0: %d %d %d %d ",10,0
+     fmt_13227_xmm1 db "XMM1: %d %d %d %d ",10,0
+     fmt_13227_xmm2 db "XMM2: %d %d %d %d",10,0
+     fmt_13227_xmm3 db "XMM3: %d %d %d %d ",10,0
+     fmt_13227_xmm4 db "XMM4: %d %d %d %d ",10,0
+     fmt_13227_xmm5 db "XMM5: %d %d %d %d ",10,0
+     fmt_13227_xmm6 db "XMM6: %d %d %d %d ",10,0
+     fmt_13227_xmm7 db "XMM7: %d %d %d %d ",10,0
+
