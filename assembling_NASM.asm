@@ -412,3 +412,8 @@ main:
 
   pop EDI ;//restore regs
   pop ESI
+;---iteration by ecx
+  mov ecx , 4
+t8767657:
+  add eax, 4  
+  loopnz t8767657
