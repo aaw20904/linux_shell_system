@@ -418,3 +418,19 @@ main:
 t8767657:
   add eax, 4  
   loopnz t8767657
+;-------------allocate/free stack for variablles:
+myCode:
+  %define local_var [ebp-4] ;our local var
+  %define param [ebp+8]     ;paramter from a caller
+  enter 4, 0
+  mov eax, param
+  mov ebx, 1
+  mov local_var, ebx
+  mov ecx, local_var
+  add eax, ecx
+  push eax
+  push fmtInt
+  call printf
+  add esp, 8 
+  leave
+  ret
