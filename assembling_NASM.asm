@@ -397,7 +397,7 @@ main:
     push 0
     call ExitProcess
 ;https://youtu.be/oeo-hKxsAMo
-;---copying arrays--------------
+;---copying arrays-----------------------
   ;---copy
 
   push ESI ;//save original
@@ -412,6 +412,7 @@ main:
 
   pop EDI ;//restore regs
   pop ESI
+;--------------------------------------
 ;---iteration by ecx
   mov ecx , 4
 t8767657:
