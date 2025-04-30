@@ -397,4 +397,18 @@ main:
     push 0
     call ExitProcess
 ;https://youtu.be/oeo-hKxsAMo
+;---copying arrays--------------
+  ;---copy
 
+  push ESI ;//save original
+  push EDI
+   
+   mov esi, store1  ;//load source,
+   mov edi, store2  ;and destination addresses
+   mov ecx, 6 ;//repeat 6 times 
+   
+   rep movsb  ;copy byte from one place in RAM to another
+
+
+  pop EDI ;//restore regs
+  pop ESI
