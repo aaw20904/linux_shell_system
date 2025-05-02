@@ -3,7 +3,7 @@
 ;Before calling these procedures save context with PUSHAD and restore after return with POPAD
 section .text
 
-    global printGpioRegs, print64BytesOfMemory, printMemorySlice, printSSE
+    global printGpioRegs, print64BytesOfMemory, printMemorySlice, printSSE, showFpuStatus
     extern printf, scanf, ExitProcess
 ;==================================================
 printGpioRegs:
@@ -52,7 +52,7 @@ loop002:
   ;--load pointer to a string
   mov ebx, fmt_13227_cpu_flags
   mov ecx, 00000001h ; comparand
-  mov edx, 16 ;counter
+  mov edx, 21 ;counter
   ;----switch-constuction
 flags_132727_loop:  
   test eax, ecx
@@ -92,7 +92,7 @@ printSSE:
   push dword [ebx+4]
   push dword [ebx+8]
   push dword [ebx+12]
-   push fmt_13227_xmm0
+  push fmt_13227_xmm0
   call printf
   add esp, 20
   ;---}
@@ -314,13 +314,68 @@ lab002:
   pop esi
   ret 
 
+showFpuStatus:
+  %define var1 [ebp-8]
+  %define var2 [ebp-4]
+  enter 8, 0
+  lea ebx, var1
+  FSTSW [ebx]
+  mov ecx, 0x0000000A
+  lea ebx, fmt_13227_cpu_flags1  ;pointer to str
+x01_132727_loop1:
+  mov edx, eax
+  and edx, 0x00000001
+    jz x01_132727_no
+      push eax
+      push ecx
+      push ebx
+      call printf
+      add esp, 4
+      pop ecx
+      pop eax
+      add ebx, 5
+x01_132727_no:
+  shr eax, 1
+  loop x01_132727_loop1
+  ;--top
+  mov edx, eax
+  and edx , 0x00000003
+  lea ebx, fmt_13227_cpu_flags2
+  push eax ;store
+  push edx
+  push ebx
+  call printf
+  add esp, 8
+  pop eax ;restore
+  ;--
+  shr eax, 3
+  lea ebx, fmt_13227_cpu_flags3
+  mov ecx, 2
+x01_132727_loop2:
+  mov edx, eax
+  and edx , 0x00000001
+  jz x02_132727_no
+    push eax ;store
+    push ecx ;store
+    push ebx
+    call printf
+    add esp, 4
+    pop ecx ;restore
+    pop eax ;restore
+x02_132727_no:
+    shr eax, 1
+    add ebx, 4
+  loop x01_132727_loop2
+  leave
+  ret
+
 section .data
     fmt_132727_regs1  db 10,"EAX: %08x, ECX: %08x, EDX: %08x, EBX: %08x, ESP: %08x, EBP: %08x, ESI: %08x, EDI: %08x",10, 0, 0
      fmt_132727_asc2_title db  0ah , " In ASCII:" ,0ah ,0
      fmt_132727_integer_title db 10, " In HEX , address is [ %08X ] :" , 10, 0
      fmt_132727_hex8 db "%02X ",0,0,0
      fmt_132727_asc2 db "%c",0,0,0
-     fmt_13227_cpu_flags db "CF    ",0,0," ... ",0,"PF    ",0,0," ... ",0,"AF    ",0,0," ... ",0," ZF   ",0," TF   ",0 ," IF   ",0," DF   ",0," OF   ",0,"IOPL0 ",0,"IOPL1 ",0," NT   ",0,0," ... ",0," RF   ",0," VM   ",0," AC   ",0," VIF  ",0," VIP  ",0," ID   ",10,0
+     fmt_13227_cpu_flags db "CF    ",0,0," ... ",0,"PF    ",0,0," ... ",0,"AF    ",0,0," ... ",0," ZF   ",0," SF   ",0 ," TF   ",0," IF   ",0," DF   ",0," OF   ",0,"IOPL0 ",0,"IOPL1 ",0," NT   ",0,0," ... ",0," RF   ",0," VM   ",0," AC   ",0," VIF  ",0," VIP  ",0," ID   ",10,0,"    ",0,"    ",0,"    ",0,"    ",0,"    ",0,0,0
      fmt_13227_xmm0 db 10,"XMM0: %08x %08x %08x %08x ",10,0
      fmt_13227_xmm1 db "XMM1: %08x %08x %08x %08x ",10,0
      fmt_13227_xmm2 db "XMM2: %08x %08x %08x %08x ",10,0
@@ -329,4 +384,7 @@ section .data
      fmt_13227_xmm5 db "XMM5: %08x %08x %08x %08x ",10,0
      fmt_13227_xmm6 db "XMM6: %08x %08x %08x %08x ",10,0
      fmt_13227_xmm7 db "XMM7: %08x %08x %08x %08x ",10,0
-
+     fmt_13227_cpu_flags1 db 10,"Ie ",0," DE ",0," ZE ",0," OE ",0," UE ",0," PE ",0," SF ",0," ES ",0," C0 ",0," C1 ",0," C2 ",0,0,0,0,0,0,0,0
+      fmt_13227_cpu_flags2 db "TOP:%X",0,0
+      fmt_13227_cpu_flags3 db " C3",0,"  B",10,0
+    
