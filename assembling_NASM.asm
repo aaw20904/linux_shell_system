@@ -434,3 +434,15 @@ myCode:
   add esp, 8 
   leave
   ret
+;----F P U-----------------------------F P U---------
+;FPU has it`s own stack that consist from registers
+;FPU convering from 32 to 64 bit automatically on fly
+;You only need to tell assembler amount of data store to
+;32->64 example---
+  fld dword [f32var1]  ;load 32 bit float, now FPU has variable converted t 64 bit
+  fstp qword [f64var1] ;store data fom FPU stack into DRAM
+;64->32 example--
+  fld qword [f64var1]
+  fstp dword [f32var1]
+;
+
