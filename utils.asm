@@ -319,8 +319,9 @@ showFpuStatus:
   %define var2 [ebp-4]
   enter 8, 0
   lea ebx, var1
-  FSTSW [ebx]
-  mov ecx, 0x0000000A
+  FSTSW [ebx]  ;save FPU flags into RAM
+  mov eax, [ebx]  ;load from ram to ax
+  mov ecx, 0x0000000A ;counter
   lea ebx, fmt_13227_cpu_flags1  ;pointer to str
 x01_132727_loop1:
   mov edx, eax
