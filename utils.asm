@@ -367,6 +367,11 @@ x02_132727_no:
     shr eax, 1
     add ebx, 4
   loop x01_132727_loop2
+  ;go to the next string
+  push  fmt_13227_exit
+  call printf
+  add esp , 4
+
   leave
   ret
 
@@ -387,5 +392,6 @@ section .data
      fmt_13227_xmm7 db "XMM7: %08x %08x %08x %08x ",10,0
      fmt_13227_cpu_flags1 db 10,"Ie ",0," DE ",0," ZE ",0," OE ",0," UE ",0," PE ",0," SF ",0," ES ",0," C0 ",0," C1 ",0," C2 ",0,0,0,0,0,0,0,0
       fmt_13227_cpu_flags2 db "TOP:%X",0,0
-      fmt_13227_cpu_flags3 db " C3",0,"  B",10,0
-    
+      fmt_13227_cpu_flags3 db " C3",0,"  B",0
+    fmt_13227_exit db 10,0
+      
