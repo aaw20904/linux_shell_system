@@ -340,7 +340,7 @@ x01_132727_no:
   loop x01_132727_loop1
   ;--top
   mov edx, eax
-  and edx , 0x00000003
+  and edx , 0x00000007
   lea ebx, fmt_13227_cpu_flags2
   push eax ;store
   push edx
