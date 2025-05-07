@@ -3,7 +3,7 @@
 ;Before calling these procedures save context with PUSHAD and restore after return with POPAD
 section .text
 
-    global printGpioRegs, print64BytesOfMemory, printMemorySlice, printSSE, showFpuStatus
+    global printGpioRegs, print64BytesOfMemory, printMemorySlice, printSSE, showFpuStatus, showMMX
     extern printf, scanf, ExitProcess
 ;==================================================
 printGpioRegs:
@@ -394,9 +394,112 @@ no_flags_02:
   push  fmt_13227_exit
   call printf
   add esp, 4
-
   leave
   ret
+
+;===========================
+showMMX:
+;-----
+;local64int     ebp-8
+;old_value      ebp
+;return address ebp+4
+  %define localVar ebp-8
+  enter 8, 0
+ ;---mm0----------
+  mov ebx,  fmt_13227_mmx
+  add ebx, 2
+  mov byte [ebx], 0x30
+  movq [localVar], mm0
+  push ebx
+  push dword [localVar+4]
+  push dword [localVar]
+  push fmt_13227_mmx
+  call printf
+  add esp, 12
+  pop ebx
+  ;---mm1----------
+
+  mov byte [ebx], 0x31
+  movq [localVar], mm1
+  push ebx ; store context
+    push dword [localVar+4]
+    push dword [localVar]
+    push fmt_13227_mmx
+    call printf
+    add esp, 12
+  pop ebx ;restore context
+    ;---mm2----------
+  mov byte [ebx], 0x32
+  movq [localVar], mm2
+  push ebx ; store context
+    push dword [localVar+4]
+    push dword [localVar]
+    push fmt_13227_mmx
+    call printf
+    add esp, 12
+  pop ebx ;restore context
+     ;---mm3----------
+  mov byte [ebx], 0x33
+  movq [localVar], mm3
+  push ebx ; store context
+    push dword [localVar+4]
+    push dword [localVar]
+    push fmt_13227_mmx
+    call printf
+    add esp, 12
+  pop ebx ;restore context
+     ;------
+  push ebx
+  push  fmt_13227_exit
+  call printf 
+  add esp, 4
+  pop ebx
+     ;---mm4----------
+  mov byte [ebx], 0x34
+  movq [localVar], mm4
+  push ebx ; store context
+    push dword [localVar+4]
+    push dword [localVar]
+    push fmt_13227_mmx
+    call printf
+    add esp, 12
+  pop ebx ;restore context
+     ;---mm5----------
+  mov byte [ebx], 0x35
+  movq [localVar], mm5
+  push ebx ; store context
+    push dword [localVar+4]
+    push dword [localVar]
+    push fmt_13227_mmx
+    call printf
+    add esp, 12
+  pop ebx ;restore context
+     ;---mm6----------
+  mov byte [ebx], 0x36
+  movq [localVar], mm6
+  push ebx ; store context
+    push dword [localVar+4]
+    push dword [localVar]
+    push fmt_13227_mmx
+    call printf
+    add esp, 12
+  pop ebx ;restore context
+     ;---mm7----------
+  mov byte [ebx], 0x37
+  movq [localVar], mm7
+  push ebx ; store context
+    push dword [localVar+4]
+    push dword [localVar]
+    push fmt_13227_mmx
+    call printf
+    add esp, 12
+  pop ebx ;restore context
+  ;------
+  push  fmt_13227_exit
+  call printf 
+  add esp, 4
+  leave  
+ ret
 
 section .data
     fmt_132727_regs1  db 10,"EAX: %08x, ECX: %08x, EDX: %08x, EBX: %08x, ESP: %08x, EBP: %08x, ESI: %08x, EDI: %08x",10, 0, 0
@@ -417,3 +520,4 @@ section .data
       fmt_13227_cpu_flags2 db "TOP:%X",0,0
       fmt_13227_cpu_flags3 db " C3",0,"  B",0
     fmt_13227_exit db 10,0
+    fmt_13227_mmx db "MM0: %016llx ",0
