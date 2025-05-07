@@ -313,64 +313,87 @@ lab002:
   ;restore regs and quit
   pop esi
   ret 
-
+;================================
 showFpuStatus:
-  %define var1 [ebp-8]
-  %define var2 [ebp-4]
-  enter 8, 0
-  lea ebx, var1
-  FSTSW [ebx]  ;save FPU flags into RAM
-  mov eax, [ebx]  ;load from ram to ax
-  mov ecx, 0x0000000A ;counter
-  lea ebx, fmt_13227_cpu_flags1  ;pointer to str
-x01_132727_loop1:
-  mov edx, eax
-  and edx, 0x00000001
-    jz x01_132727_no
-      push eax
-      push ecx
+  ;---stack
+  ;            ebp-4
+  ;old_ebp     ebp
+  ;return_addr ebp+4
+  enter 4, 0
+  mov ecx, 11 ;counter 1
+  mov ebx, fmt_13227_cpu_flags1 ;string addr
+  mov eax, 0 ;clear eax
+  fstsw ax ;copying flags to eax 
+  ;-1) first 11 flags
+fpu_11flags_loop1:
+  test eax, 0x00000001
+  jz no_flag01
+    ;store regs
+    push eax
+    push ebx
+    push ecx
+    push edx
+      ;plot sub string
       push ebx
       call printf
-      add esp, 4
-      pop ecx
-      pop eax
-      add ebx, 5
-x01_132727_no:
-  shr eax, 1
-  loop x01_132727_loop1
-  ;--top
+      add esp, 4 ;restore stack after call
+      ;restore regs
+    pop edx
+    pop ecx
+    pop ebx
+    pop eax
+no_flag01:
+  shr eax, 1 ;shift flags of FPU
+  add ebx, 5  ;shif to next sub-string
+  loop fpu_11flags_loop1
+  ;2)---top of stack pointer plot
   mov edx, eax
-  and edx , 0x00000007
-  lea ebx, fmt_13227_cpu_flags2
-  push eax ;store
-  push edx
-  push ebx
-  call printf
-  add esp, 8
-  pop eax ;restore
-  ;--
-  shr eax, 3
-  lea ebx, fmt_13227_cpu_flags3
-  mov ecx, 2
-x01_132727_loop2:
-  mov edx, eax
-  and edx , 0x00000001
-  jz x02_132727_no
-    push eax ;store
-    push ecx ;store
+  and edx, 0x00000007
+  ;--store regs
+    push eax
     push ebx
+    push ecx
+    push edx
+    ;pring top stack
+    push edx
+    push fmt_13227_cpu_flags2 
     call printf
-    add esp, 4
-    pop ecx ;restore
-    pop eax ;restore
-x02_132727_no:
-    shr eax, 1
-    add ebx, 4
-  loop x01_132727_loop2
-  ;go to the next string
+    add esp, 8
+  ;restore regs
+    pop edx
+    pop ecx
+    pop ebx
+    pop eax
+    ;-shift flags
+    shr eax, 3
+    ;3)plot bits 14, 15  (C3,B)
+    mov ebx, fmt_13227_cpu_flags3
+    mov ecx, 2
+flags_loop2:
+    test eax, 0x00000001
+    jz no_flags_02
+        ;store regs
+      push eax
+      push ebx
+      push ecx
+      push edx
+      ;plot sub string
+      push ebx
+      call printf
+      add esp, 4 ;restore stack after call
+      ;restore regs
+      pop edx
+      pop ecx
+      pop ebx
+      pop eax
+no_flags_02:
+      add ebx,4
+      shr eax,1
+  loop flags_loop2
+  ;---plot CR LF
   push  fmt_13227_exit
   call printf
-  add esp , 4
+  add esp, 4
 
   leave
   ret
@@ -394,4 +417,3 @@ section .data
       fmt_13227_cpu_flags2 db "TOP:%X",0,0
       fmt_13227_cpu_flags3 db " C3",0,"  B",0
     fmt_13227_exit db 10,0
-      
