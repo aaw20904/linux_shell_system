@@ -405,6 +405,10 @@ showMMX:
 ;return address ebp+4
   %define localVar ebp-8
   enter 8, 0
+   ;---new line
+  push  fmt_13227_exit
+  call printf 
+  add esp, 4
  ;---mm0----------
   mov ebx,  fmt_13227_mmx
   add ebx, 2
@@ -418,7 +422,6 @@ showMMX:
   add esp, 12
   pop ebx
   ;---mm1----------
-
   mov byte [ebx], 0x31
   movq [localVar], mm1
   push ebx ; store context
