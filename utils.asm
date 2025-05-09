@@ -3,7 +3,7 @@
 ;Before calling these procedures save context with PUSHAD and restore after return with POPAD
 section .text
 
-    global printGpioRegs, print64BytesOfMemory, printMemorySlice, printSSE, showFpuStatus, showMMX
+    global printGpioRegs, print64BytesOfMemory, printMemorySlice, printSSE,plotSSE, showFpuStatus, showMMX
     extern printf, scanf, ExitProcess
 ;==================================================
 printGpioRegs:
@@ -397,6 +397,44 @@ no_flags_02:
   leave
   ret
 
+;==========NEW=================
+plotSSE:
+  ;esp         ebp-20
+  ;last_cell   ebp-19
+  ;ebp_old     ebp
+  ;return      ebp+4
+  ;any_param   ebp+8  only for debug, not used
+  %define i32Array ebp-19
+  enter 20, 0
+  mov ecx, 4
+  lea ebx, [i32Array]
+  mov eax, 0x77777770
+x123:
+  add eax, 1
+  mov [ebx], eax
+  add ebx, 4
+  loop x123  ;fill an array
+  ;--copy data mem->mem into new stack area
+  mov ecx, 4 ; iterations
+  sub esp, 15 ;move stack NO1{
+  lea esi, [i32Array]
+  mov edi, esp
+  rep movsd
+  ;------show stack
+  push fmt_13227_xmm1
+  
+  push esp
+  call print64BytesOfMemory
+  pop esp
+  ;-------
+
+  call printf
+  add esp, 4
+
+  add esp, 15 ;}restore stack NO1
+  
+  leave
+  ret
 ;===========================
 showMMX:
 ;-----
