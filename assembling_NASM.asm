@@ -465,3 +465,10 @@ myCode:
 ;---explanation:
 ;high nibble (0xF) = 1111b: use all 4 elements in the dot product
 ;low nibble (0x1) = 0001b: store the result only in element 0 of xmm1, other elements set to 0.0
+;-------------------load/store-----XMM---regs------------------
+     lddqu xmm0, [f32array1] 
+     movups [f32array1], xmm0
+;------------load data into FPU register stack------
+    FLD dword [ebx]
+;-----popo data from FPU register stack into memory
+    FSTP qword [ebx]
