@@ -445,4 +445,5 @@ myCode:
   fld qword [f64var1]
   fstp dword [f32var1]
 ;
-
+;-----to MIROR data (or change order of bytes ) use 
+  PSHUFB 
