@@ -474,4 +474,5 @@ myCode:
     FSTP qword [ebx]
 ;--rounding float values:
 ROUNDPS xmm1 , xmm2, 0
-
+;--move one (order defined by thrid parameter) float 32 number from xmm to RAM:
+ EXTRACTPS [f32var] , xmm2, 0
