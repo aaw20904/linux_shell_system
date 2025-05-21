@@ -478,3 +478,5 @@ ROUNDPS xmm1 , xmm2, 0
  EXTRACTPS [f32var] , xmm2, 0
 ;---move one float32 from RAM to XMM:
 INSERTPS xmm2, [f32array2], 0
+;---compare two pairs 64bit words.When equal, value 0xffffffffffffffff placed in destination xmm reg:
+PCMPEQQ xmm1, xmm2
