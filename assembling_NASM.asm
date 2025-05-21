@@ -472,3 +472,6 @@ myCode:
     FLD dword [ebx]
 ;-----popo data from FPU register stack into memory
     FSTP qword [ebx]
+;--rounding float values:
+ROUNDPS xmm1 , xmm2, 0
+
