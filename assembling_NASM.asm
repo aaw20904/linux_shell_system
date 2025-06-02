@@ -468,7 +468,9 @@ myCode:
 ;-------------------load/store-----XMM---regs------------------
      lddqu xmm0, [f32array1] 
      movups [f32array1], xmm0
-;------------load data into FPU register stack------
+;---load --integer --data into FPU stack (ebx has address of the variable):
+     FILD dword [ebx]
+;------------load float data into FPU register stack------
     FLD dword [ebx]
 ;-----popo data from FPU register stack into memory
     FSTP qword [ebx]
