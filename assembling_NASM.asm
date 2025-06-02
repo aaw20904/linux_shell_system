@@ -461,7 +461,7 @@ myCode:
 ;dot = a0*b0 + a1*b1 + a2*b2 + a3*b3
 ;xmm1 = [dot, 0.0, 0.0, 0.0]
 ;--the command is the next:
-   DPPS xmm1, xmm2, 0xF1
+   DPPS xmm1, xmm2, 0x8f
 ;---explanation:
 ;high nibble (0xF) = 1111b: use all 4 elements in the dot product
 ;low nibble (0x1) = 0001b: store the result only in element 0 of xmm1, other elements set to 0.0
