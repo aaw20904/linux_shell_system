@@ -4,7 +4,8 @@
 ;to link with MyLink - use the following command:
 ;   D:\NASM>GoLink /entry main /console 3.obj msvcrt.dll kernel32.dll
 ;-----------------------------------------------------------------------------------
-;--hghest word of XMM registers stored in RAM at the lowest address--- 
+;--NASM---stores--variables with the highest  address at the left and the lowest address at the right
+;---
 section .data
     hello_msg db "Hello, World! %d %d %d %d", 0   ; Null-terminated string
     inp_var1 dd 1230
