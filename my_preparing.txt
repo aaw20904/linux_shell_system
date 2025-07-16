@@ -1,1 +1,75 @@
 
+1) USB Stack (Device & Host Side)
+
+✔ Very valuable for embedded jobs.
+
+    Many STM32, ESP32, or ARM-based devices need USB CDC, HID, MSC, or Audio.
+
+    Few firmware engineers truly understand USB descriptors and enumeration – it will make you stand out.
+
+    Even with a USB 1.1 logic analyzer, you can learn enumeration, handshakes, and endpoints, which is enough to understand the protocol fundamentals.
+2) TCP/UDP + DHCP, ARP, RARP, DNS
+
+✔ Critical for IoT and Industrial Embedded Systems.
+
+    If you know how Ethernet/Wi-Fi stacks actually work, you can develop or debug lwIP or other lightweight stacks on STM32/ESP32.
+
+    DHCP, ARP, DNS are the basics for any networked device – very relevant for IoT products, industrial controllers, or networked measurement systems.
+
+3) Linux (System & Network Programming)
+
+✔ A must for higher-level embedded and remote jobs.
+
+    Many remote embedded jobs are for Linux-based systems (ARM SBCs, routers, IoT gateways), not only bare-metal MCUs.
+
+    Knowing Linux socket API, daemons, processes, and device drivers will allow you to work on higher-paying positions (e.g., “Embedded Linux Engineer”).
+
+    Also, you’ll be able to write diagnostic tools and custom daemons for your devices.
+************************************************************************************************************
+🔍 Core Job Directions for C Developers
+
+    Embedded / IoT / Firmware
+
+        Everywhere: microcontrollers, RTOS, sensors
+        Реддит+6Markaicode+6Реддит+6
+        .
+
+        Reddit reinforces: “the majority of the jobs are on embedded systems”
+        MoldStud+11Реддит+11Реддит+11
+        .
+
+    Critical Infrastructure & Legacy Systems
+
+        Banks, utilities, gov’t upkeep decades-old C code
+        Реддит+5Markaicode+5Himalayas+5
+        .
+
+    Performance-Critical Applications
+
+        High-frequency trading, telecom stacks, network protocols, HPC, simulation
+        Business Insider+12DataFlair+12Markaicode+12
+        Business Insider+2MoldStud+2Реддит+2
+        .
+
+    Kernel / Systems / Driver Development
+
+        OS, kernel modules, device drivers
+        Реддит+4MoldStud+4Markaicode+4
+        .
+
+    Security & Low-Level Systems
+
+        Vulnerability research, encryption, memory management, protocol stacks
+        Реддит+2MoldStud+2Himalayas+2
+        Markaicode
+        .
+
+    Cross-Language Integration
+
+        C used under the hood by Python or Rust; bindings specialists in demand
+        Реддит
+        .
+
+    Automotive, Aerospace, Defense
+
+        Critical embedded controllers, avionic systems, missile guidance, defense tech 
