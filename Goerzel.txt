@@ -1,0 +1,62 @@
+//calculate omega, omega_sin, omega_cos only one time for initialization:
+float omega = 2.0f * M_PI * f_target / f_sample; 
+
+float cos_omega = cosf(omega);  //calc once
+float sin_omega = sinf(omega);  //calc once
+float coeff     = 2.0f * cos_omega;   // for the main loop
+//;------each sample:
+s[n]=x[n]+2cos(?)?s[n?1]?s[n?2] 
+/*note:
+	x[n] - Current input sample (voltage or current from ADC) 
+	s[n]  - Current filter state (computed now) 
+	s[n?1] - Previous state (s_prev) 
+	s[n?2] - State before that (s_prev2) 
+	?  - 2?ftarget?/fsample? 
+            2cos(?) - Precomputed once (the coeff in code)
+      */ 
+//;-----at the end of the block:
+Re = s_prev - s_prev2 * cos_omega;
+Im = s_prev2 * sin_omega;
+Amplitude = sqrtf(Re*Re + Im*Im);
+Phase = atan2f(Im, Re);
+
+
+///--------------------------------------------------------------------------
+#include <math.h>   // for sinf(), cosf(), sqrtf(), atan2f()
+
+// Structure to hold Goertzel parameters and state
+typedef struct {
+    float coeff;      // 2*cos(?)
+    float cos_omega;  // cos(?)
+    float sin_omega;  // sin(?)
+    float s_prev;
+    float s_prev2;
+} GoertzelState;
+
+// ------------ Initialization (run once or when frequency changes) ------------
+void goertzel_init(GoertzelState *st, float f_target, float f_sample) {
+    float omega = 2.0f * M_PI * f_target / f_sample;
+
+    st->cos_omega = cosf(omega);
+    st->sin_omega = sinf(omega);
+    st->coeff     = 2.0f * st->cos_omega;
+    st->s_prev    = 0.0f;
+    st->s_prev2   = 0.0f;
+}
+
+// ------------ Per-sample processing ------------
+void goertzel_process_sample(GoertzelState *st, float x) {
+    float s = x + st->coeff * st->s_prev - st->s_prev2;
+
+    st->s_prev2 = st->s_prev;
+    st->s_prev  = s;
+}
+
+// ------------ End of block: compute amplitude and phase ------------
+void goertzel_result(GoertzelState *st, float *amplitude, float *phase) {
+    float Re = st->s_prev - st->s_prev2 * st->cos_omega;
+    float Im = st->s_prev2 * st->sin_omega;
+
+    *amplitude = sqrtf(Re * Re + Im * Im);
+    *phase     = atan2f(Im, Re);  // in radians (-? .. +?)
+}
