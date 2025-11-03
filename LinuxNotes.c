@@ -2,7 +2,7 @@
 /*
 Create  an executable file in Ubuntu:
 1) compile
-   gcc myprogram.c myprogram.o
+   gcc myprogram.c -o myprogram.o
 2) link and build
    gcc myprogram.o myprogram
 3) Change privileges and mode (enable execute)
