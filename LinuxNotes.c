@@ -17,9 +17,9 @@ Create  an executable file in Ubuntu:
 /*******create shared library .SO (like .DLL in Windows)
 1)Compile it as position-independent code. -fPIC → generates position-independent code, 
   which can be loaded at any memory address (required for .so).
-     gcc -fPIC -c mylib.c
+     gcc -fPIC -c mylib.c -o mylib.o
 2)Create the shared library
-     gcc -shared -o libmymath.so mylib.o
+     gcc -shared -o mysharedlib.so mylib.o
 3) You can create and open a shared library dynamically, like in this example below:
 *****/
 
