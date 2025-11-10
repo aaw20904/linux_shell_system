@@ -67,7 +67,12 @@ This is where endpoints make sense:
 
 This is the layer TinyUSB really works at.
 
-The REAL "USB application layer": Classes
+
+▀█▀ █░█ █▀▀   █▀█ █▀▀ ▄▀█ █░░   █░█ █░█ █▀ █▄▄   ▄▀█ █▀█ █▀█ █░░ █ █▀▀ ▄▀█ ▀█▀ █ █▀█ █▄░█   █░░ ▄▀█ █▄█ █▀▀ █▀█ █░█ ▀
+░█░ █▀█ ██▄   █▀▄ ██▄ █▀█ █▄▄   ░░░ █▄█ ▄█ █▄█   █▀█ █▀▀ █▀▀ █▄▄ █ █▄▄ █▀█ ░█░ █ █▄█ █░▀█   █▄▄ █▀█ ░█░ ██▄ █▀▄ ░░░ ▄
+
+█▀▀ █░░ ▄▀█ █▀ █▀ █▀▀ █▀
+█▄▄ █▄▄ █▀█ ▄█ ▄█ ██▄ ▄█
 
 This is what TinyUSB exposes:
 -CDC: virtual COM port
