@@ -4,8 +4,31 @@ There are 4 layers:
 ░█░ ▄ 　 ▒█▄▄█ █▀▀█ █▄▄█ ▀▀█ ▀█▀ █░░ █▄▄█ █░░ 　 █░░ █▄▄█ █▄▄█ █▀▀ █▄▄▀ 
 ▄█▄ █ 　 ▒█░░░ ▀░░▀ ▄▄▄█ ▀▀▀ ▀▀▀ ▀▀▀ ▀░░▀ ▀▀▀ 　 ▀▀▀ ▀░░▀ ▄▄▄█ ▀▀▀ ▀░▀▀
 
+
+A full-speed device stays in Idle J state until host starts polling.
+Definitions for full-speed:
+
+-J state: D+ = HIGH, D– = LOW
+-K state: D+ = LOW, D– = HIGH
+
+NRZI encoding:
+
+Logical 1: maintain previous state
+Logical 0: toggle between J/K
+
 Bit timings, pull-ups, differential DP/DM signalling.
 TinyUSB and the MCU peripheral handle all of this. You won’t touch it.
+
+-Logical J and K states are encoded as combinations of D+ and D–
+-Idle is a J state
+-Data bits are encoded as transitions between J and K (NRZI)
+
+The absolute voltage doesn't matter much; the receiver listens for the difference between D+ and D–.
+
+HOST ALWAYS STARTS: No device-to-host communication until host sends packets
+
+USB is strictly host driven.
+The device does NOT send anything unless the host explicitly asks.
 
 
 ▀█ ░   █░█ █▀ █▄▄   █▀█ █▀█ █▀█ ▀█▀ █▀█ █▀▀ █▀█ █░░   █░░ ▄▀█ █▄█ █▀▀ █▀█
