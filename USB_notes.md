@@ -626,3 +626,27 @@ max packet size
 hardware state machine for sending/receiving packets
 
 They don’t run in parallel — the USB peripheral moves data automatically.
+
+## Endpoint Descriptors
+
+During enumeration, the device sends its descriptors to the host.
+
+Each endpoint has its own Endpoint Descriptor, which looks like this:
+| Field              | Size (bytes) | Description                                                                 |
+| ------------------ | ------------ | --------------------------------------------------------------------------- |
+| `bLength`          | 1            | Descriptor size (7 bytes)                                                   |
+| `bDescriptorType`  | 1            | `0x05` for endpoint                                                         |
+| `bEndpointAddress` | 1            | Bit7 = direction (1=IN, 0=OUT), Bits0–3 = endpoint number                   |
+| `bmAttributes`     | 1            | Bits0–1 = Transfer type (00=Control, 01=Isochronous, 10=Bulk, 11=Interrupt) |
+| `wMaxPacketSize`   | 2            | Max size of one packet                                                      |
+| `bInterval`        | 1            | Polling interval (for Interrupt/Isochronous)                                |
+
+   Example for endpoint 1 IN bulk:
+   
+        bLength            = 0x07
+        bDescriptorType    = 0x05
+        bEndpointAddress   = 0x81   (1000 0001b → IN, endpoint 1)
+        bmAttributes       = 0x02   (Bulk)
+        wMaxPacketSize     = 0x0040 (64 bytes)
+        bInterval          = 0x00
+
