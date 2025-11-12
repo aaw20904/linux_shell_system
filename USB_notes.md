@@ -7,13 +7,11 @@ A full-speed device stays in Idle J state until host starts polling.
 Definitions for full-speed:
 
     -J state: D+ = HIGH, D– = LOW
-    
     -K state: D+ = LOW, D– = HIGH
 
 NRZI encoding:
 
     Logical 1: maintain previous state
-    
     Logical 0: toggle between J/K
 
 
@@ -21,9 +19,7 @@ Bit timings, pull-ups, differential DP/DM signalling.
 TinyUSB and the MCU peripheral handle all of this. You won’t touch it.
 
     -Logical J and K states are encoded as combinations of D+ and D–
-    
     -Idle is a J state
-    
     -Data bits are encoded as transitions between J and K (NRZI)
 
 The absolute voltage doesn't matter much; the receiver listens for the difference between D+ and D–.
@@ -31,7 +27,9 @@ The absolute voltage doesn't matter much; the receiver listens for the differenc
 HOST ALWAYS STARTS: No device-to-host communication until host sends packets
 
 USB is strictly host driven.
+
 The device does NOT send anything unless the host explicitly asks.
+
 ## 2. USB protocol layer
 
 This is where packets live. USB packets are LEGO bricks:
@@ -40,27 +38,20 @@ USB has only three packet types:
 ### 1.Token packets
 
       -IN
-      
       -OUT
-      
       -SETUP
-      
       -(also SOF, PING, etc)
         They say “host wants to read/write from endpoint X”.
 
 ### 2.Data packets
     -DATA0
-    
     -DATA1
-    
     -(DATA2, MDATA for high-speed)
      Contain your bytes.
 
 ### 3.Handshake packets
     -ACK
-    
     -NAK
-    
     -STALL  (And a few others)
 
 
