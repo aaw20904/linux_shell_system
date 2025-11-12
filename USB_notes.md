@@ -657,8 +657,7 @@ Now host can ask for full information.
     -The device moves to the Configured State — all endpoints described in this configuration become active.
     -Now the device is fully operational; host drivers start using its interfaces.
 
-    
-    | Descriptor                                         | Used When                  | Describes                                                                               | Typical Size    |
+| Descriptor                                         | Used When                  | Describes                                                                               | Typical Size    |
 | -------------------------------------------------- | -------------------------- | --------------------------------------------------------------------------------------- | --------------- |
 | **Device Descriptor** (`bDescriptorType=1`)        | Always first               | Global device info: VID, PID, version, max packet size of EP0, number of configurations | 18 bytes        |
 | **Configuration Descriptor** (`bDescriptorType=2`) | During configuration query | One specific configuration; total power, attributes (bus/self powered), #interfaces     | 9 bytes         |
@@ -667,5 +666,6 @@ Now host can ask for full information.
 | **String Descriptor** (`bDescriptorType=3`)        | Optional                   | Human-readable strings (Manufacturer, Product, Serial)                                  | Variable        |
 | **HID Descriptor** (Class-specific)                | In HID interfaces          | Report descriptor length, HID version, country code                                     | 9 bytes typical |
 | **Report Descriptor** (HID-specific)               | For HID class              | Defines the actual input/output report formats                                          | Variable        |
+
 
     
