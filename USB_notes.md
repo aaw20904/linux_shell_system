@@ -1,26 +1,29 @@
 There are 4 layers:
 
-▄█░ ░ 　 ▒█▀▀█ █░░█ █░░█ █▀▀ ░▀░ █▀▀ █▀▀█ █░░ 　 █░░ █▀▀█ █░░█ █▀▀ █▀▀█ 
-░█░ ▄ 　 ▒█▄▄█ █▀▀█ █▄▄█ ▀▀█ ▀█▀ █░░ █▄▄█ █░░ 　 █░░ █▄▄█ █▄▄█ █▀▀ █▄▄▀ 
-▄█▄ █ 　 ▒█░░░ ▀░░▀ ▄▄▄█ ▀▀▀ ▀▀▀ ▀▀▀ ▀░░▀ ▀▀▀ 　 ▀▀▀ ▀░░▀ ▄▄▄█ ▀▀▀ ▀░▀▀
+## Physical layer
 
 
 A full-speed device stays in Idle J state until host starts polling.
 Definitions for full-speed:
 
 -J state: D+ = HIGH, D– = LOW
+
 -K state: D+ = LOW, D– = HIGH
 
 NRZI encoding:
 
 Logical 1: maintain previous state
+
 Logical 0: toggle between J/K
+
 
 Bit timings, pull-ups, differential DP/DM signalling.
 TinyUSB and the MCU peripheral handle all of this. You won’t touch it.
 
 -Logical J and K states are encoded as combinations of D+ and D–
+
 -Idle is a J state
+
 -Data bits are encoded as transitions between J and K (NRZI)
 
 The absolute voltage doesn't matter much; the receiver listens for the difference between D+ and D–.
@@ -29,15 +32,12 @@ HOST ALWAYS STARTS: No device-to-host communication until host sends packets
 
 USB is strictly host driven.
 The device does NOT send anything unless the host explicitly asks.
-
-
-▀█ ░   █░█ █▀ █▄▄   █▀█ █▀█ █▀█ ▀█▀ █▀█ █▀▀ █▀█ █░░   █░░ ▄▀█ █▄█ █▀▀ █▀█
-█▄ ▄   █▄█ ▄█ █▄█   █▀▀ █▀▄ █▄█ ░█░ █▄█ █▄▄ █▄█ █▄▄   █▄▄ █▀█ ░█░ ██▄ █▀▄
+## 2. USB protocol layer
 
 This is where packets live. USB packets are LEGO bricks:
 USB has only three packet types:
 
-1.Token packets
+### 1.Token packets
 
   -IN
   -OUT
@@ -45,27 +45,19 @@ USB has only three packet types:
   -(also SOF, PING, etc)
     They say “host wants to read/write from endpoint X”.
 
-2.Data packets
+### 2.Data packets
   -DATA0
   -DATA1
   -(DATA2, MDATA for high-speed)
    Contain your bytes.
 
-3.Handshake packets
+### 3.Handshake packets
   -ACK
   -NAK
   -STALL  (And a few others)
 
 
-
-██████╗░
-╚════██╗
-░█████╔╝
-░╚═══██╗
-██████╔╝
-╚═════╝░
-░   █░█ █▀ █▄▄   ▀█▀ █▀█ ▄▀█ █▄░█ █▀ ▄▀█ █▀▀ ▀█▀ █ █▀█ █▄░█ █▀
-▄   █▄█ ▄█ █▄█   ░█░ █▀▄ █▀█ █░▀█ ▄█ █▀█ █▄▄ ░█░ █ █▄█ █░▀█ ▄█
+## USB transactions
 
 A transaction is usually:
 
@@ -78,8 +70,7 @@ Or the opposite for an IN transfer.
 This is like the “function call” layer.
 
 
-█░█ ░   █░█ █▀ █▄▄   ▀█▀ █▀█ ▄▀█ █▄░█ █▀ █▀▀ █▀▀ █▀█ █▀   ▄▀ █░█ █ █▀▀ █░█ ▄▄ █░░ █▀▀ █░█ █▀▀ █░░   ▄▀█ █▀█ █ ▀▄
-▀▀█ ▄   █▄█ ▄█ █▄█   ░█░ █▀▄ █▀█ █░▀█ ▄█ █▀░ ██▄ █▀▄ ▄█   ▀▄ █▀█ █ █▄█ █▀█ ░░ █▄▄ ██▄ ▀▄▀ ██▄ █▄▄   █▀█ █▀▀ █ ▄▀
+## USB Transactions (high level )
 
 This is where endpoints make sense:
 
@@ -91,11 +82,7 @@ This is where endpoints make sense:
 This is the layer TinyUSB really works at.
 
 
-▀█▀ █░█ █▀▀   █▀█ █▀▀ ▄▀█ █░░   █░█ █░█ █▀ █▄▄   ▄▀█ █▀█ █▀█ █░░ █ █▀▀ ▄▀█ ▀█▀ █ █▀█ █▄░█   █░░ ▄▀█ █▄█ █▀▀ █▀█ █░█ ▀
-░█░ █▀█ ██▄   █▀▄ ██▄ █▀█ █▄▄   ░░░ █▄█ ▄█ █▄█   █▀█ █▀▀ █▀▀ █▄▄ █ █▄▄ █▀█ ░█░ █ █▄█ █░▀█   █▄▄ █▀█ ░█░ ██▄ █▀▄ ░░░ ▄
-
-█▀▀ █░░ ▄▀█ █▀ █▀ █▀▀ █▀
-█▄▄ █▄▄ █▀█ ▄█ ▄█ ██▄ ▄█
+## USB application layer classes
 
 This is what TinyUSB exposes:
 -CDC: virtual COM port
@@ -122,7 +109,7 @@ For full speed  it is : KJKJKJKK   (NRZI-encoded)
       DATA0  = 0011b → 0xC3
       ACK    = 0010b → 0xD2
   Packet Types (USB only has three):
-  -----Token packets---
+  **-----Token packets---**
 Used by the host to say what it wants:
   -IN → “device, give me data”
   -OUT → “device, I will send you data”
@@ -132,24 +119,24 @@ Used by the host to say what it wants:
    __________________________________________________
    |PID | Address (7 bits) | Endpoint (4 bits) | CRC5|
 
-✅ 1. OUT
+✅ **1. OUT**
 PID = 0001 (0xE1)
 Meaning:“Device, I want to send data to your endpoint.”
 Used before a DATA packet host → device.
 
-✅ 2. IN
+✅ **2. IN**
 
 PID = 1001 (0x69)
 Meaning:“Device, give me data.”
 Device responds with DATA0/1 or NAK.
 
-✅SETUP
+✅**3.SETUP**
 -PID = 1101 (0x2D)
 This one starts every control transfer.
 Meaning: “Device, incoming setup request on EP0. Prepare to receive 8 bytes.”
 Very important for enumeration.
 
-✅ 4. SOF (Start of Frame)
+✅**4. SOF (Start of Frame)**
 
 PID = 0101 (0xA5)
 Host sends this every 1ms (full speed).
@@ -161,7 +148,7 @@ Used for:
 -isochronous scheduling
 -keeping device alive
 
-✅ 5. PING (high-speed only)
+✅ **5. PING (high-speed only)**
 
 PID = 0100 (0xB4)
 
@@ -169,7 +156,7 @@ Host uses it in HS bulk transfers to ask: “Do you have buffer space ready for 
 (Instead of sending data blindly.)
 Full-speed devices never see PING.
 
---------Data packets--------------
+ ### --------Data packets-------------- 
 
 Contain actual payload:
   -DATA0
@@ -178,11 +165,11 @@ Contain actual payload:
 _____________________________________________________
 |PID | Data (0–1023 bytes depending on speed) | CRC16|
 
---------Handshake--packets---------
+### --------Handshake--packets---------
 
 One byte long, no payload:
 
-✅ 1. ACK
+✅ **1. ACK**
 
 PID = 0010 (0xD2)
 Meaning:“I received your data successfully.”
@@ -194,7 +181,7 @@ Used when:
 Effects:
 DATA0/1 toggle flips
 Host considers transfer successful
-✅ 2. NAK
+✅ **2. NAK**
 
 PID = 1010 (0x5A)
 
@@ -213,7 +200,7 @@ Important:
 
 In TinyUSB you often see NAKs flying constantly — totally normal.
 
-✅ 3. STALL
+✅ **3. STALL**
 
 PID = 1110 (0x1E)
 
@@ -235,7 +222,7 @@ You normally see STALL only when:
 -A control request is unimplemented
 
 You purposely stalled an endpoint (common in HID)
-✅4. NYET (High-speed only)
+✅**4. NYET (High-speed only)**
 
 PID = 0110 (0x4E)
 
@@ -248,7 +235,7 @@ Use case:
 
 Full-speed devices (even on STM32 FS) will never send NYET.
 
-✅ 5. ERR (rare, mostly low-speed)
+✅ **5. ERR (rare, mostly low-speed)**
 
 PID = 1100 (0x3C)
 Meaning: “Error in split transaction.”
@@ -256,14 +243,15 @@ Meaning: “Error in split transaction.”
 Used internally by hub split transactions.
 Device firmware never generates this.
 
-✅ 6. Preamble handshake (ignored for FS)
+✅ **6. Preamble handshake (ignored for FS)**
 
 PID = 1100 but in LS context.
 Used for low-speed hubs only.
 STM32 devices never use this.
 
 ✅ How these handshakes fit into transactions
-✅ Example OUT Transaction (host → device)
+
+### ✅  Example OUT Transaction (host → device)
 
 Token: OUT
 
@@ -273,7 +261,7 @@ Handshake from device:
   NAK → device busy
   STALL → endpoint halted
 
-✅ Example IN Transaction (device → host)
+### ✅ Example IN Transaction (device → host)
 
 Token: IN
 
@@ -285,9 +273,9 @@ Host:
 sends ACK if it received data
 
 
-*******Transactions*********
+###    Transactions   
 
-!!! Device is NEVER allowed to start; host starts every transaction.
+**!!! Device is NEVER allowed to start; host starts every transaction.**
 
 Example 1: OUT Transaction (host → device):
 HOST → DEVICE:    OUT   (token)
@@ -300,7 +288,7 @@ DEVICE → HOST:    DATA0 or DATA1 or NAK
 HOST → DEVICE:    ACK
 
 
-***Data Toggle (DATA0 / DATA1)***
+**Data Toggle (DATA0 / DATA1)**
 
 This mechanism prevents duplicate packets.
 
@@ -309,7 +297,7 @@ Rule:
 -Toggle flips after each successful data transaction (ACKed)
 
 
-***NRZI Encoding + Bit Stuffing***
+**NRZI Encoding + Bit Stuffing**
 
 Two tricks USB uses on the wire:
 
@@ -323,7 +311,7 @@ To prevent long runs with no transitions, USB inserts a 0 after every six consec
 Hardware removes these stuffed bits automatically.
 You never touch this in firmware, but knowing it helps when decoding logic analyzer captures.
 
-***Start-of-Frame packets (SOF)***
+**Start-of-Frame packets (SOF)**
 
 Host sends SOF every:
   -1 ms on full-speed
@@ -334,7 +322,7 @@ Used for:
 
 Most device classes don’t care about SOF, but TinyUSB receives them internally.
 
-***Error handling****
+**Error handling**
 
 If PID check fails → drop packet
 If CRC fails → drop packet
@@ -343,7 +331,7 @@ If device sends NAK → host retries later
 
 USB has no “abort” — the host just keeps retrying.
 
-✅ Summary of Layer 2 (Protocol Layer)
+### ✅ Summary of Layer 2 (Protocol Layer)
 
 USB protocol layer defines:
 
@@ -356,7 +344,7 @@ USB protocol layer defines:
 -Control transfer rules
 
 *****************************
-✅ DATA PACKET TYPES (very brief)
+### ✅ DATA PACKET TYPES (very brief)
 
 USB basically uses two data PIDs in full-speed:
   1. DATA0
@@ -369,11 +357,11 @@ High-speed adds two more:
 Used only for special high-speed split or isochronous sequences.
 You will never use these on STM32 Full-Speed hardware.
 ******************************************************************
-✅ USB TRANSFERS (the real “layer 3”)
+## ✅ USB TRANSFERS (the real “layer 3”)
 
 Transfers are big operations composed of many transactions.
 USB defines four transfer types, each with different rules.
-✅ 1. Control Transfer
+### ✅ 1. Control Transfer
 
 Used on endpoint 0, mandatory for all devices.
 Used for enumeration, descriptors, configuration, standard requests.
@@ -394,7 +382,7 @@ Used for enumeration, descriptors, configuration, standard requests.
 Control transfers are reliable, retry on errors, and always use DATA toggles in a strict pattern.
 TinyUSB handles almost all of this in the background.
 
-✅ 2. Bulk Transfer
+### ✅ 2. Bulk Transfer
 
 Used for “big data” and reliable delivery:
   -CDC-ACM (virtual COM port) data
@@ -407,7 +395,7 @@ Characteristics:
   -Uses DATA0/1 toggles normally
   -Host polls continuously; device returns NAK when no data
 
-✅ 3. Interrupt Transfer
+### ✅ 3. Interrupt Transfer
 
 Used for small packets that must be serviced periodically:
   
@@ -420,7 +408,7 @@ Characteristics:
   -Periodic polling by host (1–10ms typical)
   -Not “real” hardware interrupts — host just polls the endpoint on schedule.
 
-✅ 4. Isochronous Transfer
+### ✅ 4. Isochronous Transfer
 
 Used for real-time data (audio/video):
   -No retries
@@ -438,7 +426,7 @@ STM32 FS barely supports this unless you’re doing USB audio.
 | **Isochronous** | No       | High       | Guaranteed slot | Audio            |
 
 
-✅ Next: Endpoints**************
+## ✅ Endpoints
 
  
 
@@ -449,13 +437,13 @@ And a direction:
 -OUT (host → device)
 -IN (device → host)
 
-✅ Endpoint 0
+**✅ Endpoint 0**
 -Special
 -Bi-directional
 -Always exists
 -Used only for control transfers
 
-✅ Other endpoints (1…15)
+**✅ Other endpoints (1…15)**
 
 Each number may have:
   -an OUT endpoint
