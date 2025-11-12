@@ -619,7 +619,7 @@ Let’s see how one IN transaction looks on the wire — for example, host readi
 
     Now the host begins enumeration using control transfers through endpoint 0.
     
-  ### 1.GET_DESCRIPTOR (Device Descriptor, 8 bytes only)
+  #### 1.GET_DESCRIPTOR (Device Descriptor, 8 bytes only)
     
     The host requests the first 8 bytes to learn the MaxPacketSize0 (the size of control packets for EP0).
     
@@ -629,7 +629,7 @@ Let’s see how one IN transaction looks on the wire — for example, host readi
         wValue: (DescriptorType << 8) | Index = (1 << 8) | 0  → Device Descriptor #0
         wLength: 8
         
-  ### 2.Host resets again, then issues:
+  #### 2.Host resets again, then issues:
     
         SET_ADDRESS — assigns a unique device address (1–127).
         Device acknowledges with an ACK but doesn’t switch address until after the status stage is done.
@@ -640,11 +640,11 @@ Let’s see how one IN transaction looks on the wire — for example, host readi
 
     Now host can ask for full information.
     
-   ### 1.GET_DESCRIPTOR (Device Descriptor, full length)
+   #### 1.GET_DESCRIPTOR (Device Descriptor, full length)
         18 bytes total.
         Includes VID, PID, device class, number of configurations.
     
-   ### 2.GET_DESCRIPTOR (Configuration Descriptor)
+   #### 2.GET_DESCRIPTOR (Configuration Descriptor)
         This descriptor is more complex because it includes:
             -Configuration Descriptor
             -Interface Descriptors
@@ -652,7 +652,7 @@ Let’s see how one IN transaction looks on the wire — for example, host readi
             (and possibly HID, String, or other class-specific descriptors)
         The host usually requests the whole hierarchy in one long transfer.
         
-   ### 3.SET_CONFIGURATION
+   #### 3.SET_CONFIGURATION
         -The host selects a configuration (e.g. bConfigurationValue = 1).
         -The device moves to the Configured State — all endpoints described in this configuration become active.
         -Now the device is fully operational; host drivers start using its interfaces.
