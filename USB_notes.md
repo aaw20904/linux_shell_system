@@ -606,56 +606,56 @@ Let’s see how one IN transaction looks on the wire — for example, host readi
   ## Enumeration
 ## 🧩 1. Plug-in → Reset → Default State
 
-1.Device physically connects to the USB bus.
-    -Pull-up resistor (1.5 kΩ) on D+ (for Full-Speed) or D– (for Low-Speed) line tells the host which speed the device supports.
-    -The host detects the voltage change and recognizes a new device.
-2.Bus Reset:
-    -The host sends a RESET (drives both D+ and D– low for 10 ms).
-    -The device enters the Default State:
-        -Its internal address = 0
-        -Only Endpoint 0 (Control) is active.    
+    1.Device physically connects to the USB bus.
+        -Pull-up resistor (1.5 kΩ) on D+ (for Full-Speed) or D– (for Low-Speed) line tells the host which speed the device supports.
+        -The host detects the voltage change and recognizes a new device.
+    2.Bus Reset:
+        -The host sends a RESET (drives both D+ and D– low for 10 ms).
+        -The device enters the Default State:
+            -Its internal address = 0
+            -Only Endpoint 0 (Control) is active.    
         
 ## ⚙️ 2. Default → Addressed State
 
-Now the host begins enumeration using control transfers through endpoint 0.
-
-### 1.GET_DESCRIPTOR (Device Descriptor, 8 bytes only)
-
-The host requests the first 8 bytes to learn the MaxPacketSize0 (the size of control packets for EP0).
-
-Example:
-    bmRequestType: 80h  (Device-to-Host, Standard, Device)
-    bRequest: GET_DESCRIPTOR (0x06)
-    wValue: (DescriptorType << 8) | Index = (1 << 8) | 0  → Device Descriptor #0
-    wLength: 8
+    Now the host begins enumeration using control transfers through endpoint 0.
     
-### 2.Host resets again, then issues:
-
-    SET_ADDRESS — assigns a unique device address (1–127).
-    Device acknowledges with an ACK but doesn’t switch address until after the status stage is done.
+  ### 1.GET_DESCRIPTOR (Device Descriptor, 8 bytes only)
     
-**Device now enters the Addressed State.**
+    The host requests the first 8 bytes to learn the MaxPacketSize0 (the size of control packets for EP0).
+    
+    Example:
+        bmRequestType: 80h  (Device-to-Host, Standard, Device)
+        bRequest: GET_DESCRIPTOR (0x06)
+        wValue: (DescriptorType << 8) | Index = (1 << 8) | 0  → Device Descriptor #0
+        wLength: 8
+        
+  ### 2.Host resets again, then issues:
+    
+        SET_ADDRESS — assigns a unique device address (1–127).
+        Device acknowledges with an ACK but doesn’t switch address until after the status stage is done.
+        
+    **Device now enters the Addressed State.**
 
 ## 🧱 3. Addressed → Configured State
 
-Now host can ask for full information.
-
-### 1.GET_DESCRIPTOR (Device Descriptor, full length)
-    18 bytes total.
-    Includes VID, PID, device class, number of configurations.
-
-### 2.GET_DESCRIPTOR (Configuration Descriptor)
-    This descriptor is more complex because it includes:
-        -Configuration Descriptor
-        -Interface Descriptors
-        -Endpoint Descriptors
-        (and possibly HID, String, or other class-specific descriptors)
-    The host usually requests the whole hierarchy in one long transfer.
+    Now host can ask for full information.
     
-### 3.SET_CONFIGURATION
-    -The host selects a configuration (e.g. bConfigurationValue = 1).
-    -The device moves to the Configured State — all endpoints described in this configuration become active.
-    -Now the device is fully operational; host drivers start using its interfaces.
+   ### 1.GET_DESCRIPTOR (Device Descriptor, full length)
+        18 bytes total.
+        Includes VID, PID, device class, number of configurations.
+    
+   ### 2.GET_DESCRIPTOR (Configuration Descriptor)
+        This descriptor is more complex because it includes:
+            -Configuration Descriptor
+            -Interface Descriptors
+            -Endpoint Descriptors
+            (and possibly HID, String, or other class-specific descriptors)
+        The host usually requests the whole hierarchy in one long transfer.
+        
+   ### 3.SET_CONFIGURATION
+        -The host selects a configuration (e.g. bConfigurationValue = 1).
+        -The device moves to the Configured State — all endpoints described in this configuration become active.
+        -Now the device is fully operational; host drivers start using its interfaces.
 ***Descriptor roles:***
 
 | Descriptor                                         | Used When                  | Describes                                                                               | Typical Size    |
