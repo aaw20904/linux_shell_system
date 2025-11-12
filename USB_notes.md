@@ -118,7 +118,9 @@ Exactly like TCP → HTTP/FTP/SSH.
 2 PROTOCOL LAYER.
 USB packet format:
     __________________________________
+    
    | SYNC | PID | PAYLOAD | CRC | EOP |
+   
    |__________________________________|
   A) 'SYNC' field: This is an 8-bit pattern used to synchronize the receiver.
 For full speed  it is : KJKJKJKK   (NRZI-encoded)
