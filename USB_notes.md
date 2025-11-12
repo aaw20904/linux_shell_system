@@ -154,6 +154,7 @@ Used by the host to say what it wants:
    |PID | Address (7 bits) | Endpoint (4 bits) | CRC5|
 
 ✅ **1. OUT**
+
 PID = 0001 (0xE1)
 
 Meaning:“Device, I want to send data to your endpoint.”
@@ -170,6 +171,7 @@ Device responds with DATA0/1 or NAK.
 
 
 ✅**3.SETUP**
+
 -PID = 1101 (0x2D)
 
 This one starts every control transfer.
@@ -221,7 +223,9 @@ One byte long, no payload:
 ✅ **1. ACK**
 
 PID = 0010 (0xD2)
+
 Meaning:“I received your data successfully.”
+
 Used when:
 
     -Device ACKs host → after an OUT data packet
@@ -231,6 +235,7 @@ Used when:
 Effects:
 DATA0/1 toggle flips
 Host considers transfer successful
+
 ✅ **2. NAK**
 
 PID = 1010 (0x5A)
@@ -280,6 +285,7 @@ You normally see STALL only when:
     -A control request is unimplemented
 
 You purposely stalled an endpoint (common in HID)
+
 ✅**4. NYET (High-speed only)**
 
 PID = 0110 (0x4E)
