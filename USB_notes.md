@@ -566,3 +566,39 @@ Each endpoint has its own Endpoint Descriptor, which looks like this:
         wMaxPacketSize     = 0x0040 (64 bytes)
         bInterval          = 0x00
 
+### 🔌 3. How Enumeration Uses Endpoints
+
+    1.Device connected → Host resets the port.
+    2.Host assigns an address (SET_ADDRESS to endpoint 0).
+    3.Host requests Device Descriptor via endpoint 0 control transfer.
+    4.Host learns how many configurations, interfaces, and endpoints exist.
+    5.Host requests Configuration Descriptor, which includes:
+        -Interface descriptors
+        -Endpoint descriptors
+    6.Host configures the device (SET_CONFIGURATION), then starts using endpoints.
+    
+    So during enumeration, only endpoint 0 (control) is used.
+    Other endpoints are “activated” only after configuration.
+
+### ⚙️ 4. IN → ACK → Toggle → Next IN (Data Flow Example)
+
+Let’s see how one IN transaction looks on the wire — for example, host reading from endpoint 1 IN.
+
+    Token Packet (IN)
+    
+    Host sends:→
+        [SYNC] [PID=IN] [DeviceAddr + EndpointNum + CRC5]
+            This means: “Device, please send me data from endpoint 1.”
+            Data Packet (DATA0 or DATA1)
+    Device replies with:
+        → [SYNC] [PID=DATAx] [DATA bytes + CRC16]
+            DATAx alternates (toggle bit) — ensures synchronization.
+            If host and device get out of sync, one will NACK to resynchronize.
+    Host responds with the Handshake Packet (ACK)
+        → [SYNC] [PID=ACK]
+            Means: “I got your data correctly.”
+    
+    Next transfer:
+    Toggle flips (DATA0 ↔ DATA1) for the next transaction.
+    **If there’s no data ready, the device replies with NAK instead of DATA0/DATA1.**
+    
