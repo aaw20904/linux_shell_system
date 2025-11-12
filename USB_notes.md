@@ -656,6 +656,7 @@ Now host can ask for full information.
     -The host selects a configuration (e.g. bConfigurationValue = 1).
     -The device moves to the Configured State — all endpoints described in this configuration become active.
     -Now the device is fully operational; host drivers start using its interfaces.
+***Descriptor roles:***
 
 | Descriptor                                         | Used When                  | Describes                                                                               | Typical Size    |
 | -------------------------------------------------- | -------------------------- | --------------------------------------------------------------------------------------- | --------------- |
