@@ -507,37 +507,58 @@ TinyUSB handles almost all of this in the background.
 ### ✅ 2. Bulk Transfer
 
 Used for “big data” and reliable delivery:
-  -CDC-ACM (virtual COM port) data
-  -MSC flash drive blocks
-  -Custom data pipes
+    
+      -CDC-ACM (virtual COM port) data
+      
+      -MSC flash drive blocks
+      
+      -Custom data pipes
+  
 Characteristics:
-  -Unlimited retries
-  -No guaranteed timing
-  -High throughput
-  -Uses DATA0/1 toggles normally
-  -Host polls continuously; device returns NAK when no data
+      -Unlimited retries
+      
+      -No guaranteed timing
+      
+      -High throughput
+      
+      -Uses DATA0/1 toggles normally
+      
+      -Host polls continuously; device returns NAK when no data
+  
 
 ### ✅ 3. Interrupt Transfer
 
 Used for small packets that must be serviced periodically:
   
   -HID (keyboard/mouse)
+  
   -HID custom reports
+  
   -CDC notifications
+  
 Characteristics:
-  -Guaranteed max latency
-  -Small payload (8–64 bytes FS)
-  -Periodic polling by host (1–10ms typical)
-  -Not “real” hardware interrupts — host just polls the endpoint on schedule.
+      -Guaranteed max latency
+      
+      -Small payload (8–64 bytes FS)
+      
+      -Periodic polling by host (1–10ms typical)
+      
+      -Not “real” hardware interrupts — host just polls the endpoint on schedule.
 
 ### ✅ 4. Isochronous Transfer
 
 Used for real-time data (audio/video):
-  -No retries
-  -No ACK
-  -No DATA toggles
-  -Guaranteed bandwidth
-  -Data loss allowed
+
+      -No retries
+      
+      -No ACK
+      
+      -No DATA toggles
+      
+      -Guaranteed bandwidth
+      
+      -Data loss allowed
+      
 STM32 FS barely supports this unless you’re doing USB audio.
 
 | Type            | Reliable | Throughput | Timing          | Typical use      |
@@ -555,32 +576,47 @@ STM32 FS barely supports this unless you’re doing USB audio.
 ✅ Endpoints = “pipes” or “channels”
 
 Each endpoint has a number: 0–15
+
 And a direction:
--OUT (host → device)
--IN (device → host)
+    
+    -OUT (host → device)
+    
+    -IN (device → host)
 
 **✅ Endpoint 0**
--Special
--Bi-directional
--Always exists
--Used only for control transfers
+
+    -Special
+    
+    -Bi-directional
+    
+    -Always exists
+    
+    -Used only for control transfers
 
 **✅ Other endpoints (1…15)**
 
 Each number may have:
-  -an OUT endpoint
-  -an IN endpoint
+
+      -an OUT endpoint
+      
+      -an IN endpoint
+  
 They are separate
+
 (EP1 OUT is not the same as EP1 IN)
 
 ✅ Endpoints are NOT threads but FIFO buffers
 
 Each endpoint is basically:
-  a buffer
-  a toggle state
-  a type (bulk/interrupt/iso)
+
+      a buffer
+      
+      a toggle state
+      
+      a type (bulk/interrupt/iso)
 
 max packet size
+
 hardware state machine for sending/receiving packets
 
 They don’t run in parallel — the USB peripheral moves data automatically.
