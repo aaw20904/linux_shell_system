@@ -6,25 +6,25 @@ There are 4 layers:
 A full-speed device stays in Idle J state until host starts polling.
 Definitions for full-speed:
 
--J state: D+ = HIGH, D– = LOW
-
--K state: D+ = LOW, D– = HIGH
+    -J state: D+ = HIGH, D– = LOW
+    
+    -K state: D+ = LOW, D– = HIGH
 
 NRZI encoding:
 
-Logical 1: maintain previous state
-
-Logical 0: toggle between J/K
+    Logical 1: maintain previous state
+    
+    Logical 0: toggle between J/K
 
 
 Bit timings, pull-ups, differential DP/DM signalling.
 TinyUSB and the MCU peripheral handle all of this. You won’t touch it.
 
--Logical J and K states are encoded as combinations of D+ and D–
-
--Idle is a J state
-
--Data bits are encoded as transitions between J and K (NRZI)
+    -Logical J and K states are encoded as combinations of D+ and D–
+    
+    -Idle is a J state
+    
+    -Data bits are encoded as transitions between J and K (NRZI)
 
 The absolute voltage doesn't matter much; the receiver listens for the difference between D+ and D–.
 
@@ -39,40 +39,40 @@ USB has only three packet types:
 
 ### 1.Token packets
 
-  -IN
-  
-  -OUT
-  
-  -SETUP
-  
-  -(also SOF, PING, etc)
-    They say “host wants to read/write from endpoint X”.
+      -IN
+      
+      -OUT
+      
+      -SETUP
+      
+      -(also SOF, PING, etc)
+        They say “host wants to read/write from endpoint X”.
 
 ### 2.Data packets
-  -DATA0
-  
-  -DATA1
-  
-  -(DATA2, MDATA for high-speed)
-   Contain your bytes.
+    -DATA0
+    
+    -DATA1
+    
+    -(DATA2, MDATA for high-speed)
+     Contain your bytes.
 
 ### 3.Handshake packets
-  -ACK
-  
-  -NAK
-  
-  -STALL  (And a few others)
+    -ACK
+    
+    -NAK
+    
+    -STALL  (And a few others)
 
 
 ## USB transactions
 
 A transaction is usually:
 
-  -Host sends Token
-  
-  -Then Data
-  
-  -Device answers with ACK
+      -Host sends Token
+      
+      -Then Data
+      
+      -Device answers with ACK
 
 Or the opposite for an IN transfer.
 
@@ -83,13 +83,13 @@ This is like the “function call” layer.
 
 This is where endpoints make sense:
 
--Control transfer (mandatory EP0)
-
--Interrupt transfer (HID, CDC notifications)
-
--Bulk transfer (CDC-ACM data, MSC, etc)
-
--Isochronous (audio/video, time-critical)
+    -Control transfer (mandatory EP0)
+    
+    -Interrupt transfer (HID, CDC notifications)
+    
+    -Bulk transfer (CDC-ACM data, MSC, etc)
+    
+    -Isochronous (audio/video, time-critical)
 
 
 This is the layer TinyUSB really works at.
@@ -99,17 +99,17 @@ This is the layer TinyUSB really works at.
 
 This is what TinyUSB exposes:
 
--CDC: virtual COM port
-
--HID: keyboard, mouse, custom HID
-
--MSC: USB flash drive
-
--DFU: firmware updates
-
--Audio
-
--MIDI
+    -CDC: virtual COM port
+    
+    -HID: keyboard, mouse, custom HID
+    
+    -MSC: USB flash drive
+    
+    -DFU: firmware updates
+    
+    -Audio
+    
+    -MIDI
 
 
 Think of classes like “protocol profiles”.
@@ -123,18 +123,29 @@ USB packet format:
   A) 'SYNC' field: This is an 8-bit pattern used to synchronize the receiver.
 For full speed  it is : KJKJKJKK   (NRZI-encoded)
   B) "PID" field  (Packet Identifier): Lower 4 bits = PID type,Upper 4 bits = complement (inverted)
-      OUT    = 0001b → PID byte = 0001 1110b = 0xE1  
-      IN     = 1001b → PID byte = 1001 0110b = 0x69  
-      SETUP  = 1101b → 0x2D
-      DATA0  = 0011b → 0xC3
-      ACK    = 0010b → 0xD2
+  
+        OUT    = 0001b → PID byte = 0001 1110b = 0xE1  
+        
+        IN     = 1001b → PID byte = 1001 0110b = 0x69  
+        
+        SETUP  = 1101b → 0x2D
+        
+        DATA0  = 0011b → 0xC3
+        
+        ACK    = 0010b → 0xD2
+        
   Packet Types (USB only has three):
   **-----Token packets---**
 Used by the host to say what it wants:
-  -IN → “device, give me data”
-  -OUT → “device, I will send you data”
-  -SETUP → “control transfer beginning”
-  -(SOF, PING, etc exist too)
+
+      -IN → “device, give me data”
+      
+      -OUT → “device, I will send you data”
+      
+      -SETUP → “control transfer beginning”
+      
+      -(SOF, PING, etc exist too)
+      
    A tocken packet contains:
    __________________________________________________
    |PID | Address (7 bits) | Endpoint (4 bits) | CRC5|
