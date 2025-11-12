@@ -40,20 +40,27 @@ USB has only three packet types:
 ### 1.Token packets
 
   -IN
+  
   -OUT
+  
   -SETUP
+  
   -(also SOF, PING, etc)
     They say “host wants to read/write from endpoint X”.
 
 ### 2.Data packets
   -DATA0
+  
   -DATA1
+  
   -(DATA2, MDATA for high-speed)
    Contain your bytes.
 
 ### 3.Handshake packets
   -ACK
+  
   -NAK
+  
   -STALL  (And a few others)
 
 
@@ -62,7 +69,9 @@ USB has only three packet types:
 A transaction is usually:
 
   -Host sends Token
+  
   -Then Data
+  
   -Device answers with ACK
 
 Or the opposite for an IN transfer.
@@ -75,9 +84,13 @@ This is like the “function call” layer.
 This is where endpoints make sense:
 
 -Control transfer (mandatory EP0)
+
 -Interrupt transfer (HID, CDC notifications)
+
 -Bulk transfer (CDC-ACM data, MSC, etc)
+
 -Isochronous (audio/video, time-critical)
+
 
 This is the layer TinyUSB really works at.
 
@@ -85,16 +98,23 @@ This is the layer TinyUSB really works at.
 ## USB application layer classes
 
 This is what TinyUSB exposes:
+
 -CDC: virtual COM port
+
 -HID: keyboard, mouse, custom HID
+
 -MSC: USB flash drive
+
 -DFU: firmware updates
+
 -Audio
+
 -MIDI
+
 
 Think of classes like “protocol profiles”.
 Exactly like TCP → HTTP/FTP/SSH.
-------------------------------DEEP---EXPLANATION----------------------------------------------
+### ------------------------------DEEP---EXPLANATION----------------------------------------------
 2 PROTOCOL LAYER.
 USB packet format:
     __________________________________
